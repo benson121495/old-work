@@ -1,0 +1,478 @@
+<div class="container">
+    <app-topbar [title]="'pnv-statusMainlandOfficial.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-statusMainlandOfficial.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->             
+                  <!-- Part 1 - Particulars of Sponsor/Employer -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-statusMainlandOfficial.form.part1Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div id="sponsorType" class="col-md-12 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.sponsorType' | translate}}</label>
+                              <div class="form-group">
+                                  <label class="checkbox-inline"><input id="applicantBachelor" 
+                                      name="sponsorType" type="radio" value="Employment"
+                                      formControlName="sponsorType">
+                                      {{'pnv-statusMainlandOfficial.form.companySponsor' | translate}}</label>
+                                  <label class="checkbox-inline"><input id="applicantMarried" 
+                                      name="sponsorType" type="radio" value="Residence"
+                                      formControlName="sponsorType">
+                                      {{'pnv-statusMainlandOfficial.form.IndividualSponsor' | translate}}</label>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.companyChiName' | translate}}</label>
+                            <input id="companyChiName" name="companyChiName" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="companyChiName">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.companyEngName' | translate}}</label>
+                            <input id="companyEngName" name="companyEngName" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="companyEngName">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.businessRegistrationCertificateNo' | translate}}</label>
+                              <input id="businessRegistrationCertificateNo" name="businessRegistrationCertificateNo" maxlength="100"  class="form-control all-caps"
+                              type="text" formControlName="businessRegistrationCertificateNo">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.email' | translate}}</label>
+                              <input id="companyEmail" name="companyEmail" maxlength="100"  class="form-control all-caps"
+                              type="text" formControlName="companyEmail">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group required-star">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.address' | translate}}</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressRoom' | translate}}</label>
+                              <input id="companyAddressRoom" name="companyAddressRoom" class="form-control address" 
+                              type="text" formControlName="companyAddressRoom">
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressFloor' | translate}}</label>
+                              <input id="companyAddressFloor" name="companyAddressFloor" class="form-control address" 
+                              type="text" formControlName="companyAddressFloor">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressBlock' | translate}}</label>
+                              <input id="companyAddressBlock" name="companyAddressBlock" class="form-control address" 
+                              type="text" formControlName="companyAddressBlock">
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressBuilding' | translate}}</label>
+                              <input id="companyAddressBuilding" name="companyAddressBuilding" class="form-control address" 
+                              type="text" formControlName="companyAddressBuilding">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressEstate' | translate}}</label>
+                              <input id="companyAddressEstate" name="companyAddressEstate" class="form-control address" 
+                              type="text" formControlName="companyAddressEstate">
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressStreet' | translate}}</label>
+                              <input id="companyAddressStreet" name="companyAddressStreet" class="form-control address" 
+                              type="text" formControlName="companyAddressStreet">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressDistrict' | translate}}</label>
+                              <select id="companyAddressDistrict" name="companyAddressDistrict" class="form-control" 
+                                  type="text" formControlName="companyAddressDistrict">
+                                  <option value='' disabled selected>Please select</option>
+                              </select>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.authorisedPerson' | translate}}</label>
+                              <input id="companyAuthorisedperson" name="companyAuthorisedperson" class="form-control address" 
+                              type="text" formControlName="companyAuthorisedperson">
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.designation' | translate}}</label>
+                              <input id="companyDesignation" name="companyDesignation" class="form-control address" 
+                              type="text" formControlName="companyDesignation">
+                          </div>
+                        </div>
+                        <div class="row">              
+                          <div class="col-md-6 form-group">
+                              <div class="flex-container">
+                                  <div class="col-xs-8" style="padding-left: 0px;">
+                                      <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.tel' | translate}}</label>
+                                      <input id="companyTel" name="companyTel" maxlength="8"  class="form-control all-caps"
+                                      type="text" formControlName="companyTel">
+                                  </div>
+                                  <div class="col-xs-4" style="padding-left: 0px;">
+                                      <label class="control-label">{{'pnv-statusMainlandOfficial.form.ext' | translate}}</label>
+                                      <input id="companyExt" name="companyExt" maxlength="4"  class="form-control all-caps"
+                                      type="text" formControlName="companyExt">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.fax' | translate}}</label>
+                              <input id="companyFax" name="companyFax" maxlength="100"  class="form-control all-caps"
+                              type="text" formControlName="companyFax">
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row">              
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.chiName' | translate}}</label>
+                            <input id="individualChiName" name="individualChiName" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="individualChiName">
+                          </div>
+                        </div>      
+                        <div class="row">              
+                          <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.engSurname' | translate}}</label>
+                            <input id="individualEngSurname" name="individualEngSurname" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="individualEngSurname">
+                          </div>
+                          <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.engGivenNames' | translate}}</label>
+                            <input id="individualEngGivenNames" name="individualEngGivenNames" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="individualEngGivenNames">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div id="individualSex" class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.sex' | translate}}</label>
+                              <div class="form-group">
+                                  <label class="checkbox-inline"><input id="applicantMale" 
+                                      name="individualSex" type="checkbox" value="Male"
+                                      formControlName="individualSex">
+                                      {{'pnv-statusMainlandOfficial.form.male' | translate}}</label>
+                                  <label class="checkbox-inline"><input id="applicantFemale" 
+                                      name="individualSex" type="checkbox" value="Female"
+                                      formControlName="individualSex">
+                                      {{'pnv-statusMainlandOfficial.form.female' | translate}}</label>
+                              </div>
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.dob' | translate}}</label>
+                              <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="individualDobday" name="individualDobday" class="form-control datePickerDate" 
+                                    type="text" formControlName="individualDobday">
+                                        <option value='' disabled selected>
+                                            {{'pnv-statusMainlandOfficial.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="individualDobmonth" name="individualDobmonth" class="form-control datePickerMonth" 
+                                    type="text" formControlName="individualDobmonth"
+                                        (blur)="onMonthYearChange('individualDobday','individualDobmonth','individualDobyear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-statusMainlandOfficial.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="individualDobyear" name="individualDobyear" class="form-control datePickerYear " 
+                                        type="text" formControlName="individualDobyear" 
+                                        (blur)="onMonthYearChange('individualDobday','individualDobmonth','individualDobyear')">
+                                        <option value='' disabled selected>{{'pnv-statusMainlandOfficial.form.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">              
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.hkIdno' | translate}}</label>
+                              <div class="col-xs-8">
+                                  <input id="individualHkIdno1" class="form-control all-caps" type="text" maxlength="8"
+                                  formControlName="individualHkIdno1">
+                              </div>
+                              <div class="col-xs-4">
+                              <div class="hkbracket">
+                                  <input id="individualHkIdno2" class="form-control all-caps" type="text" maxlength="1"
+                                  formControlName="individualHkIdno2">
+                              </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.nationality' | translate}}</label>
+                              <input id="individualNationality" name="individualNationality" maxlength="100"  class="form-control all-caps"
+                              type="text" formControlName="individualNationality">
+                          </div>
+                      </div>
+                      <div class="row">              
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.relationship' | translate}}</label>
+                              <input id="individualRelationship" name="individualRelationship" maxlength="100"  class="form-control all-caps"
+                              type="text" formControlName="individualRelationship">
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.occupation' | translate}}</label>
+                              <input id="individualOccupation" name="individualOccupation" maxlength="100"  class="form-control all-caps"
+                              type="text" formControlName="individualOccupation">
+                          </div>
+                      </div>
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.sponsorCurrentLimitStay' | translate}}</label>
+                            <input id="individualSponsorCurrentLimitStay" name="individualSponsorCurrentLimitStay" maxlength="100"  class="form-control all-caps"
+                            type="text" formControlName="individualSponsorCurrentLimitStay">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.email' | translate}}</label>
+                            <input id="individualEmail" name="individualEmail" maxlength="100"  class="form-control all-caps"
+                            type="text" formControlName="individualEmail">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group required-star">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.address' | translate}}</label>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressRoom' | translate}}</label>
+                            <input id="individualAddressRoom" name="individualAddressRoom" class="form-control address" 
+                            type="text" formControlName="individualAddressRoom">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressFloor' | translate}}</label>
+                            <input id="individualAddressFloor" name="individualAddressFloor" class="form-control address" 
+                            type="text" formControlName="individualAddressFloor">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressBlock' | translate}}</label>
+                            <input id="individualAddressBlock" name="individualAddressBlock" class="form-control address" 
+                            type="text" formControlName="individualAddressBlock">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressBuilding' | translate}}</label>
+                            <input id="individualAddressBuilding" name="individualAddressBuilding" class="form-control address" 
+                            type="text" formControlName="individualAddressBuilding">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressEstate' | translate}}</label>
+                            <input id="individualAddressEstate" name="individualAddressEstate" class="form-control address" 
+                            type="text" formControlName="individualAddressEstate">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressStreet' | translate}}</label>
+                            <input id="individualAddressStreet" name="individualAddressStreet" class="form-control address" 
+                            type="text" formControlName="individualAddressStreet">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.addressDistrict' | translate}}</label>
+                            <select id="individualAddressDistrict" name="individualAddressDistrict" class="form-control" 
+                                type="text" formControlName="individualAddressDistrict">
+                                <option value='' disabled selected>Please select</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                            <div class="flex-container">
+                                <div class="col-xs-8" style="padding-left: 0px;">
+                                    <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.tel' | translate}}</label>
+                                    <input id="individualTel" name="individualTel" maxlength="8"  class="form-control all-caps"
+                                    type="text" formControlName="individualTel">
+                                </div>
+                                <div class="col-xs-4" style="padding-left: 0px;">
+                                    <label class="control-label">{{'pnv-statusMainlandOfficial.form.ext' | translate}}</label>
+                                    <input id="individualExt" name="individualExt" maxlength="4"  class="form-control all-caps"
+                                    type="text" formControlName="individualExt">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.fax' | translate}}</label>
+                            <input id="individualFax" name="individualFax" maxlength="100"  class="form-control all-caps"
+                            type="text" formControlName="individualFax">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.monthlyIncome' | translate}}</label>
+                            <input id="individualMonthlyIncome" name="individualMonthlyIncome" class="form-control address" 
+                            type="text" formControlName="individualMonthlyIncome">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.totalAssetValue' | translate}}</label>
+                            <input id="individualTotalAssetValue" name="individualTotalAssetValue" class="form-control address" 
+                            type="text" formControlName="individualTotalAssetValue">
+                        </div>
+                      </div>
+                    </div>
+				          </div>
+                  <!-- End of Part 1-->
+				  
+                  <!-- Part 2 - Particulars of Applicant -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-statusMainlandOfficial.form.part2Title' | translate}}
+					            </div>
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-12 form-group">
+                            <label class="control-label">{{'pnv-statusMainlandOfficial.form.chiName' | translate}}</label>
+                            <input id="applicantChiName" name="applicantChiName" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantChiName">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.engSurname' | translate}}</label>
+                            <input id="applicantEngSurname" name="applicantEngSurname" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantEngSurname">
+                          </div>
+                          <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.engGivenNames' | translate}}</label>
+                            <input id="applicantEngGivenNames" name="applicantEngGivenNames" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantEngGivenNames">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div id="applicantSex" class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-statusMainlandOfficial.form.sex' | translate}}</label>
+                              <div class="form-group">
+                                  <label class="checkbox-inline"><input id="applicantMale" 
+                                      name="applicantSex" type="checkbox" value="Male"
+                                      formControlName="applicantSex">
+                                      {{'pnv-statusMainlandOfficial.form.male' | translate}}</label>
+                                  <label class="checkbox-inline"><input id="applicantFemale" 
+                                      name="applicantSex" type="checkbox" value="Female"
+                                      formControlName="applicantSex">
+                                      {{'pnv-statusMainlandOfficial.form.female' | translate}}</label>
+                              </div>
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.dob' | translate}}</label>
+                              <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantDobday" name="applicantDobday" class="form-control datePickerDate" 
+                                    type="text" formControlName="applicantDobday">
+                                        <option value='' disabled selected>
+                                            {{'pnv-statusMainlandOfficial.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantDobmonth" name="applicantDobmonth" class="form-control datePickerMonth" 
+                                    type="text" formControlName="applicantDobmonth"
+                                        (blur)="onMonthYearChange('applicantDobday','applicantDobmonth','applicantDobyear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-statusMainlandOfficial.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="applicantDobyear" name="applicantDobyear" class="form-control datePickerYear " 
+                                        type="text" formControlName="applicantDobyear" 
+                                        (blur)="onMonthYearChange('applicantDobday','applicantDobmonth','applicantDobyear')">
+                                        <option value='' disabled selected>{{'pnv-statusMainlandOfficial.form.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div id="applicantPurposeOfComingToHk" class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'pnv-statusMainlandOfficial.form.purposeOfComingToHk' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="applicantBachelor" 
+                                    name="applicantPurposeOfComingToHk" type="radio" value="Employment"
+                                    formControlName="applicantPurposeOfComingToHk">
+                                    {{'pnv-statusMainlandOfficial.form.employment' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantMarried" 
+                                    name="applicantPurposeOfComingToHk" type="radio" value="Residence"
+                                    formControlName="applicantPurposeOfComingToHk">
+                                    {{'pnv-statusMainlandOfficial.form.residence' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantDivorced" 
+                                    name="applicantPurposeOfComingToHk" type="radio" value="Study"
+                                    formControlName="applicantPurposeOfComingToHk">
+                                    {{'pnv-statusMainlandOfficial.form.study' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantSeparated" 
+                                    name="applicantPurposeOfComingToHk" type="radio" value="Others"
+                                    formControlName="applicantPurposeOfComingToHk">
+                                    {{'pnv-statusMainlandOfficial.form.others' | translate}}</label>
+                                    <input id="applicantOthers" name="applicantOthers" maxlength="500"
+                                            class="form-control all-caps" type="text">
+                            </div>
+                        </div>
+                      </div>
+                     </div>
+				          </div>
+                  <!-- End of Part 2 -->
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

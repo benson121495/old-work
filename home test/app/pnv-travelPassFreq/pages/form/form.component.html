@@ -1,0 +1,924 @@
+<div class="container">
+    <app-topbar [title]="'pnvTravelPassFreq.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnvTravelPassFreq.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Personal Particulars -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvTravelPassFreq.form.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.chinName' | translate}}</label>
+
+                                    <input id="chinName" name="chinName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chinName">
+                       
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.maidenSurName' | translate}}</label>
+                                    <input id="maidenSurName" name="maidenSurName" maxlength="6"
+                                        class="form-control all-caps" type="text"  formControlName="maidenSurName">          
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvTravelPassFreq.form.engSurName' | translate}}</label>
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engSurName">                 
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenName" name="engGivenName" formControlName="engGivenName"
+                                        maxlength="33" class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvTravelPassFreq.form.alias' | translate}}
+                                    </label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.aliasChiName' | translate}}</label>
+                                    <input id="aliasChiName" name="aliasChiName" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="chiNameAlias">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.engSurName' | translate}}</label>
+                                    <input id="engSurNameAlias" name="engSurNameAlias" class="form-control all-caps"
+                                        type="text" formControlName="engSurNameAlias" maxlength="38">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{'pnvTravelPassFreq.form.engGivenName' | translate}}</label>
+                                        <input id="engGivenNameAlias" name="engGivenNameAlias"
+                                            class="form-control all-caps" type="text"
+                                            formControlName="engGivenNameAlias" maxlength="38">                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="sex" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="male" name="male" type="checkbox">
+                                            {{'pnvTravelPassFreq.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="female" name="female" type="checkbox">
+                                            {{'pnvTravelPassFreq.form.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">                                
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.nationality' | translate}}</label>
+                                    <input id="nationality" name="nationality" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="nationality">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.travelDocType' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-6" style="padding-left: 0px;">
+                                            <select id="district" name="district" class="form-control"
+                                                type="text">
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>        
+                           
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvTravelPassFreq.form.travelDocIssuePlace' | translate}}</label>
+                                    <input id="travelDocIssuePlace" name="travelDocIssuePlace"
+                                        class="form-control all-caps" maxlength="50" type="text" formControlName="travelDocIssuePlace">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label required-star">
+                                        {{'pnvTravelPassFreq.form.travelDocNo' | translate}}</label>
+                                    <input id="travelDocNo" name="travelDocNo" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="travelDocNo">                          
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvTravelPassFreq.form.travelDocIssueDate' | translate}}</label>
+
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocDay" name="travelDocDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvTravelPassFreq.form.travelDocExpDate' | translate}}</label>
+
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocExpDay" name="travelDocExpDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocExpMonth" name="travelDocExpMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="travelDocExpYear" name="travelDocExpYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <br>
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.presentAddress' | translate}}</label>
+                                    <input id="presentAddress1" name="presentAddress1" class="form-control address" type="text"
+                                        formControlName="address">
+                                    <input id="presentAddress2" name="presentAddress2" class="form-control address" type="text"
+                                        formControlName="address">
+                                    <input id="presentAddress3" name="presentAddress3" class="form-control address" type="text"
+                                        formControlName="address">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.domicileAddress' | translate}}</label>
+                                    <input id="domicileAddress1" name="domicileAddress1" class="form-control all-caps address" type="text"
+                                        formControlName="address">
+                                    <input id="domicileAddress2" name="domicileAddress2" class="form-control all-caps address" type="text"
+                                        formControlName="address">
+                                    <input id="domicileAddress3" name="domicileAddress3" class="form-control all-caps address" type="text"
+                                        formControlName="address">
+                                </div>
+                            </div>      
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.faxNo' | translate}}</label>
+                                    <input id="faxNo" name="faxNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="faxNo">
+                                </div>        
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.contactTelNo' | translate}}</label>
+                                    <input id="contactTelNo" name="contactTelNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="contactTelNo">
+                                </div>   
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.officeTelNo' | translate}}</label>
+                                    <input id="officeTelNo" name="officeTelNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="contactTelNo">
+                                </div>        
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.employCompanyInfo' | translate}}</label>
+                                    <input id="employCompanyInfo1" name="employCompanyInfo1" class="form-control address all-caps"
+                                        maxlength="50" type="text" formControlName="employCompanyInfo">          
+                                    <input id="employCompanyInfo2" name="employCompanyInfo2" class="form-control address all-caps"
+                                        maxlength="50" type="text" formControlName="employCompanyInfo">           
+                                    <input id="employCompanyInfo3" name="employCompanyInfo3" class="form-control address all-caps"
+                                        maxlength="50" type="text" formControlName="employCompanyInfo">             
+                                </div>
+
+                            
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.faxNo' | translate}}</label>
+                                    <input id="faxNo" name="faxNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="faxNo">                                   
+                                </div>        
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.occupation' | translate}}</label>
+                                    <input id="occupation" name="occupation" class="form-control" maxlength="33" type="text"
+                                    formControlName="occupation">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.post' | translate}}</label>
+                                    <input id="post" name="post" class="form-control" maxlength="33" type="text"
+                                    formControlName="post">
+                                </div>                              
+                                
+                            </div>  
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.durationOfEmploy' | translate}}</label>
+                                    <div class="flex-container">                                 
+                                        <div class="col-md-2" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerMonth "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')" 
+                                                style="width: 76px; padding-right: 2px;">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.fullYear' | translate}}
+                                                </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>         
+                                            </select>              
+                                        </div>
+                                        <div class="col-md-2" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')"
+                                                style="width: 84px; padding-right: 2px;">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.fullMonth' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>               
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 1 -->
+
+                    <!-- Part 2 - Details of Previous Visits to Hong Kong -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvTravelPassFreq.form.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">                    
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvTravelPassFreq.form.lastThreeVisit' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'pnvTravelPassFreq.form.periodOfStay' | translate}} (1)</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.from' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="fromDay" name="fromDay" class="form-control datePickerDate "
+                                                type="text" formControlName="fromDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="fromMonth" name="fromMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="fromMonth"
+                                                (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="fromYear" name="fromYear" class="form-control datePickerYear "
+                                                type="text" formControlName="fromYear"
+                                                (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.to' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="toDay" name="toDay" class="form-control datePickerDate "
+                                                type="text" formControlName="toDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="toMonth" name="toMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="toMonth"
+                                                (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="toYear" name="toYear" class="form-control datePickerYear "
+                                                type="text" formControlName="toYear"
+                                                (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.purposeOfVisit' | translate}}</label>
+                                    <input id="purposeOfVisit" name="purposeOfVisit" class="form-control" maxlength="100" type="text" 
+                                    formControlName="purposeOfVisit">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'pnvTravelPassFreq.form.periodOfStay' | translate}} (2)</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.from' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="fromDay" name="fromDay" class="form-control datePickerDate "
+                                                type="text" formControlName="fromDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="fromMonth" name="fromMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="fromMonth"
+                                                (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="fromYear" name="fromYear" class="form-control datePickerYear "
+                                                type="text" formControlName="fromYear"
+                                                (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.to' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="toDay" name="toDay" class="form-control datePickerDate "
+                                                type="text" formControlName="toDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="toMonth" name="toMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="toMonth"
+                                                (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="toYear" name="toYear" class="form-control datePickerYear "
+                                                type="text" formControlName="toYear"
+                                                (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.purposeOfVisit' | translate}}</label>
+                                    <input id="purposeOfVisit" name="purposeOfVisit" class="form-control" maxlength="33" type="text"
+                                    formControlName="purposeOfVisit">
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'pnvTravelPassFreq.form.periodOfStay' | translate}} (3)</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.from' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="fromDay" name="fromDay" class="form-control datePickerDate "
+                                                type="text" formControlName="fromDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="fromMonth" name="fromMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="fromMonth"
+                                                (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="fromYear" name="fromYear" class="form-control datePickerYear "
+                                                type="text" formControlName="fromYear"
+                                                (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.to' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="toDay" name="toDay" class="form-control datePickerDate "
+                                                type="text" formControlName="toDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="toMonth" name="toMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="toMonth"
+                                                (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="toYear" name="toYear" class="form-control datePickerYear "
+                                                type="text" formControlName="toYear"
+                                                (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.purposeOfVisit' | translate}}</label>
+                                    <input id="purposeOfVisit" name="purposeOfVisit" class="form-control" maxlength="33" type="text"
+                                    formControlName="purposeOfVisit">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div id="refusedVisa" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvTravelPassFreq.form.refusedVisa' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="refusedVisaYes"
+                                                name="refusedVisa" type="radio" value="Yes"
+                                                (click)="refusedVisa='Yes'">
+                                            {{'pnvTravelPassFreq.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="refusedVisaNo"
+                                                name="refusedVisa" type="radio" value="No"
+                                                (click)="refusedVisa='No'">
+                                            {{'pnvTravelPassFreq.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+
+                    <!-- Part 3 - Reason for Visiting Hong Kong Frequently -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvTravelPassFreq.form.part3Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <input id="line1" name="line1" class="form-control address" type="text"
+                                        formControlName="address">
+                                    <input id="line2" name="line2" class="form-control address" type="text"
+                                        formControlName="address">
+                                    <input id="line3" name="line3" class="form-control address" type="text"
+                                        formControlName="address">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of part 3 -->
+
+                    <!-- Part 4 - Particulars of Referee or Major Business Contact in the Hong Kong Special Administrative Region -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvTravelPassFreq.form.part4Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.nameOfReferee' | translate}}</label>
+                                    <input id="nameOfReferee" name="nameOfReferee" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="nameOfReferee">                              
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.chinName' | translate}}</label>
+                                    <input id="chinName" name="chinName" maxlength="6" class="form-control all-caps"
+                                        type="text"  formControlName="chinName">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvTravelPassFreq.form.engSurName' | translate}}</label>
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenName" name="engGivenName" formControlName="engGivenName"
+                                        maxlength="33" class="form-control all-caps" type="text">                      
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div id="sex" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="male" name="male" type="checkbox">
+                                            {{'pnvTravelPassFreq.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="female" name="female" type="checkbox">
+                                            {{'pnvTravelPassFreq.form.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">                       
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvTravelPassFreq.form.hkidNo' | translate}}</label>
+                                        <div class="col-md-8"  align:left>
+                                            <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                                [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}">
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                        [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.businessAddress' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.roomFlat' | translate}}</label>
+                                    <input id="roomFlat" name="roomFlat" class="form-control" maxlength="8" type="text" 
+                                    formControlName="roomFlat">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.floor' | translate}}</label>
+                                    <input id="floor" name="floor" class="form-control" maxlength="8" type="text"
+                                    formControlName="floor">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.block' | translate}}</label>
+                                    <input id="block" name="block" class="form-control" maxlength="8" type="text"
+                                    formControlName="block">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.building' | translate}}</label>
+                                    <input id="building" name="building" class="form-control" maxlength="8" type="text"
+                                    formControlName="building">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.estate' | translate}}</label>
+                                    <input id="estate" name="estate" class="form-control" maxlength="8" type="text"
+                                    formControlName="estate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.street' | translate}}</label>
+                                    <input id="street" name="street" class="form-control" maxlength="8" type="text"
+                                    formControlName="street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.district' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-6" style="padding-left: 0px;">
+                                            <select id="district" name="district" class="form-control"
+                                                type="text">
+                                                <option value='' disabled selected>
+                                                    {{'pnvTravelPassFreq.form.district' | translate}}
+                                                </option>
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.BuzRegCertNo' | translate}}</label>
+                                    <input id="BuzRegCertNo" name="BuzRegCertNo" class="form-control engGivenName" 
+                                    type="text" formControlName="BuzRegCertNo">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.email' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" maxlength="33" type="text"
+                                    formControlName="email">
+                                    </div>                                      
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.phoneNo' | translate}}</label>
+                                    <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                    formControlName="contactTelNo">
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.phoneExt' | translate}}</label>
+                                    <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                    formControlName="phoneExt">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvTravelPassFreq.form.faxNo' | translate}}</label>
+                                    <input id="faxNo" name="faxNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="faxNo">
+                                </div>        
+                            </div>                
+                        </div>
+                    </div>
+                    <!-- End of part 4 -->
+
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                                type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                                {{ 'COMMON.RESET' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                </div>    
+            </div>
+            
+            
+        </form>
+    </div>
+</div>

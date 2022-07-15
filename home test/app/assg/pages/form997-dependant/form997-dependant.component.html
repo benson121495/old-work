@@ -1,0 +1,669 @@
+<div class="container">
+    <app-topbar [title]="'assg.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'assg.sideStepMenu' | translate"
+        [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Personal Particular of Applicant -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'assg.form.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.chiSurName' | translate}}</label>
+
+                                    <input id="chiSurName" name="chiSurName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chiSurName"
+                                        (input)="maskChineseValues($event.target.value, 'chiSurName')">
+
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.chiGivenName' | translate}}</label>
+                                    <input id="chiGivenName" name="chiGivenName" maxlength="6"
+                                        class="form-control all-caps" type="text" formControlName="chiGivenName"
+                                        (input)="maskChineseValues($event.target.value, 'chiGivenName')">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.engSurName' | translate}}</label>
+
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engSurName"
+                                        (change)="cutValues($event.target.value,'engSurName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.engGivenName' | translate}}</label>
+
+                                    <input id="engGivenName" name="engGivenName" formControlName="engGivenName"
+                                        maxlength="33" class="form-control all-caps" type="text"
+                                        (change)="cutValues($event.target.value,'engGivenName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'assg.form.alias' | translate}}
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.chiName' | translate}}</label>
+                                    <input id="chiNameAlias" name="chiNameAlias" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="chiNameAlias"
+                                        (input)="maskChineseValues($event.target.value, 'chiNameAlias')">
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label class="control-label">{{'assg.form.engSurName' | translate}}</label>
+                                    <input id="engSurNameAlias" name="engSurNameAlias" class="form-control all-caps"
+                                        type="text" formControlName="engSurNameAlias" maxlength="38"
+                                        (change)="cutValues($event.target.value,'engSurNameAlias')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{'assg.form.engGivenName' | translate}}</label>
+                                        <input id="engGivenNameAlias" name="engGivenNameAlias"
+                                            class="form-control all-caps" type="text"
+                                            formControlName="engGivenNameAlias" maxlength="38"
+                                            (change)="cutValues($event.target.value, 'engGivenNameAlias')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div id="sex" class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'assg.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                                formControlName="male">
+                                            {{'assg.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                                formControlName="female">
+                                            {{'assg.form.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'assg.form.dob' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-3">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of dayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.nationality' | translate}}</label>
+                                    <input id="nationality" name="nationality" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="nationality">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="otherNationalityAcquired" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.maritalStatus' | translate}}</label>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="checkbox-inline"><input id="otherNationalitySettlement"
+                                                    name="otherNationalityAcquire" value="settlement" type="radio"
+                                                    formControlName="otherNationalityAcquire"
+                                                    (click)="otherNationalityAcquire='settlement'">
+                                                {{'assg.form.singal' | translate}}</label>
+                                            <label class="checkbox-inline"><input id="otherNationalityBirth"
+                                                    name="otherNationalityAcquire" value="birth" type="radio"
+                                                    formControlName="otherNationalityAcquire"
+                                                    (click)="otherNationalityAcquire='birth'">
+                                                {{'assg.form.married' | translate}}
+                                            </label>
+                                            <label class="checkbox-inline"><input id="otherNationalityDescent"
+                                                    name="otherNationalityAcquire" value="descent" type="radio"
+                                                    formControlName="otherNationalityAcquire"
+                                                    (click)="otherNationalityAcquire='descent'">
+                                                {{'assg.form.divorced' | translate}}</label>
+                                            <label class="checkbox-inline"><input id="otherNationalityDescent"
+                                                    name="otherNationalityAcquire" value="descent" type="radio"
+                                                    formControlName="otherNationalityAcquire"
+                                                    (click)="otherNationalityAcquire='descent'">
+                                                {{'assg.form.separated' | translate}}</label>
+                                            <label class="checkbox-inline"><input id="otherNationalityDescent"
+                                                    name="otherNationalityAcquire" value="descent" type="radio"
+                                                    formControlName="otherNationalityAcquire"
+                                                    (click)="otherNationalityAcquire='descent'">
+                                                {{'assg.form.widowed' | translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.travelDocType' | translate}}</label>
+                                        <input id="travelDocValue" name="travelDocType" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="travelDocType"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label required-star">
+                                        {{'assg.form.travelDocValue' | translate}}</label>
+                                    <input id="travelDocValue" name="travelDocValue" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="travelDocValue"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.travelDocIssuePlace' | translate}}</label>
+                                    <input id="travelDocIssuePlace" name="travelDocIssuePlace"
+                                        class="form-control all-caps" maxlength="50" type="text"
+                                        formControlName="travelDocIssuePlace">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.travelDocIssueDate' | translate}}</label>
+
+                                    <div class="row form-group">
+                                        <div class="col-xs-3">
+                                            <select id="travelDocDay" name="travelDocDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of dayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.travelDocExpiryDate' | translate}}</label>
+
+                                    <div class="row form-group">
+                                        <div class="col-xs-3">
+                                            <select id="travelDocDay" name="travelDocDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of dayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.presentAddress' | translate}}</label>
+                                    <input id="address1" name="address1" class="form-control address" type="text"
+                                        formControlName="address1">
+                                    <input id="address2" name="address2" class="form-control address" type="text"
+                                        formControlName="address2">
+                                    <input id="address3" name="address3" class="form-control address" type="text"
+                                        formControlName="address3">
+                                    <input id="address4" name="address4" class="form-control address" type="text"
+                                        formControlName="address4">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.permanentAddress' | translate}}</label>
+                                    <input id="address1" name="address1" class="form-control address" type="text"
+                                        formControlName="address1">
+                                    <input id="address2" name="address2" class="form-control address" type="text"
+                                        formControlName="address2">
+                                    <input id="address3" name="address3" class="form-control address" type="text"
+                                        formControlName="address3">
+                                    <input id="address4" name="address4" class="form-control address" type="text"
+                                        formControlName="address4">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.hkIdNo' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-8">
+                                            <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                                [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                                formControlName="hkIdValue1">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <div class="hkbracket">
+                                                <input id="hkId2" class="form-control all-caps" type="text"
+                                                    maxlength="1"
+                                                    [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                    formControlName="hkIdValue2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.cnIdNo' | translate}}</label>
+                                    <input id="cnId" class="form-control all-caps" type="text" maxlength="8"
+                                        [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                        formControlName="hkIdValue1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.email' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" maxlength="33" type="text"
+                                        formControlName="email">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.fax' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" maxlength="33" type="text"
+                                        formControlName="email">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <div class="row form-group">
+                                        <div class="col-xs-8">
+                                            <label class="control-label">{{'assg.form.phoneNo' | translate}}</label>
+                                            <input id="phoneNo" name="phoneNo" class="form-control all-caps"
+                                                maxlength="8" type="text" formControlName="phoneNo">
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <label class="control-label">{{'assg.form.phoneExt' | translate}}</label>
+                                            <input id="phoneExt" name="phoneExt" class="form-control all-caps"
+                                                maxlength="4" type="text" formControlName="phoneExt">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="domicileCountry" class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.domicileCountry' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" type="text"
+                                        formControlName="email">
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div id="domicileCountryResidence" class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.domicileCountryResidence' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="otherNationalityYes"
+                                                name="isOtherNationality" type="radio" value="Yes"
+                                                formControlName="isOtherNationality" (click)="isOtherNationality='Yes'">
+                                            {{'assg.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="otherNationalityNo"
+                                                name="isOtherNationality" type="radio" value="No"
+                                                formControlName="isOtherNationality" (click)="isOtherNationality='No'">
+                                            {{'assg.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.domicileCountryLength' | translate}}</label>
+
+                                    <div class="row form-group">
+                                        <div class="col-xs-3">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="isCurrentlyStaying" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.isCurrentlyStaying' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="isCurrentlyStayingYes"
+                                                name="isCurrentlyStaying" type="radio" value="Yes"
+                                                formControlName="isCurrentlyStaying" (click)="isCurrentlyStaying='Yes'">
+                                            {{'assg.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="isCurrentlyStayingNo"
+                                                name="isCurrentlyStaying" type="radio" value="No"
+                                                formControlName="isCurrentlyStaying" (click)="isCurrentlyStaying='No'">
+                                            {{'assg.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="isCurrentlyStaying==='Yes'">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label
+                                            class="control-label required-star">{{'assg.form.currentStayUntil' | translate}}</label>
+
+                                        <div class="row form-group">
+                                            <div class="col-xs-3">
+                                                <select id="travelDocMonth" name="travelDocMonth"
+                                                    class="form-control datePickerMonth" type="text"
+                                                    formControlName="travelDocMonth">
+                                                    <option value='' disabled selected>
+                                                        {{'assg.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of dayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <select id="travelDocMonth" name="travelDocMonth"
+                                                    class="form-control datePickerMonth" type="text"
+                                                    formControlName="travelDocMonth">
+                                                    <option value='' disabled selected>
+                                                        {{'assg.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <select id="travelDocYear" name="travelDocYear"
+                                                    class="form-control datePickerYear " type="text"
+                                                    formControlName="travelDocYear">
+                                                    <option value='' disabled selected>
+                                                        {{'assg.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="currentStayStatus" class="col-md-12 form-group">
+                                        <label
+                                            class="control-label required-star">{{'assg.form.currentStayStatus' | translate}}</label>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="checkbox-inline"><input id="currentStayStatusStudent"
+                                                        name="currentStayStatus" value="student" type="radio"
+                                                        formControlName="currentStayStatus"
+                                                        (click)="currentStayStatus='student'">
+                                                    {{'assg.form.student' | translate}}</label>
+                                                <label class="checkbox-inline"><input id="currentStayStatusemployment"
+                                                        name="currentStayStatus" value="employment" type="radio"
+                                                        formControlName="currentStayStatus"
+                                                        (click)="currentStayStatus='employment'">
+                                                    {{'assg.form.employment' | translate}}
+                                                </label>
+                                                <label class="checkbox-inline"><input id="currentStayStatusResidence"
+                                                        name="currentStayStatus" value="residence" type="radio"
+                                                        formControlName="currentStayStatus"
+                                                        (click)="currentStayStatus='residence'">
+                                                    {{'assg.form.residence' | translate}}</label>
+                                                <label class="checkbox-inline"><input id="currentStayStatusVisitor"
+                                                        name="currentStayStatus" value="visitor" type="radio"
+                                                        formControlName="currentStayStatus"
+                                                        (click)="currentStayStatus='visitor'">
+                                                    {{'assg.form.visitor' | translate}}</label>
+                                                <label class="checkbox-inline"><input id="currentStayStatusOther"
+                                                        name="currentStayStatus" value="other" type="radio"
+                                                        formControlName="currentStayStatus"
+                                                        (click)="currentStayStatus='other'">
+                                                    {{'assg.form.others' | translate}}
+                                                </label>
+                                            </div>
+                                            <div class="row">
+                                                <input *ngIf="currentStayStatus==='other'" id="nationality"
+                                                    name="nationality" class="form-control" maxlength="50" type="text"
+                                                    formControlName="nationality">
+                                                <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                                    <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                                    {{'568-E-2113' | translate}}
+                                                    <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'assg.form.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'assg.form.proposedEntry' | translate}}</label>
+
+                                    <div class="row form-group">
+                                        <div class="col-xs-3">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of dayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear">
+                                                <option value='' disabled selected>
+                                                    {{'assg.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'assg.form.proposedDuration' | translate}}</label>
+                                    <input id="chiGivenName" name="chiGivenName" maxlength="6"
+                                        class="form-control all-caps" type="text" formControlName="chiGivenName"
+                                        (input)="maskChineseValues($event.target.value, 'chiGivenName')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="cancelClicked()">{{ 'COMMON.CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                                type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                                {{ 'COMMON.RESET' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

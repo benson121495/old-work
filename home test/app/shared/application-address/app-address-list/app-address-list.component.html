@@ -1,0 +1,302 @@
+<div [formGroup]="inputFormGroup">
+    <div class="tab-content">
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label required-star">&nbsp;&nbsp;{{'birthsearch.form.particularsOfApplicant.address.title' | translate }}
+                </label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button id="submitBtn" name="submitBtn" type="button" class="btn btn-brown btn-block" (click)="showAddressModal()">
+                        {{'COMMON.INPUT' | translate}}
+                    </button>
+                    <textarea [hidden]="!hasAddress" disabled class="all-caps resizeNone txt-area-width" rows="5" cols="44" placeholder="{{'PLACE-HOLDERS.INPUT-ADDRESS' | translate}}" formControlName="totalAddress"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ----------------------------------------- address modal ---------------------------------------- -->
+
+    <div id="pdfAddressModal" class="addModal modal" align="center" style="display:none">
+        <div class="modal-dialog" style="width: 80%;">
+            <div class="modal-content" style="width: 99%;">
+                <div class="modal-body">
+
+                    <div class="scrollpane">
+                        <div class="content" style="width: 100%; overflow:hidden; box-sizing:border-box;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'TD.ADDRESSINHK' | translate}}
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row form-group">
+                                        <div class="col-xs-12 tab">
+                                        </div>
+                                    </div>
+                                    <div class="overflow">
+                                        <div class="panel panel-primary brdr-clr">
+                                            <div class="row" align="left">
+                                                <label class="label-algn add-font">{{'address.input' | translate}}</label>
+                                            </div>
+                                            <div class="row" align="left">
+                                                <div class="form-group col-sm-3">
+                                                    <label class="checkbox-inline radio-bold">
+                                                        <input type="radio" name="addLang" formControlName="addLang"
+                                                            (change)="resetOnRadioLangChange($event.target.value)"
+                                                            value="en">&nbsp;{{'input.eng' | translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+                                                    <label class="checkbox-inline radio-bold">
+                                                        <input type="radio" name="addLang" formControlName="addLang"
+                                                            (change)="resetOnRadioLangChange($event.target.value)"
+                                                            value="ch">&nbsp;{{'input.chn' | translate}}
+                                                    </label>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="row" align="left">
+                                                <label class="label-algn add-font">{{'address.type' | translate}}</label>
+                                            </div>
+                                            <div class="row" align="left">
+                                                <div class="form-group col-sm-3">
+                                                    <label class="checkbox-inline radio-bold">
+                                                        <input type="radio" name="addTypeRadio" id="addTypeRadio"
+                                                            formControlName="addTypeRadio"
+                                                            value="withinHK">&nbsp;{{'birthsearch.form.particularsOfApplicant.address.addressType.withinHongKong' | translate}}
+                                                    </label>
+                                                </div>
+                                                <div class="form-group col-sm-3">
+                                                    <label class="checkbox-inline radio-bold">
+                                                        <input type="radio" name="addTypeRadio" id="addTypeRadio"
+                                                            formControlName="addTypeRadio"
+                                                            value="outsideHK">&nbsp;{{'birthsearch.form.particularsOfApplicant.address.addressType.outsideHongKong' | translate}}
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-group col-sm-3">
+                                                    <label class="checkbox-inline radio-bold">
+                                                        <input type="radio" name="addTypeRadio" id="addTypeRadio"
+                                                            formControlName="addTypeRadio"
+                                                            value="hkPB">&nbsp;{{'birthsearch.form.particularsOfApplicant.address.addressType.hongKongPOBox' | translate}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" align="left">
+
+                                            <div class="col-md-12">
+                                                <div class="panel panel-primary">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'TD.ADDRESS-TIP' | translate}}
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane fade in active" role="tabpanel">
+                                                                <div class="formPanel">
+
+                                                                    <div class="row" align="left">
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label" for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.roomFlat' | translate}}</label>
+
+                                                                            <input id="roomFlat" name="roomFlat" formControlName="roomFlat" maxlength="5" placeholder="" title="" class="form-control all-caps" type="text" (input)="cutValues($event.target.value,'roomFlat')" (blur)="setLanguageValidation('roomFlat')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.roomFlat.errors">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label" for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.floor' | translate}}</label>
+
+                                                                            <input id="floor" name="floor" formControlName="floor" maxlength="5" placeholder="" title="" class="form-control all-caps" type="text" (input)="cutValues($event.target.value,'floor')" (blur)="setLanguageValidation('floor')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.floor.errors">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <br>
+                                                                    <div class="row" align="left">
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label" for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.block' | translate}}</label>
+
+                                                                            <input id="block" name="block" formControlName="block" maxlength="5" placeholder="" title="" class="form-control all-caps" type="text" (input)="cutValues($event.target.value,'block')" (blur)="setLanguageValidation('block')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.block.errors">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label" for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.buildingPhase' | translate}}</label>
+
+                                                                            <input id="buildingPhase" name="buildingPhase" formControlName="buildingPhase" maxlength="35" placeholder="" title="" class="form-control all-caps" type="text" (input)="cutValues($event.target.value,'buildingPhase')" (blur)="setLanguageValidation('buildingPhase')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.buildingPhase.errors">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+                                                                    <div class="row" align="left">
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label" for="streetVillage">
+                                                                                {{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.estateVillageNoName' | translate }}</label>
+
+                                                                            <input id="estateName" name="estateName" formControlName="estateName" maxlength="35" placeholder="" title="" class="form-control all-caps" type="text" (input)="cutValues($event.target.value,'estateName')" (blur)="setLanguageValidation('estateName')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.estateName.errors">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <label class="control-label" for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.streetNoName' | translate}}</label>
+
+                                                                            <input id="streetName" name="streetName" formControlName="streetName" maxlength="35" placeholder="" title="" class="form-control all-caps" type="text" (input)="cutValues($event.target.value,'streetName')" (blur)="setLanguageValidation('streetName')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.streetName.errors">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <br>
+
+                                                                    <!-- <br> -->
+                                                                    <div class="row" align="left">
+                                                                        <div class="col-md-6 form-group">
+                                                                            <!-- <b class="required">*</b> -->
+                                                                            <label [ngClass]="{'no-star':otherInfoMan != 0}" class="control-label required-star">
+                                                                                {{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.area' | translate}}
+                                                                            </label>
+                                                                            <select id="area" name="area" class="form-control" formControlName="area" maxlength="15" (change)="processSelected(f.area.value); translateReg(f.area.value)">
+                                                                                <ng-container
+                                                                                    *ngIf="popUpLang == 'en'; else chin">
+                                                                                    <option value='' selected disabled>
+                                                                                        Please Select</option>
+                                                                                </ng-container>
+                                                                                <ng-template #chin>
+                                                                                    <option value='' selected disabled>
+                                                                                        請選擇</option>
+                                                                                </ng-template>
+                                                                                <option *ngFor="let item of areaList"
+                                                                                    [value]="item['value']"
+                                                                                    [attr.data-regionSelected]="item['label']">
+                                                                                    {{item['label'] | translate }}
+                                                                                </option>
+                                                                            </select>
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && f.area.errors">
+                                                                                <strong></strong>E-2153:{{'COMMON-ERROR.AREA-ERROR' | translate}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6 form-group">
+                                                                            <!-- <b class="required">*</b> -->
+                                                                            <label [ngClass]="{'no-star':otherInfoMan !== 0}" class="control-label required-star" for="district">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.district' | translate}}</label>
+
+                                                                            <select *ngIf="othersDisplay === '0'" id="district" name="district" class="form-control" formControlName="districtName" (change)="changeToOthers(f.districtName.value)">
+                                                                                <ng-container
+                                                                                    *ngIf="popUpLang == 'en'; else chin">
+                                                                                    <option value='' selected disabled>
+                                                                                        Please Select</option>
+                                                                                </ng-container>
+
+                                                                                <ng-template #chin>
+                                                                                    <option value='' selected disabled>
+                                                                                        請選擇</option>
+                                                                                </ng-template>
+
+                                                                                <option
+                                                                                    *ngFor="let subObj of subDistList"
+                                                                                    [value]="subObj['value']"
+                                                                                    [attr.data]="subObj['label']">
+                                                                                    {{subObj['label'] | translate}}
+                                                                                    <!-- <span [innerHtml]="subObj['label'] | translate"></span> -->
+                                                                                </option>
+
+                                                                            </select>
+                                                                            <input *ngIf="othersDisplay === '1'" class="form-control all-caps" formControlName="otherDistrict" maxlength="35" value="" (input)="cutValues($event.target.value,'otherDistrict')">
+
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted &&  (inputFormGroup.hasError('districtEmpty') || f.otherDistrict.errors)">
+                                                                                <strong></strong>E-2154:{{'COMMON-ERROR.DIST-EMPTY' | translate}}
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row" align="left">
+                                                                        <div class="col-md-12 form-group mb5 mt5">
+                                                                            <label class="control-label" *ngIf="otherInfoMan== 0">{{'birthsearch.form.particularsOfApplicant.address.otherInformation' | translate}}
+                                                                            </label>
+                                                                            <label class="control-label required-star" *ngIf="otherInfoMan!= 0">{{'birthsearch.form.particularsOfApplicant.address.otherInformation' | translate}}
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-6 form-group">
+                                                                            <input class="form-control all-caps" formControlName="otherInfo1" maxlength="35" (input)="cutValues($event.target.value,'otherInfo1')" (blur)="setLanguageValidation('otherInfo1')">
+                                                                            <br>
+                                                                            <input class="form-control all-caps" formControlName="otherInfo2" maxlength="35" (input)="cutValues($event.target.value,'otherInfo2')" (blur)="setLanguageValidation('otherInfo2')">
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && (f.otherInfo1.errors) && !(f.otherInfo2.errors)">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && !(f.otherInfo1.errors) && (f.otherInfo2.errors)">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && (f.otherInfo1.errors) && (f.otherInfo2.errors)">
+                                                                                <strong *ngIf="prefix">E-2134:</strong>
+                                                                                <strong *ngIf="!prefix">E-2131:</strong>{{'COMMON-ERROR.ADDR_ET' | translate}}
+                                                                            </div>
+                                                                            <div class="errorMsg"  style="color:red" role="alert" *ngIf="submitted && inputFormGroup.hasError('otherInfoEmpty')">
+                                                                                E-2155: {{'COMMON-ERROR.INFO-ERROR' | translate}}
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body row" align="left">
+
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-brown btn-block mb-3" (click)="hideAddressModal()">
+                            {{'birthsearch.button.cancel' | translate}}
+                        </button>
+                    </div>
+
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-brown btn-block" (click)="continueAddress()">
+                            {{'button.continue' | translate}}
+                        </button>
+                    </div>
+
+                    <!-- </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of address body -->

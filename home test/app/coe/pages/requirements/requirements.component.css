@@ -1,0 +1,81 @@
+.subtitle {
+    background: #DDE4F6;
+    font-weight: bold;
+}
+
+.doc-wrapper,
+.printer-wrapper,
+.adobe-wrapper,
+.pay-wrapper,
+.character-wrapper {
+    margin-top: 10px;
+    min-height: 40px;
+    padding-left: 50px;
+}
+
+.doc-wrapper {
+    background: url('src/assets/image/document-icon.png') top left no-repeat;
+}
+
+.adobe-wrapper {
+    background: url('src/assets/image/adobe-icon.png') top left no-repeat;
+}
+
+.pay-wrapper {
+    background: url('src/assets/image/pay-card-icon.png') top left no-repeat;
+}
+
+.character-wrapper {
+    background: url('src/assets/image/chinese-character-icon.png') top left no-repeat;
+}
+
+.printer-wrapper {
+    background: url('src/assets/image/printer-icon.png') top left no-repeat;
+    padding-top: 8px;
+}
+
+.gap {
+    padding: 7px 10px;
+}
+
+.brk {
+    padding-bottom: 5px;
+}
+
+.copy-left {
+    margin-left: 60px;
+}
+
+.color-left {
+    margin-left: 88px;
+}
+
+.color-left-cn {
+    margin-left: 46px;
+}
+
+.brk1 {
+    padding-bottom: 0px;
+}
+
+.right-align {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.list-items {
+    padding: 0;
+    margin: 0;
+}
+
+.terms-wrapper ul {
+    list-style: none;
+}
+
+ul.liststyle {
+    list-style: disc !important;
+}
+
+.red-text {
+    color: red;
+}

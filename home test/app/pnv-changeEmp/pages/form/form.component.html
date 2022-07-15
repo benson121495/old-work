@@ -1,0 +1,120 @@
+
+<div class="container">
+  <app-topbar [title]="'changeEmp.form.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'changeEmp.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Personal Particular-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'changeEmp.form.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'changeEmp.form.name' | translate}}</label>
+
+                            <input id="name" name="name" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="name"
+                                (input)="maskChineseValues($event.target.value, 'name')">
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label class="control-label">{{'changeEmp.form.hkIdNo' | translate}}</label>
+                            <div class="row form-group">
+                                <div class="col-xs-8">
+                                    <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                        [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                        formControlName="hkIdValue1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                            [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                            formControlName="hkIdValue2">
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'changeEmp.form.visaRefValue' | translate}}</label>
+
+                            <input id="visaRefValue" name="visaRefValue" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="visaRefValue">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'changeEmp.form.newEmpCompany' | translate}}</label>
+
+                            <input id="newEmpCompany" name="newEmpCompany" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="newEmpCompany">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'changeEmp.form.newPostTitle' | translate}}</label>
+
+                            <input id="newPostTitle" name="newPostTitle" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="newPostTitle">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'changeEmp.form.effDate' | translate}}</label>
+
+                            <input id="effDate" name="effDate" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="effDate">
+                          </div>
+                        </div>
+                        
+                      </div>
+       
+                  </div>
+                   <!-- End of Part 1 -->
+
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

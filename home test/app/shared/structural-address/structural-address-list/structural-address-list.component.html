@@ -1,0 +1,353 @@
+<div [formGroup]="inputFormGroup">
+  <div class="form-group">
+    <div class="panel panel-default">
+
+      <div id="addresspanelid" class="panel-body">
+
+        <div class="billNumber0-label areaAlign">
+          <label class="billNumber-label ui-input-text control-label" for="billNumber0">
+            {{'APPLICATION.INP-ADD' | translate}}
+          </label>
+        </div>
+        <span *ngIf="f.appId.value == deathAppId">{{'APPLICATION.HK-HOSP-DEATH' | translate}}</span>
+        <span *ngIf="f.appId.value == birthAppId">{{'APPLICATION.HK-HOSP' | translate}}</span>
+
+        <br />
+        <br />
+
+        <label class="radio-inline">
+          <input type="radio" id="inhospitalid" name="hospAddress" formControlName="hospAddress" value="H">
+          <span *ngIf="f.appId.value == deathAppId">{{'APPLICATION.HK-HOSP-DEATH1' | translate}}</span>
+          <span *ngIf="f.appId.value == birthAppId">{{'APPLICATION.HK-HOSP1' | translate}}</span>
+        </label>
+
+
+        <div class="row">
+          <br />
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <label class="control-label" for="department">{{'APPLICATION.HOSP-NAME' | translate}}</label>
+              <input id="hospitalId" name="hospitalName" placeholder="{{'APPLICATION.HOSP-NAME' | translate}}"
+                class="form-control bill-number billNumber" type="text" formControlName="hospitalName"
+                (input)="cutValues($event.target.value,'hospitalName')" maxlength="35"
+                (blur)="setLanguageValidation('hospitalName')">
+              <div *ngIf="f.hospitalName.errors" class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                <div *ngIf="HospitalSubmitted && f.hospitalName.errors.isChinese">
+                  Only English
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <div class="billNumber0-label">
+                <label class="billNumber-label ui-input-text control-label"
+                  for="billNumber0">{{'APPLICATION.HOSP-ST' | translate}}</label>
+              </div><span id="billNumber0ErrMsg"></span>
+              <input id="streethospitalid" name="streetHospitalValue"
+                placeholder="{{'APPLICATION.HOSP-ST' | translate}}" class="form-control bill-number billNumber"
+                type="text" formControlName="streetHospitalValue"
+                (input)="cutValues($event.target.value,'streetHospitalValue')"
+                (blur)="setLanguageValidation('streetHospitalValue')" maxlength="35">
+              <div *ngIf="f.streetHospitalValue.errors" class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                <div *ngIf="HospitalSubmitted && f.streetHospitalValue.errors.isChinese">
+                  Only English
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="col-form-label">{{'APPLICANT.AREA' | translate}}</label>
+              <select placeholder="Area" id="areaHospital" name="areaHospital"
+                class="form-control ng-pristine ng-valid ng-touched" formControlName="areaHospital"
+                (change)="processSelected(f.areaHospital.value); translateReg(f.areaHospital.value)">
+                <option value='' selected disabled>
+                  {{'ADDRESS_LOOKUP.DEFAULT_SELECT' | translate}}</option>
+                <option *ngFor="let item of regionList" [value]="item['value']"
+                  [attr.data-regionSelected]="item['label']">{{item['label'] | translate}}</option>
+              </select>
+              <div *ngIf="HospitalSubmitted && f.areaHospital.errors?.required" class="errorMsg col-md-12 col-xs-12 "
+                style="color:red">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2153</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2152</ng-container>
+                {{'COMMON-ERROR.AREA-ERROR' | translate}}
+                <!-- please select area  -->
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="col-form-label">{{'APPLICANT.DIST' | translate}}</label>
+              <select *ngIf="othersDisplay === '0'" placeholder="District" id="districtid"
+                class="form-control ng-pristine ng-valid ng-touched" formControlName="districtHospital"
+                (change)=" validateDistrict(); changeToOtherHospital(f.districtHospital.value)">
+                <option value='' selected disabled>
+                  {{'DISTRICT_LOOKUP.DEFAULT_SELECT' | translate}}</option>
+
+                <option *ngFor="let subObj of subDistList" [value]="subObj['label']" [attr.data]="subObj['label']">
+                  {{subObj['label'] | translate}}
+                </option>
+
+              </select>
+
+              <input *ngIf="othersDisplay === '1'" class="form-control all-caps" formControlName="otherDistrictHospital"
+                maxlength="35" value="" (input)="$event.target.value = addressField($event.target.value)">
+
+              <div class="errorMsg"  style="color:red" role="alert"
+                *ngIf="HospitalSubmitted && othersDisplay === '1' && !f.districtHospital.errors && f.otherDistrictHospital.errors?.required">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2155</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2156</ng-container>
+                {{'COMMON-ERROR.DIST-EMPTY' | translate}}
+                <!-- Please specify District -->
+              </div>
+
+              <div class="errorMsg"  style="color:red" role="alert"
+                *ngIf="HospitalSubmitted && othersDisplay === '0' && !f.districtHospital.errors && f.otherDistrictHospital.errors?.required">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2154</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2155</ng-container>
+
+                {{'COMMON-ERROR.DIST-ERROR' | translate}}
+                <!-- please select District  -->
+              </div>
+
+              <div
+                *ngIf="HospitalSubmitted && (f.districtHospital.errors?.districtHospitalEmpty || f.districtHospital.errors?.required)"
+                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2154</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2155</ng-container>
+
+                {{'COMMON-ERROR.DIST-ERROR' | translate}}
+                <!-- please select District  -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div *ngIf="HospitalSubmitted && (f.streetHospitalValue.errors || f.hospitalName.errors)"
+            class="col-md-12 col-xs-12 " style="color:red">
+            <div style="margin-top: 2px">
+
+              <span *ngIf="f.appId.value == deathAppId">
+                <ng-container *ngIf="errorCode">E-2132:</ng-container>
+                {{'ERROR-APP.PLS_INPUT_DEATH_ADRS' | translate}}
+              </span>
+              <span *ngIf="f.appId.value == birthAppId">
+                <ng-container *ngIf="errorCode">E-2127:</ng-container>
+                {{'ERROR-APP.PLS_INPUT_ADRS' | translate}}
+              </span>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    <div class="panel-body or"><label> ( {{'COMMON.OR' | translate}} ) </label></div>
+
+      <div id="addresspanelid" class="panel-body">
+        <label class="radio-inline">
+          <input type="radio" id="birthaddressid" value="NH" name="hospAddress" formControlName="hospAddress">
+          <span *ngIf="f.appId.value == deathAppId">{{'APPLICATION.HK-HOSP-DEATH3' | translate}}</span>
+          <span *ngIf="f.appId.value == birthAppId">{{'APPLICATION.HK-HOSP3' | translate}}</span>
+        </label>
+        <br /><br />
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <label class="control-label"
+                for="department">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.roomFlat' | translate}}</label>
+              <input id="roomflatid" name="roomValue"
+                placeholder="{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.roomFlat' | translate}}"
+                class="form-control bill-number billNumber" type="text"
+                (input)="$event.target.value = addressField($event.target.value)"
+                (blur)="setLanguageValidation('roomValue')" maxlength="5" formControlName="roomValue">
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <div class="billNumber0-label">
+                <label class="billNumber-label ui-input-text control-label"
+                  for="billNumber0">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.floor' | translate}}</label>
+              </div><span id="billNumber0ErrMsg"></span>
+              <input id="floorid" name="floorValue"
+                placeholder="{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.floor' | translate}}"
+                class="form-control bill-number billNumber" type="text"
+                (input)="$event.target.value = addressField($event.target.value)"
+                (blur)="setLanguageValidation('floorValue')" maxlength="5" formControlName="floorValue">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <label class="control-label"
+                for="department">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.block' | translate}}</label>
+              <input id="blockid" name="blockValue"
+                placeholder="{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.block' | translate}}"
+                class="form-control bill-number billNumber" type="text"
+                (input)="$event.target.value = addressField($event.target.value)"
+                (blur)="setLanguageValidation('blockValue')" maxlength="5" formControlName="blockValue">
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <div class="billNumber0-label">
+                <label class="billNumber-label ui-input-text control-label"
+                  for="billNumber0">{{'APPLICANT.BUILDING' | translate}}</label>
+              </div><span id="billNumber0ErrMsg"></span>
+              <input id="buildingid" name="buildingValue" placeholder="{{'APPLICANT.BUILDING' | translate}}"
+                class="form-control bill-number billNumber" type="text"
+                (input)="$event.target.value = addressField($event.target.value)"
+                (blur)="setLanguageValidation('buildingValue')" maxlength="35" formControlName="buildingValue">
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <label class="control-label"
+                for="department">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.estateVillageNoName' | translate}}
+              </label>
+              <input id="estateid" name="estateValue"
+                placeholder="{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.estateVillageNoName' | translate}}"
+                class="form-control bill-number billNumber" type="text"
+                (input)="$event.target.value = addressField($event.target.value)"
+                (blur)="setLanguageValidation('estateValue')" maxlength="35" formControlName="estateValue">
+
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <span class="hidden isBillNumValid">true</span>
+              <div class="billNumber0-label">
+                <label class="billNumber-label ui-input-text control-label"
+                  for="billNumber0">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.streetNoName' | translate}}
+                </label>
+              </div><span id="billNumber0ErrMsg"></span>
+              <input id="streetid" name="streetValue"
+                placeholder="{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.streetNoName' | translate}}"
+                class="form-control bill-number billNumber" type="text"
+                (input)="$event.target.value = addressField($event.target.value)"
+                (blur)="setLanguageValidation('streetValue')" maxlength="35" formControlName="streetValue">
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="col-form-label">{{'APPLICANT.AREA' | translate}}</label>
+              <select placeholder="Area" id="areaid" class="form-control ng-pristine ng-valid ng-touched"
+                (change)="processSelectedOthers(f.areaValue.value); translateReg(f.areaValue.value)"
+                formControlName="areaValue">
+                <option value='' selected disabled>
+                  {{'ADDRESS_LOOKUP.DEFAULT_SELECT' | translate}}</option>
+                <option *ngFor="let item of regionList" [value]="item['value']"
+                  [attr.data-regionSelected]="item['label']">{{item['label'] | translate}}</option>
+              </select>
+              <div *ngIf="HospitalSubmitted && f.areaValue.errors?.required" class="errorMsg col-md-12 col-xs-12 "
+                style="color:red">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2156</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2157</ng-container>
+
+                {{'COMMON-ERROR.AREA-ERROR' | translate}}
+                <!-- please select area  -->
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group ">
+              <label class="col-form-label">{{'APPLICANT.DIST' | translate}}</label>
+              <select placeholder="District" id="districtid" class="form-control ng-pristine ng-valid ng-touched"
+                *ngIf="othersDisplay2 === '0'" (change)="changeToOthers(f.districtValue.value)"
+                formControlName="districtValue">
+                <option value='' selected disabled>
+                  {{'DISTRICT_LOOKUP.DEFAULT_SELECT' | translate}}</option>
+
+                <option *ngFor="let subObj of subDistList2" [value]="subObj['label']" [attr.data]="subObj['label']">
+                  {{subObj['label'] | translate}}</option>
+
+              </select>
+              <input *ngIf="othersDisplay2 === '1'" class="form-control all-caps" formControlName="otherDistrictValue"
+                maxlength="35" value="" (input)="$event.target.value = addressField($event.target.value)">
+
+              <div class="errorMsg"  style="color:red" role="alert"
+                *ngIf="HospitalSubmitted && othersDisplay2 === '1' && !f.districtValue.errors && f.otherDistrictValue.errors?.required">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2158</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2159</ng-container>
+
+                {{'COMMON-ERROR.DIST-EMPTY' | translate}}
+                <!-- Please specify District -->
+              </div>
+
+              <div class="errorMsg"  style="color:red" role="alert"
+                *ngIf="HospitalSubmitted && othersDisplay2 === '0' && !f.districtValue.errors && f.otherDistrictValue.errors?.required">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2157</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2158</ng-container>
+
+                {{'COMMON-ERROR.DIST-ERROR' | translate}}
+                <!-- please select District  -->
+              </div>
+
+              <div
+                *ngIf="HospitalSubmitted && (f.districtValue.errors?.districtEmpty || f.districtValue.errors?.required)"
+                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                <ng-container *ngIf="f.appId.value == deathAppId && errorCode">E-2157</ng-container>
+                <ng-container *ngIf="f.appId.value == birthAppId && errorCode">E-2158</ng-container>
+
+                {{'COMMON-ERROR.DIST-ERROR' | translate}}
+                <!-- please select District  -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            *ngIf="HospitalSubmitted && (f.roomValue.errors || f.floorValue.errors || f.blockValue.errors|| f.buildingValue.errors || f.estateValue.errors || f.streetValue.errors)"
+            class="col-md-12 col-xs-12 " style="color:red">
+            <div style="margin-top: 2px">
+              <span *ngIf="f.appId.value == deathAppId">
+                <ng-container *ngIf="errorCode">E-2132:</ng-container>
+                {{'ERROR-APP.PLS_INPUT_DEATH_ADRS' | translate}}
+              </span>
+              <span *ngIf="f.appId.value == birthAppId">
+                <ng-container *ngIf="errorCode">E-2127:</ng-container>
+                {{'ERROR-APP.PLS_INPUT_ADRS' | translate}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

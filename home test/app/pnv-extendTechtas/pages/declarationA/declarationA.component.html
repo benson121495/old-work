@@ -1,0 +1,105 @@
+<div class="container">
+    <app-topbar [title]="'pnvExtendTechtas.declarationA.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnvExtendTechtas.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i
+                                class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvExtendTechtas.declarationA.subTitle' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    {{'pnvExtendTechtas.declarationA.0a' | translate}}
+                                    <input class="box all-caps" id="0b" type="text">
+                                    {{'pnvExtendTechtas.declarationA.0b' | translate}}
+                                    <span><input class="box all-caps" id="hkId1" maxlength="8" type="text" style="width: 104px;"></span>
+                                    <span>(<input class="box all-caps" id="hkId2" maxlength="1" type="text" style="width: 34px;">)</span>
+                                    {{'pnvExtendTechtas.declarationA.0c' | translate}}
+                                </div>
+                            </div>
+                            <div class="row"> 
+                                <div class="col-md-12 form-group">{{'pnvExtendTechtas.declarationA.1a' | translate}}                          
+                                <select id="1a" name="1a" class="box"
+                                            type="text">
+                                            <option value='pleaseSelect' selected> Please Select </option>
+                                </select> 
+                                <input class="box all-caps" id="1b" type="text">
+                                {{'pnvExtendTechtas.declarationA.1b' | translate}}       
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <input class="box all-caps" id="hkId1" maxlength="8" type="text" style="width: 104px;">
+                                    <span>(<input class="box all-caps" id="hkId2" maxlength="1" type="text" style="width: 34px;">)</span>
+                                {{'pnvExtendTechtas.declarationA.2a' | translate}}
+                                {{'pnvExtendTechtas.declarationA.2b' | translate}}
+                                </div>                               
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                {{'pnvExtendTechtas.declarationA.3' | translate}}
+                                </div>                               
+                            </div>
+                            <br>
+                            <div class="row">
+                                <label class="col-md-12 form-group checkbox-inline"><input id="notAway" name="away" type="radio">
+                                    {{'pnvExtendTechtas.declarationA.4' | translate}}</label>
+                            </div>
+                            <br>
+                            <div class="row"> 
+                                <label class="col-md-12 form-group checkbox-inline"><input id="away" name="away"
+                                        type="radio">
+                                    {{'pnvExtendTechtas.declarationA.5' | translate}}
+                                    <select id="beenAway" name="beenAway"
+                                    class="ng-pristine ng-valid ng-touched box" (selectionChange)="onSelectionChange($event)">
+                                    <option value='' selected disabled>Please Select</option>
+                                    <option *ngFor="let item of beenAway" [value]="item['value']">{{item['label'] | translate}}</option>
+                                    </select>
+                                </label>
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-md-12 form-group checkbox-inline" style=" padding-left: 35px; ">
+                                    {{'pnvExtendTechtas.declarationA.6' | translate}}
+                                    <input class="box" id="reason" name="reason" type="text" style=" width: 601px; margin-top: 5px;">
+                                </label>                     
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <app-signature-pad [ngClass]="signPadService.showSignPad?'show':'hide'" (signed)="onSubmit($event)">
+                    </app-signature-pad>
+
+                    <!-- ----------------------------------------- content end ---------------------------------------- -->
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button" class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block">{{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="button" class="btn btn-brown btn-block"
+                                (click)="signForm()">{{ 'pnvExtendTechtas.declarationA.sign' | translate }}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- end button ---------------------------------------- -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

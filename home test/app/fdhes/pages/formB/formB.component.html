@@ -1,0 +1,1110 @@
+<div class="container">
+  <app-topbar [title]="'fdhes.formB.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'fdhes.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <div class="panel panel-default">
+                      <div class="panel-body" style="background:#DDE4F6;">
+						<div class="row">
+							<label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label class="control-label">Employer Submission for:</label>
+							<label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</label>
+							<label class="control-label">{{ emailVal }}</label>
+							<label class="control-label">]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label class="control-label">Verfication Code: {{ verificationCode }}</label>
+						</div>
+					  </div>
+					</div>
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Particulars of Employer in Hong Kong-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdhes.formB.part1Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.chiName' | translate}}</label>
+      
+                                <input id="employerChiName" name="employerChiName" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="employerChiName"
+                                    (input)="maskChineseValues($event.target.value, 'employerChiName')">
+                            </div>
+                        </div>
+      
+                        <div class="row">
+      
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'fdhes.formB.engSurName' | translate}}</label>
+      
+                                <input id="employerEngSurName" name="employerEngSurName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="employerEngSurName"
+                                    (change)="cutValues($event.target.value,'employerEngSurName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+      
+                        
+      
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'fdhes.formB.engGivenName' | translate}}</label>
+      
+                                <input id="employerEngGivenName" name="employerEngGivenName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="employerEngGivenName"
+                                    (change)="cutValues($event.target.value,'employerEngGivenName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+      
+                        </div>
+
+                        <div class="row">
+                            <div id="employerSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.sex' | translate}}</label>
+                                <div class="form-group">
+                                      <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                              formControlName="employerSex">
+                                          {{'fdhes.formB.male' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                              formControlName="employerSex">
+                                          {{'fdhes.formB.female' | translate}}
+                                      </label>
+                                  
+                                </div>
+                            </div>
+      
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'fdhes.formB.dob' | translate}}</label>
+      
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employerDobDay" name="employerDobDay" class="form-control datePickerDate "
+                                            type="text" formControlName="employerDobDay">
+                                            <option value='' disabled selected>
+                                            {{'fdhes.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employerDobMonth" name="employerDobMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="employerDobMonth"
+                                            (blur)="onMonthYearChange('employerDobDay','employerDobMonth','employerDobYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="employerDobYear" name="employerDobYear" class="form-control datePickerYear "
+                                            type="text" formControlName="employerDobYear"
+                                            (blur)="onMonthYearChange('employerDobDay','employerDobMonth','employerDobYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="employerHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="employerHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="employerHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="employerHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'fdhes.formB.nationality' | translate}}</label>
+                                <input id="employerNationality" name="employerNationality" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="employerNationality">
+                            </div>                               
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'fdhes.formB.occupation' | translate}}</label>
+                                <input id="employerOccupation" name="employerOccupation" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="employerOccupation">
+                            </div>                               
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-labe required-star">{{'fdhes.formB.hasHkId' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                      <label class="checkbox-inline"><input id="yes" name="hasHkId" type="radio" value="yes"
+                                              formControlName="hasHkId" (click)="hasHkId='Yes'">
+                                          {{'fdhes.formB.yes' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="no" name="hasHkId" type="radio" value="no"
+                                              formControlName="hasHkId" (click)="hasHkId='No'">
+                                          {{'fdhes.formB.no' | translate}}
+                                      </label>
+                                  </div>
+                                </div>
+                            </div>
+
+                        </div>
+      
+                        <ng-container *ngIf="hasHkId==='No'">
+                            <div class="row">        
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'fdhes.formB.travelDocHeld' | translate}}</label>
+                                    <select id="employerTravelDocType" name="employerTravelDocType" class="form-control employerTravelDocType" type="text"
+                                        formControlName="employerTravelDocType">
+                                        <option value='' disabled selected>
+                                            {{'fdhes.formB.selectType' | translate}}
+                                        </option>
+                                        <option value='00' selected> {{'Type1'}} </option>
+                                        <option value='01' selected> {{'Type2'}} </option>
+                                        <option value='02' selected> {{'Type3'}} </option>
+                                              
+                                    </select>         
+                                          
+                                </div>
+          
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'fdhes.formB.travelDocValue' | translate}}</label>
+                                    <input id="employerTravelDocValue" name="employerTravelDocValue" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="employerTravelDocValue"
+                                        (input)="maskChineseValues($event.target.value, 'employerTravelDocValue')">
+                                </div>
+                            </div>
+
+                        </ng-container>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'fdhes.formB.residentialAdress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.roomValue' | translate}}</label>
+                                <input id="employerResidentialRoomValue" name="employerResidentialRoomValue" class="form-control employerResidentialRoomValue" type="text"
+                                  formControlName="employerResidentialRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.floorValue' | translate}}</label>
+                                <input id="employerResidentialFloorValue" name="employerResidentialFloorValue" class="form-control employerResidentialFloorValue" type="text"
+                                    formControlName="employerResidentialFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.blockValue' | translate}}</label>
+                                <input id="employerResidentialBlockValue" name="employerResidentialBlockValue" class="form-control employerResidentialBlockValue" type="text"
+                                    formControlName="employerResidentialBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.buildingValue' | translate}}</label>
+                                <input id="employerResidentialBuildingValue" name="employerResidentialBuildingValue" class="form-control employerResidentialBuildingValue" type="text"
+                                    formControlName="employerResidentialBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.estateValue' | translate}}</label>
+                                <input id="employerResidentialEstateValue" name="employerResidentialEstateValue" class="form-control employerResidentialEstateValue" type="text"
+                                    formControlName="employerResidentialEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.streetValue' | translate}}</label>
+                                <input id="employerResidentialStreetValue" name="employerResidentialStreetValue" class="form-control employerResidentialStreetValue" type="text"
+                                    formControlName="employerResidentialStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.district' | translate}}</label>
+                                <select id="employerResidentialDistrict" name="employerResidentialDistrict" class="form-control employerResidentialDistrict" type="text"
+                                    formControlName="employerResidentialDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>
+                            
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">{{'fdhes.formB.correspondenceAddress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.roomValue' | translate}}</label>
+                                <input id="employerCorrespondenceRoomValue" name="employerCorrespondenceRoomValue" class="form-control employerCorrespondenceRoomValue" type="text"
+                                  formControlName="employerCorrespondenceRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.floorValue' | translate}}</label>
+                                <input id="employerCorrespondenceFloorValue" name="employerCorrespondenceFloorValue" class="form-control employerCorrespondenceFloorValue" type="text"
+                                    formControlName="employerCorrespondenceFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.blockValue' | translate}}</label>
+                                <input id="employerCorrespondenceBlockValue" name="employerCorrespondenceBlockValue" class="form-control employerCorrespondenceBlockValue" type="text"
+                                    formControlName="employerCorrespondenceBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.buildingValue' | translate}}</label>
+                                <input id="employerCorrespondenceBuildingValue" name="employerCorrespondenceBuildingValue" class="form-control employerCorrespondenceBuildingValue" type="text"
+                                    formControlName="employerCorrespondenceBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.estateValue' | translate}}</label>
+                                <input id="employerCorrespondenceEstateValue" name="employerCorrespondenceEstateValue" class="form-control employerCorrespondenceEstateValue" type="text"
+                                    formControlName="employerCorrespondenceEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.streetValue' | translate}}</label>
+                                <input id="employerCorrespondenceStreetValue" name="employerCorrespondenceStreetValue" class="form-control employerCorrespondenceStreetValue" type="text"
+                                    formControlName="employerCorrespondenceStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.district' | translate}}</label>
+                                <select id="employerCorrespondenceDistrict" name="employerCorrespondenceDistrict" class="form-control employerCorrespondenceDistrict" type="text"
+                                    formControlName="employerCorrespondenceDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>                            
+
+                        </div>
+
+                        <div class="row">      
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'fdhes.formB.phoneNo' | translate}}</label>
+                                <input id="employerPhoneNo" name="employerPhoneNo" class="form-control all-caps"
+                                    maxlength="6" type="text" formControlName="employerPhoneNo"
+                                    (input)="maskChineseValues($event.target.value, 'employerPhoneNo')">
+                            </div>
+
+                            <div class="col-md-2 form-group">
+                                <label class="control-label">{{'fdhes.formB.phoneExt' | translate}}</label>
+                                <input id="employerPhoneExt" name="employerPhoneExt" class="form-control all-caps" maxlength="4"
+                                    type="text" formControlName="employerPhoneExt">
+                            </div>
+
+                        </div>
+
+                        <div class="row">      
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.homeTelNo' | translate}}</label>
+                                <input id="homeTelNo" name="homeTelNo" class="form-control all-caps"
+                                    maxlength="6" type="text" formControlName="homeTelNo"
+                                    (input)="maskChineseValues($event.target.value, 'homeTelNo')">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.faxNo' | translate}}</label>
+                                <input id="employerFaxNo" name="employerFaxNo" class="form-control all-caps"
+                                    maxlength="6" type="text" formControlName="employerFaxNo"
+                                    (input)="maskChineseValues($event.target.value, 'employerFaxNo')">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.email' | translate}}</label>
+      
+                                <input id="employerEmail" name="employerEmail" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="employerEmail">
+                            </div>
+                            
+                        </div>                        
+                      
+                    </div>
+                </div>
+                 <!-- End of Part 1 -->
+
+
+
+                 <!-- Part 2 - Information on Domestic Helper-->
+                 <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdhes.formB.part2Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'fdhes.formB.helperName' | translate}}</label>
+      
+                                <input id="helperName" name="helperName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="helperName"
+                                    (change)="cutValues($event.target.value,'helperName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.fileRefNo' | translate}}</label>
+                                <input id="fileRefNo" name="fileRefNo" class="form-control fileRefNo" type="text"
+                                    formControlName="fileRefNo">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label  required-star">{{'fdhes.formB.relatioshipWithHelper' | translate}}</label>
+                                <input id="relatioshipWithHelper" name="relatioshipWithHelper" class="form-control relatioshipWithHelper" type="text"
+                                    formControlName="relatioshipWithHelper">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'fdhes.formB.empType' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                      <label class="checkbox-inline"><input id="firstEmp" name="empType" type="radio" value="firstEmp"
+                                              formControlName="empType"  (click)="empType='firstEmp'">
+                                          {{'fdhes.formB.firstEmp' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="renewal" name="empType" type="radio" value="renewal"
+                                              formControlName="empType" (click)="empType='renewal'">
+                                          {{'fdhes.formB.renewal' | translate}}
+                                      </label>
+                                      <label class="checkbox-inline"><input id="replacement" name="empType" type="radio" value="replacement"
+                                          formControlName="empType" (click)="empType='replacement'">
+                                          {{'fdhes.formB.replacement' | translate}}
+                                      </label>
+                                      <label class="checkbox-inline"><input id="additional" name="empType" type="radio" value="additional"
+                                          formControlName="empType" (click)="empType='additional'">
+                                          {{'fdhes.formB.additional' | translate}}
+                                      </label>
+                                  </div>
+                                </div> 
+
+                            </div>
+                        </div>
+
+                        <ng-container *ngIf="empType==='replacement'">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'fdhes.formB.replacedHelperName' | translate}}</label>
+                                    <input id="replacedHelperName" name="replacedHelperName" class="form-control replacedHelperName" type="text"
+                                        formControlName="replacedHelperName">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">{{'fdhes.formB.replacedHelperHkId' | translate}}</label>
+                                     <div class="row form-group">
+                                      <div class="col-xs-8">
+                                          <input id="replacedHelperHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                              [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                              formControlName="replacedHelperHkIdValue1">
+                                      </div>
+                                      <div class="col-xs-4">
+                                          <div class="hkbracket">
+                                              <input id="replacedHelperHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                                  [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                  formControlName="replacedHelperHkIdValue2">
+                                          </div>
+                                      </div>
+                                    </div>
+                                </div>
+    
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'fdhes.formB.terminationDate' | translate}}</label>
+          
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="terminationDay" name="terminationDay" class="form-control datePickerDate "
+                                                type="text" formControlName="terminationDay">
+                                                <option value='' disabled selected>
+                                                {{'fdhes.formB.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+          
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="terminationMonth" name="terminationMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="terminationMonth"
+                                                (blur)="onMonthYearChange('terminationDay','terminationMonth','terminatioYear')">
+                                                <option value='' disabled selected>
+                                                    {{'fdhes.formB.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+          
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="terminatioYear" name="terminatioYear" class="form-control datePickerYear "
+                                                type="text" formControlName="terminatioYear"
+                                                (blur)="onMonthYearChange('terminationDay','terminationMonth','terminatioYear')">
+                                                <option value='' disabled selected>
+                                                    {{'fdhes.formB.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </ng-container>
+                            
+                        <ng-container *ngIf="empType==='additional'">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'fdhes.formB.reasonForAddirional' | translate}}</label>
+                                    <input id="reasonForAddirional" name="reasonForAddirional" class="form-control reasonForAddirional" type="text"
+                                        formControlName="reasonForAddirional">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'fdhes.formB.livingArrg' | translate}}</label>
+                                    <input id="livingArrg" name="livingArrg" class="form-control livingArrg" type="text"
+                                        formControlName="livingArrg">
+                                </div>
+    
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'fdhes.formB.deploymentDetail' | translate}}</label>
+                                    <input id="deploymentDetail" name="deploymentDetail" class="form-control deploymentDetail" type="text"
+                                        formControlName="deploymentDetail">
+                                </div>
+    
+                            </div>
+                        </ng-container>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-labe required-star">{{'fdhes.formB.arrangementAfterApproved' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                      <label class="checkbox-inline"><input id="leaveBeforeNewContract" name="arrangementAfterApproved" type="radio" value="leaveBeforeNewContract"
+                                              formControlName="arrangementAfterApproved" (click)="arrangementAfterApproved='leaveBeforeNewContract'">
+                                          {{'fdhes.formB.leaveBeforeNewContract' | translate}}</label>
+                                    </div>
+                                    <div class="row">
+                                      <label class="checkbox-inline"><input id="deferLeave" name="arrangementAfterApproved" type="radio" value="deferLeave"
+                                              formControlName="arrangementAfterApproved" (click)="arrangementAfterApproved='deferLeave'">
+                                          {{'fdhes.formB.deferLeave' | translate}}
+                                      </label>
+                                  </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <ng-container *ngIf="arrangementAfterApproved==='deferLeave'">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'fdhes.formB.reason' | translate}}</label>
+                                    <input id="deferReason" name="deferReason" class="form-control deferReason" type="text"
+                                        formControlName="deferReason">
+                                </div>
+    
+                            </div>
+
+                        </ng-container>
+
+                      
+                    </div>
+                </div>
+                 <!-- End of Part 2 -->
+
+                 <!-- Part 3 - Household Information-->
+                 <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdhes.formB.part3Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-labe required-star">{{'fdhes.formB.ifIncomeLessThan15000' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                      <label class="checkbox-inline"><input id="yes" name="ifIncomeLessThan15000" type="radio" value="yes"
+                                              formControlName="ifIncomeLessThan15000" (click)="ifIncomeLessThan15000='Yes'">
+                                          {{'fdhes.formB.yes' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="no" name="ifIncomeLessThan15000" type="radio" value="no"
+                                              formControlName="ifIncomeLessThan15000" (click)="ifIncomeLessThan15000='No'">
+                                          {{'fdhes.formB.no' | translate}}
+                                      </label>
+                                  </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'fdhes.formB.avgMonthlyIncome' | translate}}</label>
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'fdhes.formB.hkd' | translate}}</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <input id="avgMonthlyIncome" name="avgMonthlyIncome" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="avgMonthlyIncome"
+                                            (change)="cutValues($event.target.value,'avgMonthlyIncome')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.noOfBedroom' | translate}}</label>
+                                <input id="noOfBedroom" name="noOfBedroom" class="form-control noOfBedroom" type="text"
+                                    formControlName="noOfBedroom">
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-labe required-star">{{'fdhes.formB.ifSeparate' | translate}}</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                      <label class="checkbox-inline"><input id="yes" name="ifSeparate" type="radio" value="yes"
+                                              formControlName="ifSeparate" (click)="ifSeparate='Yes'">
+                                          {{'fdhes.formB.yes' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="no" name="ifSeparate" type="radio" value="no"
+                                              formControlName="ifSeparate" (click)="ifSeparate='No'">
+                                          {{'fdhes.formB.no' | translate}}
+                                      </label>
+                                  </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'fdhes.formB.memberParticulars' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'fdhes.formB.memberName' | translate}}</label>
+      
+                                <input id="memberName" name="memberName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="memberName"
+                                    (change)="cutValues($event.target.value,'memberName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">    
+                                    <label class="control-label">{{'fdhes.formB.memberDobYear' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-md-4">
+                                            <select id="memberDobYear" name="memberDobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="memberDobYear">
+                                                <option value='' disabled selected>
+                                                    {{'fdhes.formB.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                               
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.relationshipWithEmployer' | translate}}</label>
+                                <input id="relationshipWithEmployer" name="relationshipWithEmployer" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="relationshipWithEmployer">
+                            </div>   
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="memberHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="memberHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="memberHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="memberHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                                                        
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'fdhes.formB.memberName' | translate}}</label>
+      
+                                <input id="memberName" name="memberName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="memberName"
+                                    (change)="cutValues($event.target.value,'memberName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">    
+                                    <label class="control-label">{{'fdhes.formB.memberDobYear' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-md-4">
+                                            <select id="memberDobYear" name="memberDobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="memberDobYear">
+                                                <option value='' disabled selected>
+                                                    {{'fdhes.formB.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                               
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.relationshipWithEmployer' | translate}}</label>
+                                <input id="relationshipWithEmployer" name="relationshipWithEmployer" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="relationshipWithEmployer">
+                            </div>   
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="memberHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="memberHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="memberHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="memberHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                                                        
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'fdhes.formB.memberName' | translate}}</label>
+      
+                                <input id="memberName" name="memberName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="memberName"
+                                    (change)="cutValues($event.target.value,'memberName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">    
+                                    <label class="control-label">{{'fdhes.formB.memberDobYear' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-md-4">
+                                            <select id="memberDobYear" name="memberDobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="memberDobYear">
+                                                <option value='' disabled selected>
+                                                    {{'fdhes.formB.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                               
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.relationshipWithEmployer' | translate}}</label>
+                                <input id="relationshipWithEmployer" name="relationshipWithEmployer" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="relationshipWithEmployer">
+                            </div>   
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="memberHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="memberHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="memberHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="memberHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                                                        
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'fdhes.formB.currentHelperDetail' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.currentHelperName' | translate}}</label>
+                                <input id="currentHelperName" name="currentHelperName" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="currentHelperName">
+                            </div>   
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="currentHelperHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="currentHelperHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="currentHelperHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="currentHelperHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                                                        
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.permitRemain' | translate}}</label>
+      
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="permitRemainDay" name="permitRemainDay" class="form-control datePickerDate "
+                                            type="text" formControlName="permitRemainDay">
+                                            <option value='' disabled selected>
+                                            {{'fdhes.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="permitRemainMonth" name="permitRemainMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="permitRemainMonth"
+                                            (blur)="onMonthYearChange('permitRemainDay','permitRemainMonth','permitRemainYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="permitRemainYear" name="permitRemainYear" class="form-control datePickerYear "
+                                            type="text" formControlName="permitRemainYear"
+                                            (blur)="onMonthYearChange('permitRemainDay','permitRemainMonth','permitRemainYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.employedBy' | translate}}</label>
+                                <input id="employedBy" name="employedBy" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="employedBy">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.currentHelperName' | translate}}</label>
+                                <input id="currentHelperName" name="currentHelperName" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="currentHelperName">
+                            </div>   
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="currentHelperHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="currentHelperHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="currentHelperHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="currentHelperHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                                                        
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.permitRemain' | translate}}</label>
+      
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="permitRemainDay" name="permitRemainDay" class="form-control datePickerDate "
+                                            type="text" formControlName="permitRemainDay">
+                                            <option value='' disabled selected>
+                                            {{'fdhes.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="permitRemainMonth" name="permitRemainMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="permitRemainMonth"
+                                            (blur)="onMonthYearChange('permitRemainDay','permitRemainMonth','permitRemainYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="permitRemainYear" name="permitRemainYear" class="form-control datePickerYear "
+                                            type="text" formControlName="permitRemainYear"
+                                            (blur)="onMonthYearChange('permitRemainDay','permitRemainMonth','permitRemainYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.employedBy' | translate}}</label>
+                                <input id="employedBy" name="employedBy" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="employedBy">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.currentHelperName' | translate}}</label>
+                                <input id="currentHelperName" name="currentHelperName" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="currentHelperName">
+                            </div>   
+
+                            <div class="form-group col-md-6">
+                                <label class="control-label">{{'fdhes.formB.hkIdNo' | translate}}</label>
+                                 <div class="row form-group">
+                                  <div class="col-xs-8">
+                                      <input id="currentHelperHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                          [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                          formControlName="currentHelperHkIdValue1">
+                                  </div>
+                                  <div class="col-xs-4">
+                                      <div class="hkbracket">
+                                          <input id="currentHelperHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                              [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                              formControlName="currentHelperHkIdValue2">
+                                      </div>
+                                  </div>
+                                </div>
+                            </div>
+
+                                                        
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.permitRemain' | translate}}</label>
+      
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="permitRemainDay" name="permitRemainDay" class="form-control datePickerDate "
+                                            type="text" formControlName="permitRemainDay">
+                                            <option value='' disabled selected>
+                                            {{'fdhes.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="permitRemainMonth" name="permitRemainMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="permitRemainMonth"
+                                            (blur)="onMonthYearChange('permitRemainDay','permitRemainMonth','permitRemainYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+      
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="permitRemainYear" name="permitRemainYear" class="form-control datePickerYear "
+                                            type="text" formControlName="permitRemainYear"
+                                            (blur)="onMonthYearChange('permitRemainDay','permitRemainMonth','permitRemainYear')">
+                                            <option value='' disabled selected>
+                                                {{'fdhes.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'fdhes.formB.employedBy' | translate}}</label>
+                                <input id="employedBy" name="employedBy" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="employedBy">
+                            </div>
+                        </div>
+
+                      
+                    </div>
+                </div>
+                 <!-- End of Part 3 -->
+                
+                      
+
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

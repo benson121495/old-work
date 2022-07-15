@@ -1,0 +1,28 @@
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':'block'}">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center" role="document">
+            <div class="modal-content">
+                <div class="modal-footer">
+                    <select [(ngModel)]="signatureFormat" (click)="refreshCanvas()">
+            <option *ngFor="let opt of formatList">
+              {{opt}}
+            </option>
+          </select>
+                </div>
+                <div class="modal-body text-center" #signContainer>
+                    <div *ngIf="signatureFormat == 'Draw my signature'" class="signStmt">Please sign here:</div>
+                    <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-brown" data-dismiss="modal" (click)="cancelSign()">{{'COMMON.CANCEL' | translate}}
+          </button>
+                    <button type="button" class="btn btn-brown" data-dismiss="modal" (click)="undoSign()">{{'COMMON.RESET' | translate}}
+          </button>
+                    <button type="button" class="btn btn-brown" data-dismiss="modal" (click)="saveSign()">{{'COMMON.CONTINUE' | translate}}
+          </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<div [ngClass]="toggleStatus ? 'overlay' : ''">
+    <div id="collapse-sidebar-wrapper"
+        [ngClass]="toggleStatus ? 'collapse-sidebar-wrapper-nav-show' : 'collapse-sidebar-wrapper-nav-hide'">
+        <div class="collapse-sidebar-container">
+            <button class="header-navmenuIcon visible-xs" type="button" (click)="toggleSideNav()"></button>
+            <div class="col-sm-3 left-panel">
+                <div class="collapse-sidebar">
+                    <div *ngIf="menuList" class="left-nav page-step-nav">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li [ngClass]="{'first': menu.id=='1','active': menu.id===stepNumber}"
+                                *ngFor="let menu of menuList">
+                                <span><strong>{{menu.title}}</strong><br>{{menu.description}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="left-nav">
+                        <ul class="nav nav-pills nav-stacked">
+                            <ng-container *ngFor="let item of sideNavItem;">
+                                <ng-container *ngIf="!item.children;else extendedItem">
+                                    <li class="accordion md-accordion same-style">
+                                        <a aria-expanded="false"
+                                            (click)="item.url?navigateTo(item.window,item.url):false" title="FAQs"
+                                            rel="external" [class.padding-bottom-zero]="item.desc">
+                                            <span aria-hidden="true"
+                                                class="glyphicon glyphicon-circle-arrow-right"></span>
+                                            {{item.label|translate}}
+                                        </a>
+                                        <ul *ngIf="item.desc" class="list-style-none">
+                                            <li class="sub-text">
+                                                <span [innerHtml]="item.desc|translate"></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ng-container>
+                                <ng-template #extendedItem>
+                                    <li class="accordion md-accordion same-style" id="{{item.name + 'ParentId'}}"
+                                        role="tablist" [attr.aria-multiselectable]="true">
+                                        <div class="card">
+                                            <div class="card-header" role="tab" id="{{item.name+'Id'}}">
+                                                <a class="collapsed" data-toggle="collapse"
+                                                    [attr.data-parent]="'#'+item.name + 'ParentId'"
+                                                    href="{{'#'+item.name}}" [attr.aria-expanded]="false"
+                                                    [attr.aria-controls]="item.name">
+                                                    <span aria-hidden="true"
+                                                        class="glyphicon glyphicon-circle-arrow-right"></span>
+                                                    {{item.label|translate}}
+                                                </a>
+                                            </div>
+                                            <div id="{{item.name}}" class="collapse" role="tabpanel"
+                                                [attr.aria-labelledby]="item.name+'Id'"
+                                                [attr.data-parent]="'#'+item.name + 'ParentId'">
+                                                <div *ngFor="let childItem of item.children;"
+                                                    class="card-body inner-menu">
+                                                    <a
+                                                        (click)="childItem.url?navigateTo(childItem.window,childItem.url):false">
+                                                        {{ childItem.label | translate }}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ng-template>
+                            </ng-container>
+                        </ul>
+                    </div>
+                    <div class="side-lang-wrapper">
+                        <ul>
+                            <li><a [ngClass]="{'active': translate.currentLang=='en-US'}" href="javascript: void(0)"
+                                    title="English" (click)="changeLanguage('en-US')">ENG</a></li>
+                            <li><a [ngClass]="{'active': translate.currentLang=='zh-HK'}" href="javascript: void(0)"
+                                    title="Traditional" (click)="changeLanguage('zh-HK')">繁</a></li>
+                            <li><a [ngClass]="{'active': translate.currentLang=='zh-CN'}" href="javascript: void(0)"
+                                    title="Simplified" (click)="changeLanguage('zh-CN')">简</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

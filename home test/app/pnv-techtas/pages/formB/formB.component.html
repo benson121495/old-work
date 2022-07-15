@@ -1,0 +1,556 @@
+<div class="container">
+  <app-topbar [title]="'techtas.formB.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'techtas.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Particulars of employing company in Hong Kong-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formB.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.appCompanyName' | translate}}</label>
+      
+                                <input id="appCompanyName" name="appCompanyName" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyName">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.contactPerson' | translate}}</label>
+      
+                                <input id="contactPerson" name="contactPerson" class="form-control all-caps"
+                                    type="text" formControlName="contactPerson">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.appCompanyEmail' | translate}}</label>
+      
+                                <input id="appCompanyEmail" name="appCompanyEmail" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyEmail">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.appCompanyWebsite' | translate}}</label>
+      
+                                <input id="appCompanyWebsite" name="appCompanyWebsite" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyWebsite">
+                            </div>
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'techtas.formB.appCompanyAddress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.roomValue' | translate}}</label>
+                                <input id="appCompanyRoomValue" name="appCompanyRoomValue" class="form-control appCompanyRoomValue" type="text"
+                                  formControlName="appCompanyRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.floorValue' | translate}}</label>
+                                <input id="appCompanyFloorValue" name="appCompanyFloorValue" class="form-control appCompanyFloorValue" type="text"
+                                    formControlName="appCompanyFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.blockValue' | translate}}</label>
+                                <input id="appCompanyBlockValue" name="appCompanyBlockValue" class="form-control appCompanyBlockValue" type="text"
+                                    formControlName="appCompanyBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.buildingValue' | translate}}</label>
+                                <input id="appCompanyBuildingValue" name="appCompanyBuildingValue" class="form-control appCompanyBuildingValue" type="text"
+                                    formControlName="appCompanyBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.estateValue' | translate}}</label>
+                                <input id="appCompanyEstateValue" name="appCompanyEstateValue" class="form-control appCompanyEstateValue" type="text"
+                                    formControlName="appCompanyEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.streetValue' | translate}}</label>
+                                <input id="appCompanyStreetValue" name="appCompanyStreetValue" class="form-control appCompanyStreetValue" type="text"
+                                    formControlName="appCompanyStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.district' | translate}}</label>
+                                <select id="appCompanyDistrict" name="appCompanyDistrict" class="form-control appCompanyDistrict" type="text"
+                                    formControlName="appCompanyDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">{{'techtas.formB.correspondenceAddress' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.roomValue' | translate}}</label>
+                            <input id="correspondenceAddressRoomValue" name="correspondenceAddressRoomValue" class="form-control correspondenceAddressRoomValue" type="text"
+                              formControlName="correspondenceAddressRoomValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.floorValue' | translate}}</label>
+                            <input id="correspondenceAddressFloorValue" name="correspondenceAddressFloorValue" class="form-control correspondenceAddressFloorValue" type="text"
+                                formControlName="correspondenceAddressFloorValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.blockValue' | translate}}</label>
+                            <input id="correspondenceAddressBlockValue" name="correspondenceAddressBlockValue" class="form-control correspondenceAddressBlockValue" type="text"
+                                formControlName="correspondenceAddressBlockValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.buildingValue' | translate}}</label>
+                            <input id="correspondenceAddressBuildingValue" name="correspondenceAddressBuildingValue" class="form-control correspondenceAddressBuildingValue" type="text"
+                                formControlName="correspondenceAddressBuildingValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.estateValue' | translate}}</label>
+                            <input id="correspondenceAddressEstateValue" name="correspondenceAddressEstateValue" class="form-control correspondenceAddressEstateValue" type="text"
+                                formControlName="correspondenceAddressEstateValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.streetValue' | translate}}</label>
+                            <input id="correspondenceAddressStreetValue" name="correspondenceAddressStreetValue" class="form-control correspondenceAddressStreetValue" type="text"
+                                formControlName="correspondenceAddressStreetValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formB.district' | translate}}</label>
+                            <select id="correspondenceAddressDistrict" name="correspondenceAddressDistrict" class="form-control correspondenceAddressDistrict" type="text"
+                                formControlName="correspondenceAddressDistrict">
+                                <option value='' disabled selected>
+                                    {{'Please Select' | translate}}
+                                </option>
+                                <option value='00' selected> district1 </option>
+                                <option value='01' selected> district2 </option>
+                                        
+                            </select>
+                        </div>                            
+
+                    </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.appCompanyPhoneNo' | translate}}</label>
+                                <input id="appCompanyPhoneNo" name="appCompanyPhoneNo" class="form-control all-caps" maxlength="8"
+                                    type="text" formControlName="appCompanyPhoneNo">
+
+                                <div *ngIf="submitted && f.appCompanyPhoneNo.errors && f.appCompanyPhoneNo.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="control-label">{{'techtas.formB.appCompanyPhoneExt' | translate}}</label>
+                                <input id="appCompanyPhoneExt" name="appCompanyPhoneExt" class="form-control all-caps" maxlength="4"
+                                    type="text" formControlName="appCompanyPhoneExt">
+
+                                <div *ngIf="submitted && f.appCompanyPhoneExt.errors && f.appCompanyPhoneExt.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formB.appCompanyFaxNo' | translate}}</label>
+      
+                                <input id="appCompanyFaxNo" name="appCompanyFaxNo" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyFaxNo">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.businessRegNo' | translate}}</label>
+      
+                                <input id="businessRegNo" name="businessRegNo" class="form-control all-caps"
+                                    type="text" formControlName="businessRegNo">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.ifSubsidiary' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="ifSubsidiary" type="radio" value="yes"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='Yes'">
+                                        {{'techtas.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="ifSubsidiary" type="radio" value="no"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='No'">
+                                        {{'techtas.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="ifSubsidiary==='Yes'">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'techtas.formB.parentCompanyName' | translate}}</label>
+              
+                                      <input id="parentCompanyName" name="parentCompanyName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="parentCompanyName">
+                                </div>
+                                    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'techtas.formB.parentCompanyAddress' | translate}}</label>
+                                    <input id="parentCompanyAddress1" name="parentCompanyAddress1" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress1">
+                                    <input id="parentCompanyAddress2" name="parentCompanyAddress2" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress2">
+                                    <input id="parentCompanyAddress3" name="parentCompanyAddress3" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress3">
+    
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                                                    
+                            </ng-container>
+                        </div>
+                        
+                      </div>
+                  </div>
+                  <!-- End of Part 1 -->
+                  <!-- Part 2 - Details of position offered to the employee (applicant) in Hong Kong-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formB.part2Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label class="ui-input-text control-label">
+                                {{'techtas.formB.employeeName' | translate}}
+                            </label>
+                        </div>
+                        
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label required-star">{{'techtas.formB.employeeEngSurName' | translate}}</label>
+  
+                            <input id="employeeEngSurName" name="employeeEngSurName" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="employeeEngSurName"
+                                (change)="cutValues($event.target.value,'employeeEngSurName')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>               
+  
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label required-star">{{'techtas.formB.employeeEngGivenName' | translate}}</label>
+  
+                            <input id="employeeEngGivenName" name="employeeEngGivenName" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="employeeEngGivenName"
+                                (change)="cutValues($event.target.value,'employeeEngGivenName')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>
+  
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formB.postTitle' | translate}}</label>
+        
+                                <input id="postTitle" name="postTitle" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="postTitle">
+                          </div>                          
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'techtas.formB.ifConductResearch' | translate}}</label>
+                        </div>                          
+
+                        <div class="col-md-6 form-group">
+                          <div class="form-group">
+                              <div class="row">
+                                  <label class="checkbox-inline"><input id="yes" name="ifConductResearch" type="radio" value="yes"
+                                      formControlName="ifConductResearch" (click)="ifConductResearch='Yes'">
+                                  {{'techtas.formB.yes' | translate}}</label>
+                            
+                                   <label class="checkbox-inline"><input id="no" name="ifConductResearch" type="radio" value="no"
+                                      formControlName="ifConductResearch" (click)="ifConductResearch='No'">
+                                  {{'techtas.formB.no' | translate}}</label> 
+                              </div>
+                                                      
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">        
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'techtas.formB.areaEngage' | translate}}</label>
+                            <select id="areaEngage" name="areaEngage" class="form-control areaEngage" type="text"
+                                formControlName="areaEngage">
+                                <option value='' disabled selected>
+                                    {{'techtas.formB.selectType' | translate}}
+                                </option>
+                                <option value='00' selected> {{'techtas.formB.ai' | translate}} </option>
+                                <option value='01' selected> {{'techtas.formB.bioTech' | translate}} </option>
+                                <option value='02' selected> {{'techtas.formB.cybersecurity' | translate}} </option>
+                                <option value='03' selected> {{'techtas.formB.dataAnalytics' | translate}} </option>
+                                <option value='04' selected> {{'techtas.formB.financialTech' | translate}} </option>
+                                <option value='05' selected> {{'techtas.formB.materialScience' | translate}} </option>
+                                <option value='06' selected> {{'techtas.formB.robotics' | translate}} </option>
+                                      
+                            </select>         
+                                  
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                          <label class="control-label">{{'techtas.formB.monthlySalary' | translate}}</label>
+                          <div class="row form-group">
+                              <div class="col-xs-2">
+                                  <label class="control-label">{{'techtas.formB.hkd' | translate}}</label>
+                              </div>
+
+                              <div class="col-md-8">
+                                  <input id="monthlySalary" name="monthlySalary" maxlength="33"
+                                      class="form-control all-caps" type="text" formControlName="monthlySalary"
+                                      (change)="cutValues($event.target.value,'monthlySalary')"
+                                      (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'techtas.formB.fringeBenefit' | translate}}</label>
+  
+                            <textarea id="fringeBenefit" name="fringeBenefit" class="form-control all-caps" rows="4"
+                                type="text" formControlName="fringeBenefit"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'techtas.formB.fringeBenefitValue' | translate}}</label>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label class="control-label">{{'techtas.formB.hkd' | translate}}</label>
+                                </div>
+  
+                                <div class="col-md-8">
+                                    <input id="fringeBenefitValue" name="fringeBenefitValue" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="fringeBenefitValue"
+                                        (change)="cutValues($event.target.value,'fringeBenefitValue')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'techtas.formB.packageTotalValue' | translate}}</label>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label class="control-label">{{'techtas.formB.hkd' | translate}}</label>
+                                </div>
+  
+                                <div class="col-md-8">
+                                    <input id="packageTotalValue" name="packageTotalValue" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="packageTotalValue"
+                                        (change)="cutValues($event.target.value,'packageTotalValue')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'techtas.formB.jobDuty' | translate}}</label>
+  
+                            <textarea id="jobDuty" name="jobDuty" class="form-control all-caps" rows="4"
+                                type="text" formControlName="jobDuty"></textarea>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+                  <!-- End of Part 2 -->
+
+                  <!-- Part 3 - Details of the applicant's possession of the relevant skills, knowledge and/or experience-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formB.part3Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.employerSkill' | translate}}</label>
+      
+                                <textarea id="employerSkill" name="employerSkill" class="form-control all-caps" rows="4"
+                                    type="text" formControlName="employerSkill"></textarea>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+
+                  <!-- End of Part 3 -->
+
+                  <!-- Part 4 - Quota Allotment Letter from Innovation and Technology Commission-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formB.part4Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.itcRefNo' | translate}}</label> 
+                                <input id="itcRefNo" name="itcRefNo" class="form-control all-caps" rows="4"
+                                    type="text" formControlName="itcRefNo">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formB.quotaValid' | translate}}</label>
+    
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="quotaValidDay" name="quotaValidDay" class="form-control datePickerDate "
+                                            type="text" formControlName="quotaValidDay">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="quotaValidMonth" name="quotaValidMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="quotaValidMonth"
+                                            (blur)="onMonthYearChange('quotaValidDay','dobMonth','quotaValidYear')">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="quotaValidYear" name="quotaValidYear" class="form-control datePickerYear "
+                                            type="text" formControlName="quotaValidYear"
+                                            (blur)="onMonthYearChange('quotaValidDay','quotaValidMonth','quotaValidYear')">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'techtas.formB.serialNo' | translate}}</label>                        
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <input id="serialNo" name="serialNo" class="form-control all-caps" rows="4"
+                                    type="serialNo" formControlName="serialNo">
+                            </div>
+                        </div>
+
+                    </div>
+                  </div>
+
+                  <!-- End of Part 4 -->
+
+                
+
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

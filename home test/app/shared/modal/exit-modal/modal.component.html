@@ -1,0 +1,20 @@
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':'block'}">
+	<div class="vertical-alignment-helper ">
+		<div class="modal-dialog vertical-align-center modal-sm" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center">
+					<h4 id="confirmationModalMessage">{{'MODAL.ASK-EXIT' | translate}}</h4>
+				</div>
+                <div id="confirmationModalFooter" class="modal-footer">
+					<button id="confirmationModalConfirm" type="button"
+						class="btn btn-brown" (click)="onCloseHandled(true)">{{'COMMON.YES' | translate}}
+                    </button>
+					<button type="button" class="btn btn-brown"
+						data-dismiss="modal" (click)="onCloseHandled(false)">{{'COMMON.NO' | translate}}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

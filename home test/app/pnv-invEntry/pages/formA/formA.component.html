@@ -1,0 +1,2304 @@
+<div class="container">
+    <app-topbar [title]="'pnv-invEntry.formA.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-invEntry.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->             
+                  <!-- Part 1 - Personal Particulars -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                      <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-invEntry.formA.part1Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                          <label class="control-label">{{'pnv-invEntry.formA.chiName' | translate}}</label>
+                          <input id="applicantChiName" name="applicantChiName" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantChiName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label">{{'pnv-invEntry.formA.chiMaidenSurname' | translate}}</label>
+                          <input id="applicantChiMaidenSurname" name="applicantChiMaidenSurname" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantChiMaidenSurname">
+                        </div>
+                      </div>      
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.engSurName' | translate}}</label>
+                          <input id="applicantEngSurName" name="applicantEngSurName" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantEngSurName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.engGivenName' | translate}}</label>
+                          <input id="applicantEngGivenName" name="applicantEngGivenName" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantEngGivenName">
+                        </div>
+                      </div> 
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                          <label class="control-label">{{'pnv-invEntry.formA.alias' | translate}}</label>
+                          <input id="applicantAlias" name="applicantAlias" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantAlias">
+                        </div>
+                      </div>  
+                      <div class="row">              
+                        <div id="sex" class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.sex' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="applicantMale" 
+                                    name="applicantSex" type="checkbox" value="Male"
+                                    formControlName="applicantSex">
+                                    {{'pnv-invEntry.formA.male' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantFemale" 
+                                    name="applicantSex" type="checkbox" value="Female"
+                                    formControlName="applicantSex">
+                                    {{'pnv-invEntry.formA.female' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.dob' | translate}}</label>
+                          <div class="flex-container">
+                            <div class="col-md-3" style="padding-left: 0px;">
+                                <select id="applicantDobDay" name="applicantDobDay" class="form-control datePickerDate" 
+                                type="text" formControlName="applicantDobDay">
+                                    <option value='' disabled selected>
+                                        {{'pnv-invEntry.formA.day' | translate}}
+                                    </option>
+                                    <option value='00' selected> DD </option>
+                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                        {{day}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3" style="padding-left: 0px;">
+                                <select id="applicantDobMonth" name="applicantDobMonth" class="form-control datePickerMonth" 
+                                type="text" formControlName="applicantDobMonth"
+                                    (blur)="onMonthYearChange('applicantDobDay','applicantDobMonth','applicantDobYear')">
+                                    <option value='' disabled selected>
+                                        {{'pnv-invEntry.formA.month' | translate}}
+                                    </option>
+                                    <option value='00' selected> MM </option>
+                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                        {{month}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" style="padding-left: 0px;">
+                                <select id="applicantDobYear" name="applicantDobYear" class="form-control datePickerYear " 
+                                    type="text" formControlName="applicantDobYear" 
+                                    (blur)="onMonthYearChange('applicantDobDay','applicantDobMonth','applicantDobYear')">
+                                    <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                    <option value='0000' selected> YYYY </option>
+                                    <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                </select>
+                            </div> 
+                          </div>
+                        </div>
+                      </div> 
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.placeOfBirth' | translate}}</label>
+                          <input id="applicantPlaceOfBirth" name="applicantPlaceOfBirth" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantPlaceOfBirth">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.nationality' | translate}}</label>
+                          <input id="applicantNationality" name="applicantNationality" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="applicantNationality">
+                        </div>
+                      </div> 
+                      <div class="row">              
+                        <div id="applicantMaritalStatus" class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.maritalStatus' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="applicantBachelor" 
+                                    name="applicantMaritalStatus" type="radio" value="Bachelor"
+                                    formControlName="applicantMaritalStatus">
+                                    {{'pnv-invEntry.formA.bachelor' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantMarried" 
+                                    name="applicantMaritalStatus" type="radio" value="Married"
+                                    formControlName="applicantMaritalStatus">
+                                    {{'pnv-invEntry.formA.married' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantDivorced" 
+                                    name="applicantMaritalStatus" type="radio" value="Divorced"
+                                    formControlName="applicantMaritalStatus">
+                                    {{'pnv-invEntry.formA.divorced' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantSeparated" 
+                                    name="applicantMaritalStatus" type="radio" value="Separated"
+                                    formControlName="applicantMaritalStatus">
+                                    {{'pnv-invEntry.formA.separated' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantWidowed" 
+                                    name="applicantMaritalStatus" type="radio" value="Widowed"
+                                    formControlName="applicantMaritalStatus">
+                                    {{'pnv-invEntry.formA.widowed' | translate}}</label>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row"> 
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.applicantHkidNo' | translate}}</label>
+                            <div class="col-xs-8">
+                                <input id="applicantHkidNo1" class="form-control all-caps" type="text" maxlength="8"
+                                formControlName="applicantHkidNo1">
+                            </div>
+                            <div class="col-xs-4">
+                            <div class="hkbracket">
+                                <input id="applicantHkidNo2" class="form-control all-caps" type="text" maxlength="1"
+                                formControlName="applicantHkidNo2">
+                            </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.travelDocType' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantTravelDocType" name="applicantTravelDocType" style="width: 333px"
+                                        class="form-control datePickerDate" type="text" formControlName="applicantTravelDocType">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.travelDocType' | translate}}
+                                        </option>
+                                        <option value='00' selected> Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.travelDocValue' | translate}}</label>
+                            <input id="applicantTravelDocValue" name="applicantTravelDocValue" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantTravelDocValue">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.travelDocIssueDate' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantDoiDay" name="applicantDoiDay" class="form-control datePickerDate" 
+                                    type="text" formControlName="applicantDoiDay">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantDoiMonth" name="applicantDoiMonth"
+                                        class="form-control datePickerMonth" type="text" formControlName="applicantDoiMonth"
+                                        (blur)="onMonthYearChange('applicantDoiDay','applicantDoiMonth','applicantDoiYear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="applicantDoiYear" name="applicantDoiYear"
+                                        class="form-control datePickerYear " type="text" formControlName="applicantDoiYear"
+                                        (blur)="onMonthYearChange('applicantDoiDay','applicantDoiMonth','applicantDoiYear')">
+                                        <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.dateOfExpiry' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantDoeDay" name="applicantDoeDay" class="form-control datePickerDate" 
+                                    type="text" formControlName="applicantDoeDay">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantDoeMonth" name="applicantDoeMonth"
+                                        class="form-control datePickerMonth" type="text" formControlName="applicantDoeMonth"
+                                        (blur)="onMonthYearChange('applicantDoeDay','applicantDoeMonth','applicantDoeYear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="applicantDoeYear" name="applicantDoeYear"
+                                        class="form-control datePickerYear " type="text" formControlName="applicantDoeYear"
+                                        (blur)="onMonthYearChange('applicantDoeDay','applicantDoeMonth','applicantDoeYear')">
+                                        <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.travelDocIssuePlace' | translate}}</label>
+                            <input id="applicantTravelDocIssuePlace" name="applicantTravelDocIssuePlace" maxlength="6"  
+                            class="form-control all-caps" type="text" formControlName="applicantTravelDocIssuePlace">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.email' | translate}}</label>
+                            <input id="applicantEMail" name="applicantEMail" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantEMail">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.phoneNo' | translate}}</label>
+                            <input id="applicantPhoneNo" name="applicantPhoneNo" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantPhoneNo">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.faxNo' | translate}}</label>
+                            <input id="applicantFaxNo" name="applicantFaxNo" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantFaxNo">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.country' | translate}}</label>
+                            <input id="applicantCountry" name="applicantCountry" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantCountry">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.applicantAcquiredPermanentResidence' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="applicantAcquiredPermanentResidenceYes" 
+                                    name="applicantAcquiredPermanentResidence" type="radio" value="Yes"
+                                    formControlName="applicantAcquiredPermanentResidence">
+                                    {{'pnv-invEntry.formA.yes' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantAcquiredPermanentResidenceNo" 
+                                    name="applicantAcquiredPermanentResidence" type="radio" value="No"
+                                    formControlName="applicantAcquiredPermanentResidence">
+                                    {{'pnv-invEntry.formA.no' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.lengthOfResidence' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="applicantLengthOfYears" name="applicantLengthOfYears" style="width: 85px" class="form-control datePickerDate" 
+                                    type="text" formControlName="applicantLengthOfYears">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.lengthOfYears' | translate}}
+                                        </option>
+                                        <option value='00' selected> Year(s) </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantLengthOfMonths" name="applicantLengthOfMonths" style="width: 95px"
+                                        class="form-control datePickerMonth" type="text" formControlName="applicantLengthOfMonths">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.lengthOfMonths' | translate}}
+                                        </option>
+                                        <option value='00' selected> Month(s) </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.currentStaying' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="applicantCurrentStayingYes" 
+                                    name="applicantCurrentStaying" type="radio" value="Yes"
+                                    formControlName="applicantCurrentStaying">
+                                    {{'pnv-invEntry.formA.yes' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantCurrentStayingNo" 
+                                    name="applicantCurrentStaying" type="radio" value="No"
+                                    formControlName="applicantCurrentStaying">
+                                    {{'pnv-invEntry.formA.no' | translate}}</label>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.permittedDate' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantPDDay" name="applicantPDDay" class="form-control datePickerDate" 
+                                    type="text" formControlName="applicantPDDay">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantPDMonth" name="applicantPDMonth"
+                                        class="form-control datePickerMonth" type="text" formControlName="applicantPDMonth"
+                                        (blur)="onMonthYearChange('applicantPDDay','applicantPDMonth','applicantPDYear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="applicantPDYear" name="applicantPDYear"
+                                        class="form-control datePickerYear " type="text" formControlName="applicantPDYear"
+                                        (blur)="onMonthYearChange('applicantPDDay','applicantPDMonth','applicantPDYear')">
+                                        <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.status' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="applicantStudent" 
+                                    name="applicantStatus"  type="radio" value="Student"
+                                    formControlName="applicantStatus">
+                                    {{'pnv-invEntry.formA.student' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantEmployment" 
+                                    name="applicantStatus"  type="radio" value="Employment"
+                                    formControlName="applicantStatus">
+                                    {{'pnv-invEntry.formA.employment' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantResidence" 
+                                    name="applicantStatus"  type="radio" value="Residence"
+                                    formControlName="applicantStatus">
+                                    {{'pnv-invEntry.formA.residence' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantVisitor" 
+                                    name="applicantStatus"  type="radio" value="Visitor"
+                                    formControlName="applicantStatus">
+                                    {{'pnv-invEntry.formA.visitor' | translate}}</label>
+                                <label class="checkbox-inline"><input id="applicantOthers" 
+                                    name="applicantStatus" type="radio" value="Others" 
+                                    formControlName="applicantStatus">
+                                    {{'pnv-invEntry.formA.others' | translate}}</label>
+                                <input id="applicantStatusOthers" class="form-control all-caps" type="text" 
+                                formControlName="applicantStatusOthers" maxlength="50">
+                            </div>
+                        </div>
+                      </div >
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.presentAddress' | translate}}</label>
+                            <input id="presentAddress1" name="presentAddress1" class="form-control address" 
+                            type="text" formControlName="presentAddress1">
+                            <input id="presentAddress2" name="presentAddress2" class="form-control address" 
+                            type="text" formControlName="presentAddress2">
+                            <input id="presentAddress3" name="presentAddress3" class="form-control address" 
+                            type="text" formControlName="presentAddress3">
+                            <input id="presentAddress4" name="presentAddress4" class="form-control address" 
+                            type="text" formControlName="presentAddress4">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.permanentAddress' | translate}}</label>
+                            <input id="permanentAddress1" name="permanentAddress1" class="form-control address" 
+                            type="text" formControlName="permanentAddress1">
+                            <input id="permanentAddress2" name="permanentAddress2" class="form-control address" 
+                            type="text" formControlName="permanentAddress2">
+                            <input id="permanentAddress3" name="permanentAddress3" class="form-control address" 
+                            type="text" formControlName="permanentAddress3">
+                            <input id="permanentAddress4" name="permanentAddress4" class="form-control address" 
+                            type="text" formControlName="permanentAddress4">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 1-->
+  
+                  <!-- Part 2 - Employer's Information -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-invEntry.formA.part2Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.proposedDate' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantProposedDateOfEntryDay" name="applicantProposedDateOfEntryDay" class="form-control datePickerDate" 
+                                    type="text" formControlName="applicantProposedDateOfEntryDay">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="applicantProposedDateOfEntryMonth" name="applicantProposedDateOfEntryMonth"
+                                        class="form-control datePickerMonth" type="text" formControlName="applicantProposedDateOfEntryMonth"
+                                        (blur)="onMonthYearChange('applicantProposedDateOfEntryDay','applicantProposedDateOfEntryMonth','applicantProposedDateOfEntryYear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="applicantProposedDateOfEntryYear" name="applicantProposedDateOfEntryYear"
+                                        class="form-control datePickerYear " type="text" formControlName="applicantProposedDateOfEntryYear"
+                                        (blur)="onMonthYearChange('applicantProposedDateOfEntryDay','applicantProposedDateOfEntryMonth','applicantProposedDateOfEntryYear')">
+                                        <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.proposedDuration' | translate}}</label>
+                            <input id="applicantProposedDuration" name="applicantProposedDuration" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="applicantProposedDuration">
+                        </div>  
+                      </div>                      
+                    </div>
+                  </div>
+                  <!-- End of Part 2 -->
+                  <!-- Part 3 - Accompanying Dependents (Spouse and unmarried dependant children under the age of 18) -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                      <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-invEntry.formA.part3Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.dependantsNo' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dependantsNo" name="dependantsNo" style="width: 90px"
+                                        class="form-control datePickerDate" type="text" formControlName="dependantsNo">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.dependantsNo' | translate}}
+                                        </option>
+                                        <option value='00' selected> 1 </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                      <br>
+                      <br>
+                      <label class="control-label">{{'pnv-invEntry.formA.dependantStatement' | translate}}</label>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.engSurName' | translate}}</label>
+                          <input id="dependantEngSurName" name="dependantEngSurName" maxlength="6" class="form-control all-caps"
+                              type="text" formControlName="dependantEngSurName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.engGivenName' | translate}}</label>
+                            <input id="dependantEngGivenName" name="dependantEngGivenName" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="dependantEngGivenName">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="control-label">{{'pnv-invEntry.formA.chiName' | translate}}</label>
+                          <input id="dependantChiName" name="dependantChiName" maxlength="6" class="form-control all-caps"
+                              type="text" formControlName="dependantChiName">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.alias' | translate}}</label>
+                            <input id="dependantAlias" name="dependantAlias" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="dependantAlias">
+                        </div>
+                      </div>
+                      <div class="row">              
+                        <div id="sex" class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.sex' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="dependantMale" 
+                                    name="dependantSex" type="checkbox" value="Male"
+                                    formControlName="dependantSex">
+                                    {{'pnv-invEntry.formA.male' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantFemale" 
+                                    name="dependantSex" type="checkbox" value="Female"
+                                    formControlName="dependantSex">
+                                    {{'pnv-invEntry.formA.female' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.dob' | translate}}</label>
+                          <div class="flex-container">
+                            <div class="col-md-3" style="padding-left: 0px;">
+                                <select id="dependantDobDay" name="dependantDobDay" class="form-control datePickerDate" 
+                                type="text" formControlName="dependantDobDay">
+                                    <option value='' disabled selected>
+                                        {{'pnv-invEntry.formA.day' | translate}}
+                                    </option>
+                                    <option value='00' selected> DD </option>
+                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                        {{day}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3" style="padding-left: 0px;">
+                                <select id="dependantDobMonth" name="dependantDobMonth"
+                                    class="form-control datePickerMonth" type="text" formControlName="dependantDobMonth"
+                                    (blur)="onMonthYearChange('dependantDobDay','dependantDobMonth','dependantDobYear')">
+                                    <option value='' disabled selected>
+                                        {{'pnv-invEntry.formA.month' | translate}}
+                                    </option>
+                                    <option value='00' selected> MM </option>
+                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                        {{month}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" style="padding-left: 0px;">
+                                <select id="dependantDobYear" name="dependantDobYear"
+                                    class="form-control datePickerYear " type="text" formControlName="dependantDobYear"
+                                    (blur)="onMonthYearChange('dependantDobDay','dependantDobMonth','dependantDobYear')">
+                                    <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                    <option value='0000' selected> YYYY </option>
+                                    <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                </select>
+                            </div> 
+                          </div>
+                        </div>
+                      </div> 
+                      <div class="row">              
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.placeOfBirth' | translate}}</label>
+                          <input id="dependantPlaceOfBirth" name="dependantPlaceOfBirth" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="dependantPlaceOfBirth">
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-invEntry.formA.nationality' | translate}}</label>
+                          <input id="dependantNationality" name="dependantNationality" maxlength="6"  class="form-control all-caps"
+                          type="text" formControlName="dependantNationality">
+                        </div>
+                      </div> 
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.relationship' | translate}}</label>
+                            <input id="dependantRelationship" name="dependantRelationship" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="dependantRelationship">
+                        </div>
+                    </div> 
+                    <div class="row">
+                        <div id="dependantMaritalStatus" class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.maritalStatus' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="dependantBachelor" 
+                                    name="dependantMaritalStatus" type="radio" value="Bachelor"
+                                    formControlName="dependantMaritalStatus">
+                                    {{'pnv-invEntry.formA.bachelor' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantMarried" 
+                                    name="dependantMaritalStatus" type="radio" value="Married"
+                                    formControlName="dependantMaritalStatus">
+                                    {{'pnv-invEntry.formA.married' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantDivorced" 
+                                    name="dependantMaritalStatus" type="radio" value="Divorced"
+                                    formControlName="dependantMaritalStatus">
+                                    {{'pnv-invEntry.formA.divorced' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantSeparated" 
+                                    name="dependantMaritalStatus" type="radio" value="Separated"
+                                    formControlName="dependantMaritalStatus">
+                                    {{'pnv-invEntry.formA.separated' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantWidowed" 
+                                    name="dependantMaritalStatus" type="radio" value="Widowed"
+                                    formControlName="dependantMaritalStatus">
+                                    {{'pnv-invEntry.formA.widowed' | translate}}</label>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.travelDocType' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dependantTravelDocType" name="dependantTravelDocType" style="width: 333px"
+                                        class="form-control datePickerDate" type="text" formControlName="dependantTravelDocType">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.travelDocType' | translate}}
+                                        </option>
+                                        <option value='00' selected> Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.travelDocValue' | translate}}</label>
+                            <input id="dependantTravelDocValue" name="dependantTravelDocValue" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="dependantTravelDocValue">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.mainlandIDCardNo' | translate}}</label>
+                            <input id="dependantMainlandidNo" name="dependantMainlandidNo" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="dependantMainlandidNo">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.dependantCurrentStaying' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="dependantCurrentStayingYes" 
+                                    name="dependantCurrentStaying" type="radio" value="Yes"
+                                    formControlName="dependantCurrentStaying">
+                                    {{'pnv-invEntry.formA.yes' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantCurrentStayingNo" 
+                                    name="dependantCurrentStaying" type="radio" value="No"
+                                    formControlName="dependantCurrentStaying">
+                                    {{'pnv-invEntry.formA.no' | translate}}</label>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.permittedDate' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dependantPDDay" name="dependantPDDay" class="form-control datePickerDate" 
+                                    type="text" formControlName="dependantPDDay">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> DD </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dependantPDMonth" name="dependantPDMonth"
+                                        class="form-control datePickerMonth" type="text" formControlName="dependantPDMonth"
+                                        (blur)="onMonthYearChange('dependantPDDay','dependantPDMonth','dependantPDYear')">
+                                        <option value='' disabled selected>
+                                            {{'pnv-invEntry.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> MM </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="dependantPDYear" name="dependantPDYear"
+                                        class="form-control datePickerYear " type="text" formControlName="dependantPDYear"
+                                        (blur)="onMonthYearChange('dependantPDDay','dependantPDMonth','dependantPDYear')">
+                                        <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                        <option value='0000' selected> YYYY </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                    </select>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.status' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="dependantStudent" 
+                                    name="dependantStatus" type="radio" value="Student"
+                                    formControlName="dependantStatus">
+                                    {{'pnv-invEntry.formA.student' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantEmployment" 
+                                    name="dependantStatus" type="radio" value="Employment"
+                                    formControlName="dependantStatus">
+                                    {{'pnv-invEntry.formA.employment' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantResidence" 
+                                    name="dependantStatus"type="radio" value="Residence"
+                                    formControlName="dependantStatus">
+                                    {{'pnv-invEntry.formA.residence' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantVisitor" 
+                                    name="dependantStatus" type="radio" value="Visitor"
+                                    formControlName="dependantStatus">
+                                    {{'pnv-invEntry.formA.visitor' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependantOthers" 
+                                    name="dependantStatus" type="radio" value="Others"
+                                    formControlName="dependantStatus">
+                                    {{'pnv-invEntry.formA.others' | translate}}</label>
+                                <input id="dependantStatusOthers" class="form-control all-caps" type="text" maxlength="50" 
+                                formControlName="dependantStatusOthers">
+                            </div>
+                        </div>
+                      </div >
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.dependantHkidNo' | translate}}</label>
+                            <div class="col-xs-8">
+                                <input id="dependantHkidNo1" class="form-control all-caps" 
+                                type="text" maxlength="8" formControlName="dependantHkidNo1">
+                            </div>
+                            <div class="col-xs-4">
+                            <div class="hkbracket">
+                                <input id="dependantHkidNo2" class="form-control all-caps" 
+                                type="text" maxlength="1" formControlName="dependantHkidNo2">
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.country' | translate}}</label>
+                            <input id="dependantCountry" name="dependantCountry" maxlength="6"  class="form-control all-caps"
+                            type="text" formControlName="dependantCountry">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-invEntry.formA.dependentAcquiredPermanentResidence' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="dependentAcquiredPermanentResidenceYes" 
+                                    name="dependentAcquiredPermanentResidence" type="radio" value="Yes"
+                                    formControlName="dependentAcquiredPermanentResidence">
+                                    {{'pnv-invEntry.formA.yes' | translate}}</label>
+                                <label class="checkbox-inline"><input id="dependentAcquiredPermanentResidenceNo" 
+                                    name="dependentAcquiredPermanentResidence" type="radio" value="No"
+                                    formControlName="dependentAcquiredPermanentResidence">
+                                    {{'pnv-invEntry.formA.no' | translate}}</label>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 3-->
+  
+                  <!-- Part 4 - Academic/ Professional Qualifications -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                      <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-invEntry.formA.part4Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-invEntry.formA.academicQualifications' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameOfSchool' | translate}}</label>
+                              <input id="nameOfSchool1" name="nameOfSchool1" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfSchool1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.majorSubject' | translate}}</label>
+                              <input id="majorSubject1" name="majorSubject1" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="majorSubject1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.degree' | translate}}</label>
+                                <input id="degree1" name="degree1" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="degree1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfStudy' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromMonth1" name="fromMonth1" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="fromMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromYear1" name="fromYear1" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="fromYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toMonth1" name="toMonth1" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="toMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toYear1" name="toYear1" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="toYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameOfSchool' | translate}}</label>
+                              <input id="nameOfSchool2" name="nameOfSchool2" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfSchool2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.majorSubject' | translate}}</label>
+                              <input id="majorSubject2" name="majorSubject2" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="majorSubject2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.degree' | translate}}</label>
+                                <input id="degree2" name="degree2" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="degree2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfStudy' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromMonth2" name="fromMonth2" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="fromMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromYear2" name="fromYear2" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="fromYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toMonth2" name="toMonth2" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="toMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toYear2" name="toYear2" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="toYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameOfSchool' | translate}}</label>
+                              <input id="nameOfSchool3" name="nameOfSchool3" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfSchool3">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.majorSubject' | translate}}</label>
+                              <input id="majorSubject3" name="majorSubject3" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="majorSubject3">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.degree' | translate}}</label>
+                                <input id="degree3" name="degree3" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="degree3">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfStudy' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromMonth3" name="fromMonth3" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="fromMonth3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromYear3" name="fromYear3" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="fromYear3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toMonth3" name="toMonth3" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="toMonth3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toYear3" name="toYear3" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="toYear3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameOfSchool' | translate}}</label>
+                              <input id="nameOfSchool4" name="nameOfSchool4" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfSchool4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.majorSubject' | translate}}</label>
+                              <input id="majorSubject4" name="majorSubject4" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="majorSubject4">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.degree' | translate}}</label>
+                                <input id="degree4" name="degree4" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="degree4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfStudy' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromMonth4" name="fromMonth4" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="fromMonth4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="fromYear4" name="fromYear4" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="fromYear4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toMonth4" name="toMonth4" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="toMonth4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="toYear4" name="toYear4" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="toYear4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-invEntry.formA.professtional' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.professionalTechnicalQualification' | translate}}</label>
+                                <input id="professional1" name="professional1" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="professional1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.issuingAuthority' | translate}}</label>
+                                <input id="issuingAuthority1" name="issuingAuthority1" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="issuingAuthority1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.doi' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalDay1" name="applicantProfessionalDay1" class="form-control datePickerDate" 
+                                            type="text" formControlName="applicantProfessionalDay1">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> DD </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalMonth1" name="applicantProfessionalMonth1"
+                                                class="form-control datePickerMonth" type="text" formControlName="applicantProfessionalMonth1"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay1','applicantProfessionalMonth1','applicantProfessionalYear1')">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> MM </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalYear1" name="applicantProfessionalYear1"
+                                                class="form-control datePickerYear " type="text" formControlName="applicantProfessionalYear1"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay1','applicantProfessionalMonth1','applicantProfessionalYear1')">
+                                                <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                                <option value='0000' selected> YYYY </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.professionalTechnicalQualification' | translate}}</label>
+                                <input id="professional2" name="professional2" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="professional2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.issuingAuthority' | translate}}</label>
+                                <input id="issuingAuthority2" name="issuingAuthority2" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="issuingAuthority2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.doi' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalDay2" name="applicantProfessionalDay2" class="form-control datePickerDate" 
+                                            type="text" formControlName="applicantProfessionalDay2">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> DD </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalMonth2" name="applicantProfessionalMonth2"
+                                                class="form-control datePickerMonth" type="text" formControlName="applicantProfessionalMonth2"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay2','applicantProfessionalMonth2','applicantProfessionalYear2')">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> MM </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalYear2" name="applicantProfessionalYear2"
+                                                class="form-control datePickerYear " type="text" formControlName="applicantProfessionalYear2"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay2','applicantProfessionalMonth2','applicantProfessionalYear2')">
+                                                <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                                <option value='0000' selected> YYYY </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.professionalTechnicalQualification' | translate}}</label>
+                                <input id="professional3" name="professional3" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="professional3">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.issuingAuthority' | translate}}</label>
+                                <input id="issuingAuthority3" name="issuingAuthority3" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="issuingAuthority3">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.doi' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalDay3" name="applicantProfessionalDay3" class="form-control datePickerDate" 
+                                            type="text" formControlName="applicantProfessionalDay3">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> DD </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalMonth3" name="applicantProfessionalMonth3"
+                                                class="form-control datePickerMonth" type="text" formControlName="applicantProfessionalMonth3"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay3','applicantProfessionalMonth3','applicantProfessionalYear3')">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> MM </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalYear3" name="applicantProfessionalYear3"
+                                                class="form-control datePickerYear " type="text" formControlName="applicantProfessionalYear3"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay3','applicantProfessionalMonth3','applicantProfessionalYear3')">
+                                                <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                                <option value='0000' selected> YYYY </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.professionalTechnicalQualification' | translate}}</label>
+                                <input id="professional4" name="professional4" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="professional4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">   
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.issuingAuthority' | translate}}</label>
+                                <input id="issuingAuthority4" name="issuingAuthority4" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="issuingAuthority4">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.doi' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalDay4" name="applicantProfessionalDay4" class="form-control datePickerDate" 
+                                            type="text" formControlName="applicantProfessionalDay4">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> DD </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalMonth4" name="applicantProfessionalMonth4"
+                                                class="form-control datePickerMonth" type="text" formControlName="applicantProfessionalMonth4"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay4','applicantProfessionalMonth4','applicantProfessionalYear4')">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-invEntry.formA.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> MM </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="applicantProfessionalYear4" name="applicantProfessionalYear4"
+                                                class="form-control datePickerYear " type="text" formControlName="applicantProfessionalYear4"
+                                                (blur)="onMonthYearChange('applicantProfessionalDay4','applicantProfessionalMonth4','applicantProfessionalYear4')">
+                                                <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                                <option value='0000' selected> YYYY </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                            </select>
+                                        </div> 
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 4-->
+
+                  <!-- Part 5 - Employment Record (in chronological order) -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-invEntry.formA.part5Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.employmentRemarks' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameAndAddressOfCompany' | translate}}</label>
+                              <input id="nameAndAddressOfCompany1" name="nameAndAddressOfCompany1" maxlength="500" class="form-control all-caps" 
+                              type="text" formControlName="nameAndAddressOfCompany1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.position' | translate}}</label>
+                                <input id="position1" name="position1" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="position1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.natureOfDuties' | translate}}</label>
+                              <input id="natureOfDuties1" name="natureOfDuties1" maxlength="500" class="form-control all-caps" 
+                              type="text" formControlName="natureOfDuties1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfEmployment' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromMonth1" name="employmentFromMonth1" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentFromMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromYear1" name="employmentFromYear1" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentFromYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToMonth1" name="employmentToMonth1" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentToMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToYear1" name="employmentToYear1" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentToYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameAndAddressOfCompany' | translate}}</label>
+                              <input id="nameAndAddressOfCompany2" name="nameAndAddressOfCompany2" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameAndAddressOfCompany2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.position' | translate}}</label>
+                                <input id="position2" name="position2" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="position2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.natureOfDuties' | translate}}</label>
+                              <input id="natureOfDuties2" name="natureOfDuties2" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="natureOfDuties2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfEmployment' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromMonth2" name="employmentFromMonth2" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentFromMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromYear2" name="employmentFromYear2" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentFromYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToMonth2" name="employmentToMonth2" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentToMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToYear2" name="employmentToYear2" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentToYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameAndAddressOfCompany' | translate}}</label>
+                              <input id="nameAndAddressOfCompany3" name="nameAndAddressOfCompany3" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameAndAddressOfCompany3">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.position' | translate}}</label>
+                                <input id="position3" name="position3" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="position3">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.natureOfDuties' | translate}}</label>
+                              <input id="natureOfDuties3" name="natureOfDuties3" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="natureOfDuties3">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfEmployment' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromMonth3" name="employmentFromMonth3" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentFromMonth3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromYear3" name="employmentFromYear3" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentFromYear3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToMonth3" name="employmentToMonth3" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentToMonth3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToYear3" name="employmentToYear3" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentToYear3">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.nameAndAddressOfCompany' | translate}}</label>
+                              <input id="nameAndAddressOfCompany4" name="nameAndAddressOfCompany4" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameAndAddressOfCompany4">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.position' | translate}}</label>
+                                <input id="position4" name="position4" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="position4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'pnv-invEntry.formA.natureOfDuties' | translate}}</label>
+                              <input id="natureOfDuties4" name="natureOfDuties4" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="natureOfDuties4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.periodOfEmployment' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromMonth4" name="employmentFromMonth4" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentFromMonth4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentFromYear4" name="employmentFromYear4" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentFromYear4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToMonth4" name="employmentToMonth4" style="width: 60px"
+                                            class="form-control datePickerMonth" type="text" formControlName="employmentToMonth4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="employmentToYear4" name="employmentToYear4" style="width: 60px"
+                                            class="form-control datePickerDate" type="text" formControlName="employmentToYear4">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.year' | translate}}
+                                            </option>
+                                            <option value='00' selected> YY </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                  </div>
+
+                  <!-- End of Part 5-->
+
+                  <!-- Part 6 - Application For Investment -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-invEntry.formA.part6Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.governmentBackedProgramme' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="governmentBackedProgrammeYes" 
+                                        name="governmentBackedProgramme" type="radio" value="Yes"
+                                        formControlName="governmentBackedProgramme">
+                                        {{'pnv-invEntry.formA.yesProvideSupporting' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="governmentBackedProgrammeNo" 
+                                        name="governmentBackedProgramme" type="radio" value="No"
+                                        formControlName="governmentBackedProgramme">
+                                        {{'pnv-invEntry.formA.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.nameOfsupporingOrganisation' | translate}}</label>
+                                <input id="nameOfSupporingOrganisation" name="nameOfSupporingOrganisation" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfSupporingOrganisation">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.nameOfProgramme' | translate}}</label>
+                                <input id="nameOfProgramme" name="nameOfProgramme" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfProgramme">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.note' | translate}}</label>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.companyParticulars' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.nameOfCompany' | translate}}</label>
+                                <input id="nameOfCompany" name="nameOfCompany" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="nameOfCompany">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.dateOfEstablishment' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="companyEstablismentDateDay" name="companyEstablismentDateDay" class="form-control datePickerDate" 
+                                        type="text" formControlName="companyEstablismentDateDay">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> DD </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="companyEstablismentDateMonth" name="companyEstablismentDateMonth"
+                                            class="form-control datePickerMonth" type="text" formControlName="companyEstablismentDateMonth"
+                                            (blur)="onMonthYearChange('companyEstablismentDateDay','companyEstablismentDateMonth','companyEstablismentDateYear')">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> MM </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="companyEstablismentDateYear" name="companyEstablismentDateYear"
+                                            class="form-control datePickerYear " type="text" formControlName="companyEstablismentDateYear"
+                                            (blur)="onMonthYearChange('companyEstablismentDateDay','companyEstablismentDateMonth','companyEstablismentDateYear')">
+                                            <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                            <option value='0000' selected> YYYY </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                        </select>
+                                    </div> 
+                                </div>
+                              </div>
+                        </div>
+                        <div class="row">
+                            <div id="companyType" class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.companyType' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="soleProprietorship" 
+                                        name="companyType" type="radio" value="soleProprietorship"
+                                        formControlName="companyType">
+                                        {{'pnv-invEntry.formA.soleProprietorship' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="partnership"
+                                        name="companyType" type="radio" value="partnership"
+                                        formControlName="companyType">
+                                        {{'pnv-invEntry.formA.partnership' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="limitedCompany" 
+                                        name="companyType" type="radio" value="limitedCompany"
+                                        formControlName="companyType">
+                                        {{'pnv-invEntry.formA.limitedCompany' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label
+                                    class="control-label">{{'pnv-invEntry.formA.nameOfParentCompany' | translate}}</label>
+                                <input id="nameOfParentCompany" name="nameOfParentCompany" maxlength="500"
+                                    class="form-control all-caps" type="text" formControlName="nameOfParentCompany">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.capitalShareholdersAndAllotments' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.capital' | translate}}</label>
+                                <input id="capital" name="capital" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="capital">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.authorisedCapital' | translate}}</label>
+                                <input id="authorisedCapital" name="authorisedCapital" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="authorisedCapital">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.paidUpCapital' | translate}}</label>
+                                <input id="paidUpCapital" name="paidUpCapital" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="paidUpCapital">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.shareholders' | translate}}</label>
+                                <input id="shareholders" name="shareholders" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="shareholders">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.directors' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.directorNo' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="directorNo" name="directorNo" style="width: 90px" class="form-control datePickerDate" 
+                                        type="text" formControlName="directorNo">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.directorNo' | translate}}
+                                            </option>
+                                            <option value='00' selected> 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.name' | translate}}</label>
+                                <input id="directorName" name="directorName" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="directorName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.applicantHkidNo' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="directorHkid1" class="form-control all-caps" type="text" maxlength="8" formControlName="directorHkid1">
+                                </div>
+                                <div class="col-xs-4">
+                                <div class="hkbracket">
+                                    <input id="directorHkid2" class="form-control all-caps" type="text" maxlength="1" formControlName="directorHkid2">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.office' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="office" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.office' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="existing" 
+                                        name="isOfficeExist" type="checkbox" value="existing"
+                                        formControlName="isOfficeExist">
+                                        {{'pnv-invEntry.formA.existing' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="toBeSetUp" 
+                                        name="isOfficeExist" type="checkbox" value="toBeSetUp"
+                                        formControlName="isOfficeExist">
+                                        {{'pnv-invEntry.formA.toBeSetUp' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.areaSize' | translate}}</label>
+                                <input id="areaSize" name="areaSize" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="areaSize">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.monthlyRent' | translate}}</label>
+                                <input id="monthlyRent" name="monthlyRent" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="monthlyRent">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.purchasePrice' | translate}}</label>
+                                <input id="purchasePrice" name="purchasePrice" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="purchasePrice">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.address' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-invEntry.formA.addressRoom' | translate}}</label>
+                              <input id="addressRoom" name="addressRoom" class="form-control address" 
+                              type="text" formControlName="addressRoom">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-invEntry.formA.addressFloor' | translate}}</label>
+                              <input id="address2" name="address2" class="form-control address" 
+                              type="text" formControlName="addressFloor">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-invEntry.formA.addressBlock' | translate}}</label>
+                              <input id="addressBlock" name="addressBlock" class="form-control address" 
+                              type="text" formControlName="addressBlock">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-invEntry.formA.addressBuilding' | translate}}</label>
+                              <input id="addressBuilding" name="addressBuilding" class="form-control address" 
+                              type="text" formControlName="addressBuilding">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-invEntry.formA.addressEstate' | translate}}</label>
+                              <input id="addressEstate" name="addressEstate" class="form-control address" 
+                              type="text" formControlName="addressEstate">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-invEntry.formA.addressStreet' | translate}}</label>
+                              <input id="addressStreet" name="addressStreet" class="form-control address" 
+                              type="text" formControlName="addressStreet">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-invEntry.formA.addressDistrict' | translate}}</label>
+                            <select id="addressDistrict" name="addressDistrict" class="form-control" 
+                            type="text" formControlName="addressDistrict">
+                              <option value='' disabled selected>Please select</option>
+                            </select>
+                            </div>
+                          </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.natureOfBusiness' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.industry' | translate}}</label>
+                                <input id="industry" name="industry" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="industry">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.service' | translate}}</label>
+                                <input id="service" name="service" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="service">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.trading' | translate}}</label>
+                                <input id="trading" name="trading" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="trading">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.othersPleaseState' | translate}}</label>
+                                <input id="othersPleaseState" name="othersPleaseState" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="othersPleaseState">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.modeOfOperation' | translate}}</label>
+                                <input id="modeOfOperation" name="modeOfOperation" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="modeOfOperation">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.financialSituationOfCompany' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.currentAccount' | translate}}</label>
+                                <input id="companyCurrentAccount" name="companyCurrentAccount" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="companyCurrentAccount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.savingsAccount' | translate}}</label>
+                                <input id="companySavingsAccount" name="companySavingsAccount" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="companySavingsAccount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.timeDepositAccount' | translate}}</label>
+                                <input id="companyTimeDepositAccount" name="companyTimeDepositAccount" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="companyTimeDepositAccount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.bankFinancing' | translate}}</label>
+                                <input id="companyBankFinancing" name="companyBankFinancing" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="companyBankFinancing">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.amountOfProfits' | translate}}</label>
+                                <input id="companyProfitsTax" name="companyProfitsTax" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="companyProfitsTax">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.financialSituationOfApplicant' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.currentAccount' | translate}}</label>
+                                <input id="applicantCurrentAccount" name="applicantCurrentAccount" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="applicantCurrentAccount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.savingsAccount' | translate}}</label>
+                                <input id="applicantSavingsAccount" name="applicantSavingsAccount" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="applicantSavingsAccount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.timeDepositAccount' | translate}}</label>
+                                <input id="applicantTimeDepositAccount" name="applicantTimeDepositAccount" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="applicantTimeDepositAccount">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.overdraft' | translate}}</label>
+                                <input id="applicantOverdraft" name="applicantOverdraft" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="applicantOverdraft">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.staffingSituation' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.existingStaffInHKNo' | translate}}</label>
+                                <input id="existingStaffInHkNo" name="existingStaffInHkNo" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="existingStaffInHkNo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.existingStaffOutsideHKNo' | translate}}</label>
+                                <input id="existingStaffoutsideHkNo" name="existingStaffoutsideHkNo" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="existingStaffoutsideHkNo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.staffAndPostInTheComingYearInHKNo' | translate}}</label>
+                                <input id="staffAndPostInHkInComingYear" name="staffAndPostInHkInComingYear" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="staffAndPostInHkInComingYear">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.businessConnections' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.hk' | translate}}</label>
+                                <input id="businessConnectionsHk" name="businessConnectionsHk" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="businessConnectionsHk">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.overseas' | translate}}</label>
+                                <input id="businessConnectionsOverseas" name="businessConnectionsOverseas" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="businessConnectionsOverseas">
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.cooperationWithLocalManufacturers' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="cooperationWithLocalManufacturersYes" 
+                                        name="cooperationWithLocalManufacturers" type="radio" value="Yes"
+                                        formControlName="cooperationWithLocalManufacturers">
+                                        {{'pnv-invEntry.formA.yesProvideInformation' | translate}}</label>
+                                        <input id="yesProvideInformation" name="yesProvideInformation" maxlength="500"
+                                            class="form-control all-caps" type="text">
+                                    <label class="checkbox-inline"><input id="cooperationWithLocalManufacturersNo" 
+                                        name="cooperationWithLocalManufacturers" type="radio" value="No"
+                                        formControlName="cooperationWithLocalManufacturers">
+                                        {{'pnv-invEntry.formA.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.businessSituation' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.turnoverAsAtLastMonth' | translate}}</label>
+                                <input id="turnoverAsAtLastMonth" name="turnoverAsAtLastMonth" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="turnoverAsAtLastMonth">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.estimatedTurnoverInTheComingYear' | translate}}</label>
+                                <input id="estimatedTurnoverInTheComingYear" name="estimatedTurnoverInTheComingYear" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="estimatedTurnoverInTheComingYear">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.commencementDate' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="commencementOfBusinessDateDay" name="commencementOfBusinessDateDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="commencementOfBusinessDateDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-invEntry.formA.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="commencementOfBusinessDateMonth" name="commencementOfBusinessDateMonth"
+                                          class="form-control datePickerMonth" type="text" formControlName="commencementOfBusinessDateMonth"
+                                          (blur)="onMonthYearChange('commencementOfBusinessDateDay','commencementOfBusinessDateMonth','commencementOfBusinessDateYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-invEntry.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="commencementOfBusinessDateYear" name="commencementOfBusinessDateYear"
+                                          class="form-control datePickerYear " type="text" formControlName="commencementOfBusinessDateYear"
+                                          (blur)="onMonthYearChange('commencementOfBusinessDateDay','commencementOfBusinessDateMonth','commencementOfBusinessDateYear')">
+                                          <option value='' disabled selected>{{'pnv-invEntry.formA.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                              </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="row"> 
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.contributionToTheEconomyOfHK' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.amountOfCapitalInvested' | translate}}</label>
+                                <input id="amountOfCapitalInvested" name="amountOfCapitalInvested" maxlength="500"
+                                  class="form-control all-caps" type="text">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.postCreatedForLocalEmployeesNo' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="postsCreatedNo" name="postsCreatedNo" style="width: 90px" class="form-control datePickerDate" 
+                                        type="text" formControlName="postsCreatedNo">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.postCreatedForLocalEmployeesNo' | translate}}
+                                            </option>
+                                            <option value='00' selected> 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.postTitle' | translate}}</label>
+                                <input id="createdPostTitle" name="createdPostTitle" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="createdPostTitle">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.monthlySalary' | translate}}</label>
+                                <input id="createdMonthlySalary" name="createdMonthlySalary" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="createdMonthlySalary">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.postNo' | translate}}</label>
+                                <input id="createdPostsNo" name="createdPostsNo" maxlength="500" class="form-control all-caps" 
+                                type="text" formControlName="createdPostsNo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.estimatedAmountOfCapitalInTheComing2years' | translate}}</label>
+                                <input id="estimatedAmountOfCapitalInHkInTheComing2Years" name="estimatedAmountOfCapitalInHkInTheComing2Years" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="estimatedAmountOfCapitalInHkInTheComing2Years">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.estimatedPostNoInTheComing2Years' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="estimatedPostNoInTheComing2Years" name="estimatedPostNoInTheComing2Years" style="width: 90px" class="form-control datePickerDate" 
+                                        type="text" formControlName="estimatedPostNoInTheComing2Years">
+                                            <option value='' disabled selected>
+                                                {{'pnv-invEntry.formA.estimatedPostNoInTheComing2Years' | translate}}
+                                            </option>
+                                            <option value='00' selected> 1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.postTitle' | translate}}</label>
+                                <input id="estimatedPostTitle" name="estimatedPostTitle" maxlength="500" class="form-control all-caps" 
+                                  type="text" formControlName="estimatedPostTitle">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.monthlySalary' | translate}}</label>
+                                <input id="estimatedMonthlySalary" name="estimatedMonthlySalary" maxlength="500" class="form-control all-caps" 
+                                  type="text" formControlName="estimatedMonthlySalary">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.postNo' | translate}}</label>
+                                <input id="estimatedPostNoWithPostTitleInTheComing2Years" name="estimatedPostNoWithPostTitleInTheComing2Years" maxlength="500" class="form-control all-caps" 
+                                  type="text" formControlName="estimatedPostNoWithPostTitleInTheComing2Years">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.introductionOfBusinessIdeas' | translate}}</label>
+                                <input id="introduction" name="introduction" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="introduction">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-invEntry.formA.otherContribution' | translate}}</label>
+                                <input id="otherContribution" name="otherContribution" maxlength="500"
+                                  class="form-control all-caps" type="text" formControlName="otherContribution">
+                            </div>
+                        </div>
+
+                      </div>
+                  </div>
+                  <!-- End of Part 6-->
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

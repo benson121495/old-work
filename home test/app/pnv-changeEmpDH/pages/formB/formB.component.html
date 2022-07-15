@@ -1,0 +1,626 @@
+<div class="container">
+    <app-topbar [title]="'pnv-changeEmpDH.formB.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-changeEmpDH.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->    
+                  <!-- Part 1 -  -->
+				  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-changeEmpDH.formB.part1Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.sponsor' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.name' | translate}}</label>
+                                <input id="sponsorName" name="sponsorName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorName">
+							</div>
+							<div id="sponsorMaritalStatus" class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="sponsorMaritalStatus" type="radio" value="Single"
+                                        formControlName="sponsorMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="sponsorMaritalStatus" type="radio" value="Married"
+                                        formControlName="sponsorMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.married' | translate}}</label>
+                                </div>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorDobday" name="sponsorDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="sponsorDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorDobmonth" name="sponsorDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="sponsorDobmonth"
+                                          (blur)="onMonthYearChange('sponsorDobday','sponsorDobmonth','sponsorDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="sponsorDobyear" name="sponsorDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="sponsorDobyear" 
+                                          (blur)="onMonthYearChange('sponsorDobday','sponsorDobmonth','sponsorDobyear')">
+                                          <option value='' disabled selected>{{'pnv-changeEmpDH.formB.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.pob' | translate}}</label>
+                                <input id="sponsorPob" name="sponsorPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorPob">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.occupation' | translate}}</label>
+                                <input id="sponsorOccupation" name="sponsorOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorOccupation">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-changeEmpDH.formB.presentCountry' | translate}}</label>
+								<input id="sponsorPresentCountry" name="sponsorPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorPresentCountry">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-changeEmpDH.formB.residentialAddress' | translate}}</label>
+								<input id="sponsorResidentialAddress1" name="sponsorResidentialAddress1" class="form-control address" type="text"
+									formControlName="sponsorResidentialAddress1">
+								<input id="sponsorResidentialAddress2" name="sponsorResidentialAddress2" class="form-control address" type="text"
+									formControlName="sponsorResidentialAddress2">
+								<input id="sponsorResidentialAddress3" name="sponsorResidentialAddress3" class="form-control address" type="text"
+									formControlName="sponsorResidentialAddress3">
+								<input id="sponsorResidentialAddress4" name="sponsorResidentialAddress4" class="form-control address" type="text"
+									formControlName="sponsorResidentialAddress4">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.father' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.name' | translate}}</label>
+                                <input id="sponsorFatherName" name="sponsorFatherName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorFatherName">
+							</div>
+							<div id="sponsorFatherMaritalStatus" class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="sponsorFatherMaritalStatus" type="radio" value="Single"
+                                        formControlName="sponsorFatherMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="sponsorFatherMaritalStatus" type="radio" value="Married"
+                                        formControlName="sponsorFatherMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.married' | translate}}</label>
+                                </div>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorFatherDobday" name="sponsorFatherDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="sponsorFatherDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorFatherDobmonth" name="sponsorFatherDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="sponsorFatherDobmonth"
+                                          (blur)="onMonthYearChange('sponsorFatherDobday','sponsorFatherDobmonth','sponsorFatherDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="sponsorFatherDobyear" name="sponsorFatherDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="sponsorFatherDobyear" 
+                                          (blur)="onMonthYearChange('sponsorFatherDobday','sponsorFatherDobmonth','sponsorFatherDobyear')">
+                                          <option value='' disabled selected>{{'pnv-changeEmpDH.formB.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.pob' | translate}}</label>
+                                <input id="sponsorFatherPob" name="sponsorFatherPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorFatherPob">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.occupation' | translate}}</label>
+                                <input id="sponsorFatherOccupation" name="sponsorFatherOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorFatherOccupation">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-changeEmpDH.formB.presentCountry' | translate}}</label>
+								<input id="sponsorFatherPresentCountry" name="sponsorFatherPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorFatherPresentCountry">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-changeEmpDH.formB.residentialAddress' | translate}}</label>
+								<input id="sponsorFatherResidentialAddress1" name="sponsorFatherResidentialAddress1" class="form-control address" type="text"
+									formControlName="sponsorFatherResidentialAddress1">
+								<input id="sponsorFatherResidentialAddress2" name="sponsorFatherResidentialAddress2" class="form-control address" type="text"
+									formControlName="sponsorFatherResidentialAddress2">
+								<input id="sponsorFatherResidentialAddress3" name="sponsorFatherResidentialAddress3" class="form-control address" type="text"
+									formControlName="sponsorFatherResidentialAddress3">
+								<input id="sponsorFatherResidentialAddress4" name="sponsorFatherResidentialAddress4" class="form-control address" type="text"
+									formControlName="sponsorFatherResidentialAddress4">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.mother' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.name' | translate}}</label>
+                                <input id="sponsorMotherName" name="sponsorMotherName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorMotherName">
+							</div>
+							<div id="sponsorMotherMaritalStatus" class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="sponsorMotherMaritalStatus" type="radio" value="Single"
+                                        formControlName="sponsorMotherMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="sponsorMotherMaritalStatus" type="radio" value="Married"
+                                        formControlName="sponsorMotherMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.married' | translate}}</label>
+                                </div>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorMotherDobday" name="sponsorMotherDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="sponsorMotherDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorMotherDobmonth" name="sponsorMotherDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="sponsorMotherDobmonth"
+                                          (blur)="onMonthYearChange('sponsorMotherDobday','sponsorMotherDobmonth','sponsorMotherDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="sponsorMotherDobyear" name="sponsorMotherDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="sponsorMotherDobyear" 
+                                          (blur)="onMonthYearChange('sponsorMotherDobday','sponsorMotherDobmonth','sponsorMotherDobyear')">
+                                          <option value='' disabled selected>{{'pnv-changeEmpDH.formB.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.pob' | translate}}</label>
+                                <input id="sponsorMotherPob" name="sponsorMotherPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorMotherPob">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-changeEmpDH.formB.occupation' | translate}}</label>
+                                <input id="sponsorMotherOccupation" name="sponsorMotherOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorMotherOccupation">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-changeEmpDH.formB.presentCountry' | translate}}</label>
+								<input id="sponsorMotherPresentCountry" name="sponsorMotherPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorMotherPresentCountry">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-changeEmpDH.formB.residentialAddress' | translate}}</label>
+								<input id="sponsorMotherResidentialAddress1" name="sponsorMotherResidentialAddress1" class="form-control address" type="text"
+									formControlName="sponsorMotherResidentialAddress1">
+								<input id="sponsorMotherResidentialAddress2" name="sponsorMotherResidentialAddress2" class="form-control address" type="text"
+									formControlName="sponsorMotherResidentialAddress2">
+								<input id="sponsorMotherResidentialAddress3" name="sponsorMotherResidentialAddress3" class="form-control address" type="text"
+									formControlName="sponsorMotherResidentialAddress3">
+								<input id="sponsorMotherResidentialAddress4" name="sponsorMotherResidentialAddress4" class="form-control address" type="text"
+									formControlName="sponsorMotherResidentialAddress4">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.spouse' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.name' | translate}}</label>
+                                <input id="sponsorSpouseName" name="sponsorSpouseName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSpouseName">
+							</div>
+							<div id="sponsorSpouseMaritalStatus" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="sponsorSpouseMaritalStatus" type="radio" value="Single"
+                                        formControlName="sponsorSpouseMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="sponsorSpouseMaritalStatus" type="radio" value="Married"
+                                        formControlName="sponsorSpouseMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.married' | translate}}</label>
+                                </div>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorSpouseDobday" name="sponsorSpouseDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="sponsorSpouseDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorSpouseDobmonth" name="sponsorSpouseDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="sponsorSpouseDobmonth"
+                                          (blur)="onMonthYearChange('sponsorSpouseDobday','sponsorSpouseDobmonth','sponsorSpouseDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="sponsorSpouseDobyear" name="sponsorSpouseDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="sponsorSpouseDobyear" 
+                                          (blur)="onMonthYearChange('sponsorSpouseDobday','sponsorSpouseDobmonth','sponsorSpouseDobyear')">
+                                          <option value='' disabled selected>{{'pnv-changeEmpDH.formB.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.pob' | translate}}</label>
+                                <input id="sponsorSpousePob" name="sponsorSpousePob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSpousePob">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.occupation' | translate}}</label>
+                                <input id="sponsorSpouseOccupation" name="sponsorSpouseOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSpouseOccupation">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label">{{'pnv-changeEmpDH.formB.presentCountry' | translate}}</label>
+								<input id="sponsorSpousePresentCountry" name="sponsorSpousePresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSpousePresentCountry">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label">{{'pnv-changeEmpDH.formB.residentialAddress' | translate}}</label>
+								<input id="sponsorSpouseResidentialAddress1" name="sponsorSpouseResidentialAddress1" class="form-control address" type="text"
+									formControlName="sponsorSpouseResidentialAddress1">
+								<input id="sponsorSpouseResidentialAddress2" name="sponsorSpouseResidentialAddress2" class="form-control address" type="text"
+									formControlName="sponsorSpouseResidentialAddress2">
+								<input id="sponsorSpouseResidentialAddress3" name="sponsorSpouseResidentialAddress3" class="form-control address" type="text"
+									formControlName="sponsorSpouseResidentialAddress3">
+								<input id="sponsorSpouseResidentialAddress4" name="sponsorSpouseResidentialAddress4" class="form-control address" type="text"
+									formControlName="sponsorSpouseResidentialAddress4">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.children' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.childrenNote' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.name' | translate}}</label>
+                                <input id="sponsorChildrenName" name="sponsorChildrenName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorChildrenName">
+							</div>
+							<div id="sponsorChildrenMaritalStatus" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="sponsorChildrenMaritalStatus" type="radio" value="Single"
+                                        formControlName="sponsorChildrenMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="sponsorChildrenMaritalStatus" type="radio" value="Married"
+                                        formControlName="sponsorChildrenMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.married' | translate}}</label>
+                                </div>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorChildrenDobday" name="sponsorChildrenDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="sponsorChildrenDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorChildrenDobmonth" name="sponsorChildrenDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="sponsorChildrenDobmonth"
+                                          (blur)="onMonthYearChange('sponsorChildrenDobday','sponsorChildrenDobmonth','sponsorChildrenDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="sponsorChildrenDobyear" name="sponsorChildrenDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="sponsorChildrenDobyear" 
+                                          (blur)="onMonthYearChange('sponsorChildrenDobday','sponsorChildrenDobmonth','sponsorChildrenDobyear')">
+                                          <option value='' disabled selected>{{'pnv-changeEmpDH.formB.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.pob' | translate}}</label>
+                                <input id="sponsorChildrenPob" name="sponsorChildrenPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorChildrenPob">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.occupation' | translate}}</label>
+                                <input id="sponsorChildrenOccupation" name="sponsorChildrenOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorChildrenOccupation">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label">{{'pnv-changeEmpDH.formB.presentCountry' | translate}}</label>
+								<input id="sponsorChildrenPresentCountry" name="sponsorChildrenPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorChildrenPresentCountry">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label">{{'pnv-changeEmpDH.formB.residentialAddress' | translate}}</label>
+								<input id="sponsorChildrenResidentialAddress1" name="sponsorChildrenResidentialAddress1" class="form-control address" type="text"
+									formControlName="sponsorChildrenResidentialAddress1">
+								<input id="sponsorChildrenResidentialAddress2" name="sponsorChildrenResidentialAddress2" class="form-control address" type="text"
+									formControlName="sponsorChildrenResidentialAddress2">
+								<input id="sponsorChildrenResidentialAddress3" name="sponsorChildrenResidentialAddress3" class="form-control address" type="text"
+									formControlName="sponsorChildrenResidentialAddress3">
+								<input id="sponsorChildrenResidentialAddress4" name="sponsorChildrenResidentialAddress4" class="form-control address" type="text"
+									formControlName="sponsorChildrenResidentialAddress4">
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.siblings' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.siblingsNote' | translate}}</label>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.name' | translate}}</label>
+                                <input id="sponsorSiblingsName" name="sponsorSiblingsName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSiblingsName">
+							</div>
+							<div id="sponsorSiblingsMaritalStatus" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="sponsorSiblingsMaritalStatus" type="radio" value="Single"
+                                        formControlName="sponsorSiblingsMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="sponsorSiblingsMaritalStatus" type="radio" value="Married"
+                                        formControlName="sponsorSiblingsMaritalStatus">
+                                        {{'pnv-changeEmpDH.formB.married' | translate}}</label>
+                                </div>
+                            </div>
+						</div>
+						<div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorSiblingsDobday" name="sponsorSiblingsDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="sponsorSiblingsDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="sponsorSiblingsDobmonth" name="sponsorSiblingsDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="sponsorSiblingsDobmonth"
+                                          (blur)="onMonthYearChange('sponsorSiblingsDobday','sponsorSiblingsDobmonth','sponsorSiblingsDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-changeEmpDH.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="sponsorSiblingsDobyear" name="sponsorSiblingsDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="sponsorSiblingsDobyear" 
+                                          (blur)="onMonthYearChange('sponsorSiblingsDobday','sponsorSiblingsDobmonth','sponsorSiblingsDobyear')">
+                                          <option value='' disabled selected>{{'pnv-changeEmpDH.formB.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.pob' | translate}}</label>
+                                <input id="sponsorSiblingsPob" name="sponsorSiblingsPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSiblingsPob">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-changeEmpDH.formB.occupation' | translate}}</label>
+                                <input id="sponsorSiblingsOccupation" name="sponsorSiblingsOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSiblingsOccupation">
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label">{{'pnv-changeEmpDH.formB.presentCountry' | translate}}</label>
+								<input id="sponsorSiblingsPresentCountry" name="sponsorSiblingsPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="sponsorSiblingsPresentCountry">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label">{{'pnv-changeEmpDH.formB.residentialAddress' | translate}}</label>
+								<input id="sponsorSiblingsResidentialAddress1" name="sponsorSiblingsResidentialAddress1" class="form-control address" type="text"
+									formControlName="sponsorSiblingsResidentialAddress1">
+								<input id="sponsorSiblingsResidentialAddress2" name="sponsorSiblingsResidentialAddress2" class="form-control address" type="text"
+									formControlName="sponsorSiblingsResidentialAddress2">
+								<input id="sponsorSiblingsResidentialAddress3" name="sponsorSiblingsResidentialAddress3" class="form-control address" type="text"
+									formControlName="sponsorSiblingsResidentialAddress3">
+								<input id="sponsorSiblingsResidentialAddress4" name="sponsorSiblingsResidentialAddress4" class="form-control address" type="text"
+									formControlName="sponsorSiblingsResidentialAddress4">
+							</div>
+						</div>
+					</div>
+				  </div>
+                  <!-- End of Part 1 -->
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,562 @@
+<div class="container">
+    <app-topbar [title]="'pnvChangeAddr.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnvChangeAddr.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Employer's residence and number of persons to be served -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvChangeAddr.form.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.address' | translate}}</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.roomFlat' | translate}}</label>
+                                    <input id="roomFlat" name="roomFlat" class="form-control" maxlength="8" type="text"
+                                    formControlName="roomFlat">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.floor' | translate}}</label>
+                                    <input id="floor" name="floor" class="form-control" maxlength="8" type="text"
+                                    formControlName="floor">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.block' | translate}}</label>
+                                    <input id="block" name="block" class="form-control" maxlength="8" type="text"
+                                    formControlName="block">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.building' | translate}}</label>
+                                    <input id="building" name="building" class="form-control" maxlength="8" type="text"
+                                    formControlName="building">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.estate' | translate}}</label>
+                                    <input id="estate" name="estate" class="form-control" maxlength="8" type="text"
+                                    formControlName="estate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.street' | translate}}</label>
+                                    <input id="street" name="street" class="form-control" maxlength="8" type="text"
+                                    formControlName="street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.district' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-6" style="padding-left: 0px;">
+                                            <select id="district" name="district" class="form-control" formControlName="district"
+                                                type="text">
+                                                <option value='' disabled selected>
+                                                    {{'pnvChangeAddr.form.district' | translate}}
+                                                </option>
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>    
+
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.sizeOfFlat' | translate}}</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <input id="sizeOfFlat" name="sizeOfFlat" class="form-control" maxlength="10" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.stateNoOfPerson' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.noOfAdults' | translate}}</label>
+                                    <input id="noOfAdults" name="noOfAdults" class="form-control"
+                                        maxlength="2" type="text" formControlName="noOfAdults">                                   
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.noOfMinors' | translate}}</label>
+                                    <input id="noOfMinors" name="noOfMinors" class="form-control"
+                                        maxlength="2" type="text" formControlName="noOfMinors">                                   
+                                </div>
+                            </div>
+
+                            <div class="row">    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.noOfMinorsBelowFive' | translate}}</label>
+                                    <input id="noOfMinorsBelowFive" name="noOfMinorsBelowFive" class="form-control"
+                                        maxlength="2" type="text" formControlName="noOfMinorsBelowFive">                                   
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.noOfExpectBaby' | translate}}</label>
+                                    <input id="noOfExpectBaby" name="noOfExpectBaby" class="form-control"
+                                        maxlength="2" type="text" formControlName="noOfExpectBaby">                                   
+                                </div>
+                            </div>
+
+                            <div class="row">    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.noOfConstantCare' | translate}}</label>
+                                    <input id="noOfConstantCare" name="noOfConstantCare" class="form-control"
+                                        maxlength="2" type="text" formControlName="noOfConstantCare">                                   
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvChangeAddr.form.noOfCurrentHelper' | translate}}</label>
+                                    <input id="noOfCurrentHelper" name="noOfCurrentHelper" class="form-control"
+                                        maxlength="2" type="text" formControlName="noOfCurrentHelper">                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 1 -->
+
+                    <!-- Part 2 - Accommodation and facilities to be provided to the Helper -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvChangeAddr.form.part2Title' | translate}}
+                        </div>
+
+                        <div class="panel-body">     
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.accommodationToHelper' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.suitableAccommodation' | translate}}</label>
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.examples' | translate}}</label>
+                                </div>
+                            </div>                 
+
+                            <br>
+
+                            <div class="row">
+                                <div id="accommodationToHelper" class="col-md-12 form-group">
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="accommodationToHelperYes"
+                                                name="accommodationToHelper" type="radio" value="Yes"
+                                                (click)="accommodationToHelper='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                    </div>
+                            
+
+                                    <div class="col-md-12 ">
+                                        <label class="control-label">{{'pnvChangeAddr.form.servantRoomSize' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input id="servantRoomSize" name="servantRoomSize" class="form-control" maxlength="10" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div id="accommodationToHelper" class="col-md-12 form-group">
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="accommodationToHelperNo"
+                                                name="accommodationToHelper" type="radio" value="No"
+                                                (click)="accommodationToHelper='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-12 form-group">
+                                        <label class="control-label">{{'pnvChangeAddr.form.sleepingArrangement' | translate}}</label>                               
+                                    </div>
+                                </div>
+                            </div>
+
+
+ 
+
+
+
+                            <div class="row form">
+                                <div id="sleepingArrangement" class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="sleepingArrangementShareRoom"
+                                                name="sleepingArrangement" type="radio" value="shareRoom"
+                                                (click)="sleepingArrangement='shareRoom'">{{'pnvChangeAddr.form.shareRoom' | translate}}
+                                        </label>
+                                    </div>
+                                </div> 
+                                <div class="form-group col-md-6" style="padding-left: 0px">
+                                    <div class="flex-container">
+                                        <div class="col-md-2" style="padding-left: 0px;">
+                                            <select id="shareRoomNoOfChild" name="shareRoomNoOfChild" class="form-control datePickerMonth"
+                                                type="text" formControlName="shareRoomNoOfChild">
+                                                <option value='' disabled selected>
+                                                    {{'pnvChangeAddr.form.select' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="checkbox-inline col-md-6" style="width: 150px ; padding-right: 0px">{{'pnvChangeAddr.form.ageOfChild' | translate}}</label>      
+
+                                    <div id="childAge" class="col-md-3"  style="padding-left: 0px">
+                                        <input id="childAge" name="childAge" style="width: 310px"
+                                        maxlength="33" type="text" class="form-control" formControlName="childAge">
+                                    </div>                                       
+                                </div>   
+               
+                            </div>
+
+                            <div class="row">
+                                <div id="sleepingArrangement" class="col-md-4 form-group">
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="sleepingArrangementSeparatePartArea"
+                                                name="sleepingArrangement" type="radio" value="separatePartArea"
+                                                (click)="sleepingArrangement='separatePartArea'">{{'pnvChangeAddr.form.separatePartArea' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2"  style="padding-left: 0px;padding-right: 0px;">
+                                    <input id="sqFtMetres" name="sqFtMetres"
+                                    maxlength="3" type="text" class="form-control">
+                                </div>
+                                <div class="col-md-6" style="padding-left: 0px;">
+                                    <label class="checkbox-inline">{{'pnvChangeAddr.form.sqFtMetres' | translate}}</label>                                   
+                                </div>                              
+                            </div>
+
+                            <div class="row">
+                                <div id="sleepingArrangement" class="col-md-12 form-group">
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="sleepingArrangementOthers"
+                                                name="sleepingArrangement" type="radio" value="others"
+                                                (click)="sleepingArrangement='others'">{{'pnvChangeAddr.form.others' | translate}}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-12" style="padding-left: 33px">
+                                        <input id="others" name="others"
+                                        maxlength="100" type="text" class="form-control" formControlName="others">
+                                    </div>
+                                </div>      
+                            </div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.facilitiesProvided' | translate}}</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.notes' | translate}}</label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div id="lightWater" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.lightWater' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="lightWaterYes"
+                                                name="lightWater" type="radio" value="Yes"
+                                                (click)="lightWater='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="lightWaterNo"
+                                                name="lightWater" type="radio" value="No"
+                                                (click)="lightWater='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div id="toiletBathing" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.toiletBathing' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="toiletBathingYes"
+                                                name="toiletBathing" type="radio" value="Yes"
+                                                (click)="toiletBathing='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="toiletBathingNo"
+                                                name="toiletBathing" type="radio" value="No"
+                                                (click)="toiletBathing='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="bed" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.bed' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="bedYes"
+                                                name="bed" type="radio" value="Yes"
+                                                (click)="bed='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="bedNo"
+                                                name="bed" type="radio" value="No"
+                                                (click)="bed='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="blankets" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.blankets' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="blanketsYes"
+                                                name="blankets" type="radio" value="Yes"
+                                                (click)="blankets='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="blanketsNo"
+                                                name="blankets" type="radio" value="No"
+                                                (click)="blankets='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="pillows" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.pillows' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="pillowsYes"
+                                                name="pillows" type="radio" value="Yes"
+                                                (click)="pillows='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="pillowsNo"
+                                                name="pillows" type="radio" value="No"
+                                                (click)="pillows='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="wardrobe" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.wardrobe' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="wardrobeYes"
+                                                name="wardrobe" type="radio" value="Yes"
+                                                (click)="wardrobe='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="wardrobeNo"
+                                                name="wardrobe" type="radio" value="No"
+                                                (click)="wardrobe='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="refrigerator" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.refrigerator' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="refrigeratorYes"
+                                                name="refrigerator" type="radio" value="Yes"
+                                                (click)="refrigerator='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="refrigeratorNo"
+                                                name="refrigerator" type="radio" value="No"
+                                                (click)="refrigerator='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="desk" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'pnvChangeAddr.form.desk' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="deskYes"
+                                                name="desk" type="radio" value="Yes"
+                                                (click)="desk='Yes'">
+                                            {{'pnvChangeAddr.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="deskNo"
+                                                name="desk" type="radio" value="No"
+                                                (click)="desk='No'">
+                                            {{'pnvChangeAddr.form.no' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                    class="control-label">{{'pnvChangeAddr.form.othersFac' | translate}}</label>
+                                    <input id="others" name="others"
+                                    maxlength="100" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- End of Part 2 -->
+
+                    <!-- Part 3 - Domestic duties -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvChangeAddr.form.part3Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.dutiesInfo' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.duties' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.majorPortion' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.householdChores' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.cooking' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.lookAfterAged' | translate}}
+                                    </label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="lookAfterAgedRequired"
+                                                name="lookAfterAged" type="radio" value="required"
+                                                (click)="lookAfterAged='required'">
+                                            {{'pnvChangeAddr.form.required' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="lookAfterAgedNotRequired"
+                                                name="lookAfterAged" type="radio" value="notRequired"
+                                                (click)="lookAfterAged='notRequired'">
+                                            {{'pnvChangeAddr.form.notRequired' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.babySitting' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.childMinding' | translate}}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'pnvChangeAddr.form.othersDuties' | translate}}
+                                    </label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input id="othersDuties" name="othersDuties"
+                                    maxlength="100" type="text" class="form-control box" formControlName="othersDuties" 
+                                    style="margin-left:16px ; width:686px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of part 3 -->
+
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                                type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                                {{ 'COMMON.RESET' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                </div>    
+            </div>
+            
+            
+        </form>
+    </div>
+</div>

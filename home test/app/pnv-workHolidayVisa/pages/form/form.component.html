@@ -1,0 +1,774 @@
+<div class="container">
+  <app-topbar [title]="'workHolidayVisa.form.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'workHolidayVisa.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Personal Particular-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'workHolidayVisa.form.part1Title' | translate}}
+                      </div>
+
+                      <div class="panel-body">
+                          <div class="row">
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.chiName' | translate}}</label>
+
+                                  <input id="chiName" name="chiName" maxlength="6" class="form-control all-caps"
+                                      type="text" formControlName="chiName"
+                                      (input)="maskChineseValues($event.target.value, 'chiName')">
+                              </div>
+                              
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.maidenSurName' | translate}}</label>
+
+                                  <input id="maidenSurName" name="maidenSurName" class="form-control all-caps"
+                                      type="text" formControlName="maidenSurName">
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+
+                              <div class="col-md-6 form-group">
+                                  <label
+                                      class="control-label required-star">{{'workHolidayVisa.form.engSurName' | translate}}</label>
+
+                                  <input id="engSurName" name="engSurName" maxlength="33"
+                                      class="form-control all-caps" type="text" formControlName="engSurName"
+                                      (change)="cutValues($event.target.value,'engSurName')"
+                                      (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                              </div>
+
+                          
+
+                              <div class="col-md-6 form-group">
+                                  <label
+                                      class="control-label required-star">{{'workHolidayVisa.form.engGivenName' | translate}}</label>
+
+                                  <input id="engGivenName" name="engGivenName" maxlength="33"
+                                      class="form-control all-caps" type="text" formControlName="engGivenName"
+                                      (change)="cutValues($event.target.value,'engGivenName')"
+                                      (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <label class="ui-input-text control-label">
+                                      {{'workHolidayVisa.form.alias' | translate}}
+                                  </label>
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.chiNameAlias' | translate}}</label>
+                                  <input id="chiNameAlias" name="chiNameAlias" class="form-control all-caps"
+                                      maxlength="6" type="text" formControlName="chiNameAlias"
+                                      (input)="maskChineseValues($event.target.value, 'chiNameAlias')">
+                                  <div *ngIf="submitted && f.chiNameAlias.errors">
+
+                                      <div *ngIf="f.chiNameAlias.errors.isTradChinName"
+                                          class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                          <ng-container *ngIf="errorCode">E-2107:</ng-container>
+                                          {{'568-E-2107' | translate}}
+                                          <!-- Please input the Chinese alias in Traditional Chinese. -->
+                                      </div>
+
+                                  </div>
+
+                                  <div *ngIf="submitted && !f.chiNameAlias.errors && fillForm.hasError('isChineseNameSame')"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2108:</ng-container>
+                                      {{'568-E-2108' | translate}}
+                                      <!-- The Chinese alias should be different from the Chinese name. -->
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+
+                              <div class="col-md-6">
+                                  <label class="control-label">{{'workHolidayVisa.form.engSurName' | translate}}</label>
+                                  <input id="engSurNameAlias" name="engSurNameAlias" class="form-control all-caps"
+                                      type="text" formControlName="engSurNameAlias" maxlength="38"
+                                      (change)="cutValues($event.target.value,'engSurNameAlias')"
+                                      (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                  <div *ngIf="submitted ">
+                                      <div *ngIf="f.engSurNameAlias.errors && f.engSurNameAlias.errors.wrongName"
+                                          class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                          <ng-container *ngIf="errorCode">E-2111:</ng-container>
+                                          {{'568-E-2111' | translate}}
+                                          <!-- Wrong usage of punctuation marks in surname of alias. -->
+                                      </div>
+
+                                      <div *ngIf="!f.engSurNameAlias.errors && fillForm.hasError('isAliasNameLonger')"
+                                          class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                          <ng-container *ngIf="errorCode">E-2109:</ng-container>
+                                          {{'568-E-2109' | translate}}
+                                          <!-- Full alias cannot exceed 38 characters. -->
+                                      </div>
+                                  </div>
+                              </div>
+
+
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                      <label class="control-label">{{'workHolidayVisa.form.engGivenName' | translate}}</label>
+                                      <input id="engGivenNameAlias" name="engGivenNameAlias"
+                                          class="form-control all-caps" type="text"
+                                          formControlName="engGivenNameAlias" maxlength="38"
+                                          (change)="cutValues($event.target.value, 'engGivenNameAlias')"
+                                          (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+
+                                      <div *ngIf="submitted && f.engGivenNameAlias.errors && f.engGivenNameAlias.errors.wrongName"
+                                          class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                          <ng-container *ngIf="errorCode">E-2112:</ng-container>
+                                          {{'568-E-2112' | translate}}
+                                          <!-- Wrong usage of punctuation marks in given names of alias. -->
+                                      </div>
+
+                                      <div *ngIf="submitted && fillForm.hasError('isEnglishGivenNameSame')"
+                                          class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                          <ng-container *ngIf="errorCode">E-2110:</ng-container>
+                                          {{'568-E-2110' | translate}}
+                                          <!-- The English alias should be different from the fill name in English. -->
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+                              <div id="sex" class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.sex' | translate}}</label>
+                                  <div class="form-group">
+                                      <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                              formControlName="male">
+                                          {{'workHolidayVisa.form.male' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                              formControlName="female">
+                                          {{'workHolidayVisa.form.female' | translate}}
+                                      </label>
+                                  
+                                  </div>
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.dob' | translate}}</label>
+
+                                  <div class="flex-container">
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                              type="text" formControlName="dobDay">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.day' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                  {{day}}</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                              type="text" formControlName="dobMonth"
+                                              (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.month' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let month of monthList" value="{{month}}">
+                                                  {{month}}</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="col-md-4" style="padding-left: 0px;">
+                                          <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                              type="text" formControlName="dobYear"
+                                              (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.year' | translate}}
+                                              </option>
+                                              <option value='0000' selected> 0000 </option>
+                                              <option *ngFor="let year of yearsList" value="{{year}}">
+                                                  {{year}}</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.placeOfBirth' | translate}}</label>
+                                  <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                      maxlength="50" type="text" formControlName="placeOfBirth">
+                              </div>
+                               
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.nationality' | translate}}</label>
+                                  <input id="nationality" name="nationality" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="nationality">
+                              </div>
+                              
+                              
+                          </div>
+
+                          <div class='row'>
+                              <div class="col-md-12 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.maritalStatus' | translate}}</label>
+                                  <div class="form-group">
+                                      <div class="row">
+                                        <label class="checkbox-inline"><input id="single" name="maritalStatus" type="radio" value="single"
+                                                formControlName="maritalStatus">
+                                            {{'workHolidayVisa.form.single' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="married" name="maritalStatus" type="radio" value="married"
+                                                formControlName="maritalStatus">
+                                            {{'workHolidayVisa.form.married' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="separated" name="maritalStatus" type="radio" value="separated"
+                                            formControlName="maritalStatus">
+                                        {{'workHolidayVisa.form.separated' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="divorced" name="maritalStatus" type="radio" value="divorced"
+                                            formControlName="maritalStatus">
+                                            {{'workHolidayVisa.form.divorced' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="widowed" name="maritalStatus" type="radio" value="widowed"
+                                            formControlName="maritalStatus">
+                                            {{'workHolidayVisa.form.widowed' | translate}}
+                                        </label>
+                                    </div>
+                                  </div> 
+
+
+
+                              </div>
+
+                          </div>
+
+                          <div class='row'>
+                              <div class="form-group col-md-6">
+                                  <label class="control-label">{{'workHolidayVisa.form.hkIdNo' | translate}}</label>
+                                   <div class="row form-group">
+                                    <div class="col-xs-8">
+                                        <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                            [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                            formControlName="hkIdValue1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                formControlName="hkIdValue2">
+                                        </div>
+                                    </div>
+                                   </div>
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.occupation' | translate}}</label>
+                                  <input id="occupation" name="occupation" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="occupation">
+
+                              </div>
+
+                          </div>
+
+                          <div class='row'>
+                              <div class="col-md-12 form-group">
+                                <label class="ui-input-text control-label">
+                                    {{'workHolidayVisa.form.travelDocHeld' | translate}}
+                                </label>    
+                              </div>                 
+                                                         
+                              <div class="col-md-12 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.travelDocType' | translate}}</label>
+                                  <select id="travelDocType" name="travelDocType" class="form-control travelDocType" type="text"
+                                        formControlName="travelDocType">
+                                     <option value='' disabled selected>
+                                      {{'Please Select' | translate}}
+                                  </option>
+                                  <option value='passport' selected> {{'workHolidayVisa.form.passport' | translate}} </option>
+                                  <option value='reEntryPermit' selected> {{'workHolidayVisa.form.reEntryPermit' | translate}} </option>
+                                  <option value='certOfIdentity' selected> {{'workHolidayVisa.form.certOfIdentity' | translate}} </option>
+                                  <option value='affidavit' selected> {{'workHolidayVisa.form.affidavit' | translate}} </option>
+                                  <option value='prcTravelPermit' selected> {{'workHolidayVisa.form.prcTravelPermit' | translate}} </option>
+                                  <option value='exitEntryPermit' selected> {{'workHolidayVisa.form.exitEntryPermit' | translate}} </option>
+                                  
+                                  </select>
+                              </div>
+                                  
+                              
+                          </div>
+                          
+                          <div class='row'>
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.travelDocValue' | translate}}</label>
+                                  <input id="travelDocValue" name="travelDocValue" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="travelDocValue">
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.travelDocIssuePlace' | translate}}</label>
+                                  <input id="travelDocIssuePlace" name="travelDocIssuePlace" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="travelDocIssuePlace">
+                              </div>
+                              
+                          </div>
+                          
+                          <div class="row">
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.travelDocIssueDate' | translate}}</label>
+
+                                  <div class="flex-container">
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="travelDocIssueDay" name="travelDocIssueDay" class="form-control datePickerDate "
+                                              type="text" formControlName="travelDocIssueDay">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.day' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                  {{day}}</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="travelDocIssueMonth" name="travelDocIssueMonth" class="form-control datePickerMonth"
+                                              type="text" formControlName="travelDocIssueMonth"
+                                              (blur)="onMonthYearChange('travelDocIssueDay','travelDocIssueMonth','travelDocIssueYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.month' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let month of monthList" value="{{month}}">
+                                                  {{month}}</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="col-md-4" style="padding-left: 0px;">
+                                          <select id="travelDocIssueYear" name="travelDocIssueYear" class="form-control datePickerYear "
+                                              type="text" formControlName="travelDocIssueYear"
+                                              (blur)="onMonthYearChange('travelDocIssueDay','travelDocIssueMonth','travelDocIssueYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.year' | translate}}
+                                              </option>
+                                              <option value='0000' selected> 0000 </option>
+                                              <option *ngFor="let year of yearsList" value="{{year}}">
+                                                  {{year}}</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.travelDocExpDate' | translate}}</label>
+  
+                                  <div class="flex-container">
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="travelDocExpDay" name="travelDocExpDay" class="form-control datePickerDate "
+                                              type="text" formControlName="travelDocExpDay">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.day' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                  {{day}}</option>
+                                          </select>
+                                      </div>
+  
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="travelDocExpMonth" name="travelDocExpMonth" class="form-control datePickerMonth"
+                                              type="text" formControlName="travelDocExpMonth"
+                                              (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.month' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let month of monthList" value="{{month}}">
+                                                  {{month}}</option>
+                                          </select>
+                                      </div>
+  
+                                      <div class="col-md-4" style="padding-left: 0px;">
+                                          <select id="travelDocExpYear" name="travelDocExpYear" class="form-control datePickerYear "
+                                              type="text" formControlName="travelDocExpYear"
+                                              (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.year' | translate}}
+                                              </option>
+                                              <option value='0000' selected> 0000 </option>
+                                              <option *ngFor="let year of yearsList" value="{{year}}">
+                                                  {{year}}</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                          </div>
+                          
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.phoneNo' | translate}}</label>
+                                  <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                      type="text" formControlName="phoneNo">
+
+                                  <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+                              <div class="col-md-2 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.phoneExt' | translate}}</label>
+                                  <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                      type="text" formControlName="phoneExt">
+
+                                  <div *ngIf="submitted && f.phoneExt.errors && f.phoneExt.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.email' | translate}}</label>
+                                  <input id="email" name="email" class="form-control" maxlength="33" type="text"
+                                      formControlName="email">
+
+                                  <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+                              
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.faxNo' | translate}}</label>
+                                  <input id="faxNo" name="faxNo" class="form-control" maxlength="33" type="text"
+                                      formControlName="faxNo">
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'workHolidayVisa.form.presentAddress' | translate}}</label>
+                                  <input id="presentAddress1" name="presentAddress1" class="form-control address" type="text"
+                                      formControlName="presentAddress1">
+                                  <input id="presentAddress2" name="presentAddress2" class="form-control address" type="text"
+                                      formControlName="presentAddress2">
+                                  <input id="presentAddress3" name="presentAddress3" class="form-control address" type="text"
+                                      formControlName="presentAddress3">
+
+                                  <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.permanentAddress' | translate}}</label>
+                                  <input id="permanentAddress1" name="permanentAddress1" class="form-control address" type="text"
+                                      formControlName="permanentAddress1">
+                                  <input id="permanentAddress2" name="permanentAddress2" class="form-control address" type="text"
+                                      formControlName="permanentAddress2">
+                                  <input id="permanentAddress3" name="permanentAddress3" class="form-control address" type="text"
+                                      formControlName="permanentAddress3">
+
+                                  <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+                   <!-- End of Part 1 -->
+
+                  <!-- Part 2 - Please Complete This Part for Statistical Purpose -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'workHolidayVisa.form.part2Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                          <div class='row'>
+                              <div class="col-md-12 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.educationLv' | translate}}</label>
+                                  <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="uniOrAbove" name="educationLv" type="radio" value="uniOrAbove"
+                                                formControlName="educationLv">
+                                            {{'workHolidayVisa.form.uniOrAbove' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="postSec" name="educationLv" type="radio" value="postSec"
+                                                formControlName="educationLv">
+                                            {{'workHolidayVisa.form.postSec' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="sec" name="educationLv" type="radio" value="sec"
+                                            formControlName="educationLv">
+                                        {{'workHolidayVisa.form.sec' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="prim" name="educationLv" type="radio" value="prim"
+                                            formControlName="educationLv">
+                                            {{'workHolidayVisa.form.prim' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="belowPrim" name="educationLv" type="radio" value="belowPrim"
+                                            formControlName="educationLv">
+                                            {{'workHolidayVisa.form.belowPrim' | translate}}
+                                        </label>
+                                    </div>
+                                    
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!-- End of Part 2 -->
+
+                  
+                  <!-- Part 3 - Particulars of Referee in Hong Kong (if any) -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'workHolidayVisa.form.part3Title' | translate}}
+                      </div>
+
+                      <div class="panel-body">
+                          <div class="row">
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.chiName' | translate}}</label>
+
+                                  <input id="chiName" name="chiName" maxlength="6" class="form-control all-caps"
+                                      type="text" formControlName="chiName"
+                                      (input)="maskChineseValues($event.target.value, 'chiName')">
+                              </div>
+                          
+                          </div>
+
+                          <div class="row">
+
+                              <div class="col-md-6 form-group">
+                                  <label
+                                      class="control-label ">{{'workHolidayVisa.form.engSurName' | translate}}</label>
+
+                                  <input id="engSurName" name="engSurName" maxlength="33"
+                                      class="form-control all-caps" type="text" formControlName="engSurName"
+                                      (change)="cutValues($event.target.value,'engSurName')"
+                                      (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                              </div>
+
+                          
+
+                              <div class="col-md-6 form-group">
+                                  <label
+                                      class="control-label ">{{'workHolidayVisa.form.engGivenName' | translate}}</label>
+
+                                  <input id="engGivenName" name="engGivenName" maxlength="33"
+                                      class="form-control all-caps" type="text" formControlName="engGivenName"
+                                      (change)="cutValues($event.target.value,'engGivenName')"
+                                      (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                              </div>
+
+                          </div>
+
+                          <div class="row">
+                              <div id="sex" class="col-md-6 form-group">
+                                  <label class="control-label ">{{'workHolidayVisa.form.sex' | translate}}</label>
+                                  <div class="form-group">
+                                      <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                              formControlName="male">
+                                          {{'workHolidayVisa.form.male' | translate}}</label>
+                                      <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                              formControlName="female">
+                                          {{'workHolidayVisa.form.female' | translate}}
+                                      </label>
+                                  
+                                  </div>
+                              </div>
+
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label ">{{'workHolidayVisa.form.dob' | translate}}</label>
+
+                                  <div class="flex-container">
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                              type="text" formControlName="dobDay">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.day' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                  {{day}}</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                              type="text" formControlName="dobMonth"
+                                              (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.month' | translate}}
+                                              </option>
+                                              <option value='00' selected> 00 </option>
+                                              <option *ngFor="let month of monthList" value="{{month}}">
+                                                  {{month}}</option>
+                                          </select>
+                                      </div>
+
+                                      <div class="col-md-4" style="padding-left: 0px;">
+                                          <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                              type="text" formControlName="dobYear"
+                                              (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                              <option value='' disabled selected>
+                                                  {{'workHolidayVisa.form.year' | translate}}
+                                              </option>
+                                              <option value='0000' selected> 0000 </option>
+                                              <option *ngFor="let year of yearsList" value="{{year}}">
+                                                  {{year}}</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                          </div>
+
+                          <div class='row'>
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.refereehkIdNo' | translate}}</label>
+                                  <div class="row form-group">
+                                    <div class="col-xs-8">
+                                        <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                            [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                            formControlName="hkIdValue1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                formControlName="hkIdValue2">
+                                        </div>
+                                    </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                          
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.phoneNo' | translate}}</label>
+                                  <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                      type="text" formControlName="phoneNo">
+
+                                  <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+                              <div class="col-md-2 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.phoneExt' | translate}}</label>
+                                  <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                      type="text" formControlName="phoneExt">
+
+                                  <div *ngIf="submitted && f.phoneExt.errors && f.phoneExt.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">                                
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.faxNo' | translate}}</label>
+                                  <input id="faxNo" name="faxNo" class="form-control" maxlength="33" type="text"
+                                      formControlName="faxNo">
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'workHolidayVisa.form.presentAddress' | translate}}</label>
+                                  <input id="presentAddress1" name="presentAddress1" class="form-control address" type="text"
+                                      formControlName="presentAddress1">
+                                  <input id="presentAddress2" name="presentAddress2" class="form-control address" type="text"
+                                      formControlName="presentAddress2">
+                                  <input id="presentAddress3" name="presentAddress3" class="form-control address" type="text"
+                                      formControlName="presentAddress3">
+
+                                  <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                      class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                      <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                      {{'568-E-2120' | translate}}
+                                      <!-- Please input the nationality in English or Traditional Chinese. -->
+                                  </div>
+                              </div>
+
+                          </div>
+
+                      </div>
+                  </div>
+
+                  <!-- End of Part 3 -->
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

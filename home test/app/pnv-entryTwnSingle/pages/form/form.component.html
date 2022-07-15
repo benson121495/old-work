@@ -1,0 +1,647 @@
+<div class="container">
+    <app-topbar [title]="'pnv-entryTwnSingle.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-entryTwnSingle.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->    
+                  <!-- Part 1 - Airline Information -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-entryTwnSingle.form.part1Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.airlineRefNo' | translate}}</label>
+                                <input id="airlineReferenceNo" name="airlineReferenceNo" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="airlineReferenceNo">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 1 -->
+                
+                  <!-- Part 2 - Personal Particulars -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-entryTwnSingle.form.part2Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.chiName' | translate}}</label>
+                                <input id="chiName" name="chiName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="chiName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.maidenSurname' | translate}}</label>
+                                <input id="maidenSurname" name="maidenSurname" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="maidenSurname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.engSurname' | translate}}</label>
+                                <input id="engSurname" name="engSurname" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="engSurname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.engGivenNames' | translate}}</label>
+                                <input id="engGivenNames" name="engGivenNames" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="engGivenNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.alias' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.aliasInChi' | translate}}</label>
+                              <input id="aliasInChi" name="aliasInChi" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="aliasInChi">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.aliasInEngSurname' | translate}}</label>
+                              <input id="aliasInEngSurname" name="aliasInEngSurname" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="aliasInEngSurname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.aliasInEngGivenNames' | translate}}</label>
+                              <input id="aliasInEngGivenNames" name="aliasInEngGivenNames" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="aliasInEngGivenNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="sex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="sex" type="checkbox" value="Male"
+                                        formControlName="sex">
+                                        {{'pnv-entryTwnSingle.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="sex" type="checkbox" value="Female"
+                                        formControlName="sex">
+                                        {{'pnv-entryTwnSingle.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="dobday" name="dobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="dobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="dobmonth" name="dobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="dobmonth"
+                                          (blur)="onMonthYearChange('dobday','dobmonth','dobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="dobyear" name="dobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="dobyear" 
+                                          (blur)="onMonthYearChange('dobday','dobmonth','dobyear')">
+                                          <option value='' disabled selected>{{'pnv-entryTwnSingle.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-entryTwnSingle.form.pob' | translate}}</label>
+                              <input id="pob" name="pob" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="pob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-entryTwnSingle.form.twIdno' | translate}}</label>
+                              <input id="twidno" name="twidno" class="form-control all-caps" 
+                              type="text" formControlName="twidno">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.durationInTw' | translate}}</label>
+                                <select id="durationInTw" name="durationInTw" class="form-control" 
+                                    type="text" formControlName="durationInTw" >
+                                    <option value='' disabled selected>{{'pnv-entryTwnSingle.form.yearsNo' | translate}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.travelDocHeld' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-entryTwnSingle.form.type' | translate}}</label>
+                              <input id="travelDocType" name="travelDocType" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="travelDocType">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-entryTwnSingle.form.number' | translate}}</label>
+                              <input id="travelDocNumber" name="numbtravelDocNumberer" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="travelDocNumber">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.doi' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocDoiDay" name="travelDocDoiDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="travelDocDoiDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocDoiMonth" name="travelDocDoiMonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="travelDocDoiMonth"
+                                          (blur)="onMonthYearChange('travelDocDoiDay','travelDocDoiMonth','travelDocDoiYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="travelDocDoiYear" name="travelDocDoiYear" class="form-control datePickerYear " 
+                                          type="text" formControlName="travelDocDoiYear" 
+                                          (blur)="onMonthYearChange('travelDocDoiDay','travelDocDoiMonth','travelDocDoiYear')">
+                                          <option value='' disabled selected>{{'pnv-entryTwnSingle.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.doe' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocDoeDay" name="travelDocDoeDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="travelDocDoeDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocDoeMonth" name="travelDocDoeMonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="travelDocDoeMonth"
+                                          (blur)="onMonthYearChange('travelDocDoeDay','travelDocDoeMonth','travelDocDoeYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="travelDocDoeYear" name="travelDocDoeYear" class="form-control datePickerYear " 
+                                          type="text" formControlName="travelDocDoeYear" 
+                                          (blur)="onMonthYearChange('travelDocDoeDay','travelDocDoeMonth','travelDocDoeYear')">
+                                          <option value='' disabled selected>{{'pnv-entryTwnSingle.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.doeReEntry' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocDoeReEntryDay" name="travelDocDoeReEntryDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="travelDocDoeReEntryDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocDoeReEntryMonth" name="travelDocDoeReEntryMonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="travelDocDoeReEntryMonth"
+                                          (blur)="onMonthYearChange('travelDocDoeReEntryDay','travelDocDoeReEntryMonth','travelDocDoeReEntryYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="travelDocDoeReEntryYear" name="travelDocDoeReEntryYear" class="form-control datePickerYear " 
+                                          type="text" formControlName="travelDocDoeReEntryYear" 
+                                          (blur)="onMonthYearChange('travelDocDoeDay','travelDocDoeReEntryMonth','travelDocDoeReEntryYear')">
+                                          <option value='' disabled selected>{{'pnv-entryTwnSingle.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.presentAddress' | translate}}</label>
+                                <input id="presentAddress1" name="presentAddress1" class="form-control address" 
+                                type="text" formControlName="presentAddress1">
+                                <input id="presentAddress2" name="presentAddress2" class="form-control address" 
+                                type="text" formControlName="presentAddress2">
+                                <input id="presentAddress3" name="presentAddress3" class="form-control address" 
+                                type="text" formControlName="presentAddress3">
+                                <input id="presentAddress4" name="presentAddress4" class="form-control address" 
+                                type="text" formControlName="presentAddress4">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.podAddress' | translate}}</label>
+                                <input id="podAddress1" name="podAddress1" class="form-control address" 
+                                type="text" formControlName="podAddress1">
+                                <input id="podAddress2" name="podAddress2" class="form-control address" 
+                                type="text" formControlName="podAddress2">
+                                <input id="podAddress3" name="podAddress3" class="form-control address" 
+                                type="text" formControlName="podAddress3">
+                                <input id="podAddress4" name="podAddress4" class="form-control address" 
+                                type="text" formControlName="podAddress4">
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                              <label class="control-label required-star">{{'pnv-entryTwnSingle.form.occupation' | translate}}</label>
+                              <input id="occupation" name="occupation" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="occupation">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.employerName' | translate}}</label>
+                              <input id="employerName" name="employerName" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="employerName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.employerAddress' | translate}}</label>
+                                <input id="employerAddress" name="employerAddress" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="employerAddress">
+                              </div>
+                        </div>
+                        <div class="row">
+                            <div id="maritalStatus" class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="maritalStatus" type="radio" value="Single"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-entryTwnSingle.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="maritalStatus" type="radio" value="Married"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-entryTwnSingle.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="maritalStatus" type="radio" value="Divorced"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-entryTwnSingle.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="maritalStatus" type="radio" value="Separated"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-entryTwnSingle.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="maritalStatus" type="radio" value="Widowed"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-entryTwnSingle.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.spouseChiName' | translate}}</label>
+                              <input id="spouseChiName" name="spouseChiName" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="spouseChiName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.spouseEngName' | translate}}</label>
+                                <input id="spouseEngName" name="spouseEngName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="spouseEngName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.spouseOccupation' | translate}}</label>
+                              <input id="spouseOccupation" name="spouseOccupation" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="spouseOccupation">
+                            </div>
+                            <div class="col-md-6 form-group required-star">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.visitReason' | translate}}</label>
+                                <input id="visitReason" name="visitReason" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="visitReason">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-entryTwnSingle.form.proposedDuration' | translate}}</label>
+                              <input id="proposedDuration" name="proposedDuration" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="proposedDuration">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 2-->
+  
+                  <!-- Part 3 - Particulars of Referee -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-entryTwnSingle.form.part3Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.refereeChiName' | translate}}</label>
+                                <input id="refereeChiName" name="refereeChiName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refereeChiName">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.refereeEngSurname' | translate}}</label>
+                                <input id="refereeEngSurname" name="refereeEngSurname" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refereeEngSurname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.refereeEngGivenNames' | translate}}</label>
+                                <input id="refereeEngGivenNames" name="refereeEngGivenNames" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refereeEngGivenNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="refereeSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="refereeSex" type="checkbox" value="Male"
+                                        formControlName="refereeSex">
+                                        {{'pnv-entryTwnSingle.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="refereeSex" type="checkbox" value="Female"
+                                        formControlName="refereeSex">
+                                        {{'pnv-entryTwnSingle.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="refereeDobDay" name="refereeDobDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="refereeDobDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="refereeDobMonth" name="refereeDobMonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="refereeDobMonth"
+                                          (blur)="onMonthYearChange('refereeDobDay','refereeDobMonth','refereeDobYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-entryTwnSingle.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="refereeDobYear" name="refereeDobYear" class="form-control datePickerYear " 
+                                          type="text" formControlName="refereeDobYear" 
+                                          (blur)="onMonthYearChange('refereeDobDay','refereeDobMonth','refereeDobYear')">
+                                          <option value='' disabled selected>{{'pnv-entryTwnSingle.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.hkIdno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="refereeHkid1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="refereeHkid1">
+                                </div>
+                                <div class="col-xs-4">
+                                <div class="hkbracket">
+                                    <input id="refereeHkid2" class="form-control all-caps" type="text" maxlength="1"
+                                    formControlName="refereeHkid2">
+                                </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.contactTelephoneNo' | translate}}</label>
+                                <input id="refereeContactTelephoneNo" name="refereeContactTelephoneNo" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refereeContactTelephoneNo">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.email' | translate}}</label>
+                                <input id="refereeEmail" name="refereeEmail" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refereeEmail">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.refereeAddress' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressRoom' | translate}}</label>
+                              <input id="refereeResidentialAddressRoom" name="refereeResidentialAddressRoom" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressRoom">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressFloor' | translate}}</label>
+                              <input id="refereeResidentialAddressFloor" name="refereeResidentialAddressFloor" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressFloor">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressBlock' | translate}}</label>
+                              <input id="refereeResidentialAddressBlock" name="refereeResidentialAddressBlock" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressBlock">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressBuilding' | translate}}</label>
+                              <input id="refereeResidentialAddressBuilding" name="refereeResidentialAddressBuilding" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressBuilding">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressEstate' | translate}}</label>
+                              <input id="refereeResidentialAddressEstate" name="refereeResidentialAddressEstate" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressEstate">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressStreet' | translate}}</label>
+                              <input id="refereeResidentialAddressStreet" name="refereeResidentialAddressStreet" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressStreet">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressDistrict' | translate}}</label>
+                              <select id="refereeResidentialAddressDistrict" name="refereeResidentialAddressDistrict" class="form-control address" 
+                              type="text" formControlName="refereeResidentialAddressDistrict">
+                              <option value='' disabled selected>Please select</option>
+                              </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-entryTwnSingle.form.refereeOccupation' | translate}}</label>
+                                <input id="refereeOccupation" name="refereeOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refereeOccupation">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <div class="flex-container">
+                                    <div class="col-xs-8" style="padding-left: 0px;">
+                                        <label class="control-label">{{'pnv-entryTwnSingle.form.refereeOfficeTeleponeNo' | translate}}</label>
+                                        <input id="refereeOfficeTelephoneNo" name="refereeOfficeTelephoneNo" maxlength="8"  class="form-control all-caps"
+                                        type="text" formControlName="refereeOfficeTelephoneNo">
+                                    </div>
+                                    <div class="col-xs-4" style="padding-left: 0px;">
+                                        <label class="control-label">{{'pnv-entryTwnSingle.form.refereeExt' | translate}}</label>
+                                        <input id="refereeExt" name="refereeExt" maxlength="4"  class="form-control all-caps"
+                                        type="text" formControlName="refereeExt">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-entryTwnSingle.form.refereeBusinessAddress' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressRoom' | translate}}</label>
+                              <input id="refereeBusinessAddressRoom" name="refereeBusinessAddressRoom" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressRoom">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressFloor' | translate}}</label>
+                              <input id="refereeBusinessAddressFloor" name="refereeBusinessAddressFloor" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressFloor">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressBlock' | translate}}</label>
+                              <input id="refereeBusinessAddressBlock" name="refereeBusinessAddressBlock" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressBlock">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressBuilding' | translate}}</label>
+                              <input id="refereeBusinessAddressBuilding" name="refereeBusinessAddressBuilding" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressBuilding">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressEstate' | translate}}</label>
+                              <input id="refereeBusinessAddressEstate" name="refereeBusinessAddressEstate" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressEstate">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressStreet' | translate}}</label>
+                              <input id="refereeBusinessAddressStreet" name="refereeBusinessAddressStreet" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressStreet">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-entryTwnSingle.form.addressDistrict' | translate}}</label>
+                              <select id="refereeBusinessAddressDistrict" name="refereeBusinessAddressDistrict" class="form-control address" 
+                              type="text" formControlName="refereeBusinessAddressDistrict">
+                              <option value='' disabled selected>Please select</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 3 -->
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

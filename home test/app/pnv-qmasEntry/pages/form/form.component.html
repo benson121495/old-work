@@ -1,0 +1,2392 @@
+<div class="container">
+    <app-topbar [title]="'pnv-qmasEntry.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-qmasEntry.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->    
+                  <!-- Part 1 - Personal Particulars -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part1Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.chiName' | translate}}</label>
+                                <input id="applicantChiName" name="applicantChiName" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="applicantChiName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.maidenSurname' | translate}}</label>
+                                <input id="applicantMaidenSurname" name="applicantMaidenSurname" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantMaidenSurname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.engSurname' | translate}}</label>
+                                <input id="applicantEngSurname" name="applicantEngSurname" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantEngSurname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.engGivenNames' | translate}}</label>
+                                <input id="applicantEngGivenNames" name="applicantEngGivenNames" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantEngGivenNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.otherNames' | translate}}</label>
+                                <input id="applicantOtherNames" name="applicantOtherNames" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantOtherNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="applicantSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="applicantSex" type="checkbox" value="Male"
+                                        formControlName="applicantSex">
+                                        {{'pnv-qmasEntry.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="applicantSex" type="checkbox" value="Female"
+                                        formControlName="applicantSex">
+                                        {{'pnv-qmasEntry.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantDobday" name="applicantDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="applicantDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantDobmonth" name="applicantDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="applicantDobmonth"
+                                          (blur)="onMonthYearChange('applicantDobday','applicantDobmonth','applicantDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="applicantDobyear" name="applicantDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="applicantDobyear" 
+                                          (blur)="onMonthYearChange('applicantDobday','applicantDobmonth','applicantDobyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.pob' | translate}}</label>
+                                <input id="applicantPob" name="applicantPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantPob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="applicantMaritalStatus" class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="applicantMaritalStatus" type="radio" value="Single"
+                                        formControlName="applicantMaritalStatus">
+                                        {{'pnv-qmasEntry.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="applicantMaritalStatus" type="radio" value="Married"
+                                        formControlName="applicantMaritalStatus">
+                                        {{'pnv-qmasEntry.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="applicantMaritalStatus" type="radio" value="Divorced"
+                                        formControlName="applicantMaritalStatus">
+                                        {{'pnv-qmasEntry.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="applicantMaritalStatus" type="radio" value="Separated"
+                                        formControlName="applicantMaritalStatus">
+                                        {{'pnv-qmasEntry.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="applicantMaritalStatus" type="radio" value="Widowed"
+                                        formControlName="applicantMaritalStatus">
+                                        {{'pnv-qmasEntry.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.nationailty' | translate}}</label>
+                                <input id="applicantNationailty" name="applicantNationailty" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantNationailty">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.travelDocHeld' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.travelDocType' | translate}}</label>
+                                <input id="applicantTravelDocType" name="applicantTravelDocType" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantTravelDocType">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.travelDocNo' | translate}}</label>
+                                <input id="applicantTravelDocNo" name="applicantTravelDocNo" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantTravelDocNo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.doi' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantDoiday" name="applicantDoiday" class="form-control datePickerDate" 
+                                      type="text" formControlName="applicantDoiday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantDoimonth" name="applicantDoimonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="applicantDoimonth"
+                                          (blur)="onMonthYearChange('applicantDoiday','applicantDoimonth','applicantDoiyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="applicantDoiyear" name="applicantDoiyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="applicantDoiyear" 
+                                          (blur)="onMonthYearChange('applicantDoiday','applicantDoimonth','applicantDoiyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.doe' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantDoeday" name="applicantDoeday" class="form-control datePickerDate" 
+                                      type="text" formControlName="applicantDoeday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantDoemonth" name="applicantDoemonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="applicantDoemonth"
+                                          (blur)="onMonthYearChange('applicantDoeday','applicantDoemonth','applicantDoeyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="applicantDoeyear" name="applicantDoeyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="applicantDoeyear" 
+                                          (blur)="onMonthYearChange('applicantDoeday','applicantDoemonth','applicantDoeyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.poi' | translate}}</label>
+                                <input id="applicantPoi" name="applicantPoi" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantPoi">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.mainlandIdno' | translate}}</label>
+                                <input id="applicantMainlandIdno" name="applicantMainlandIdno" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantMainlandIdno">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.mainlandIdDoi' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantMainlandIdDoiday" name="applicantMainlandIdDoiday" class="form-control datePickerDate" 
+                                      type="text" formControlName="applicantMainlandIdDoiday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="applicantMainlandIdDoimonth" name="applicantMainlandIdDoimonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="applicantMainlandIdDoimonth"
+                                          (blur)="onMonthYearChange('applicantMainlandIdDoiday','applicantMainlandIdDoimonth','applicantMainlandIdDoiyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="applicantMainlandIdDoiyear" name="applicantMainlandIdDoiyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="applicantMainlandIdDoiyear" 
+                                          (blur)="onMonthYearChange('applicantMainlandIdDoiday','applicantMainlandIdDoimonth','applicantMainlandIdDoiyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.mainlandIdPoi' | translate}}</label>
+                                <input id="applicantMainlandIdPoi" name="applicantMainlandIdPoi" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantMainlandIdPoi">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.tel' | translate}}</label>
+                                <input id="applicantTel" name="applicantTel" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantTel">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.fax' | translate}}</label>
+                                <input id="applicantFax" name="applicantFax" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantFax">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.email' | translate}}</label>
+                                <input id="applicantEmail" name="applicantEmail" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantEmail">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.presentAddress' | translate}}</label>
+                                <input id="applicantPresentAddress1" name="applicantPresentAddress1" class="form-control address" type="text"
+                                    formControlName="applicantPresentAddress1">
+                                <input id="applicantPresentAddress2" name="applicantPresentAddress2" class="form-control address" type="text"
+                                    formControlName="applicantPresentAddress2">
+                                <input id="applicantPresentAddress3" name="applicantPresentAddress3" class="form-control address" type="text"
+                                    formControlName="applicantPresentAddress3">
+                                <input id="applicantPresentAddress4" name="applicantPresentAddress4" class="form-control address" type="text"
+                                    formControlName="applicantPresentAddress4">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.permanentAddress' | translate}}</label>
+                                <input id="applicantPermanentAddress1" name="applicantPermanentAddress1" class="form-control address" type="text"
+                                    formControlName="applicantPermanentAddress1">
+                                <input id="applicantPermanentAddress2" name="applicantPermanentAddress2" class="form-control address" type="text"
+                                    formControlName="applicantPermanentAddress2">
+                                <input id="applicantPermanentAddress3" name="applicantPermanentAddress3" class="form-control address" type="text"
+                                    formControlName="applicantPermanentAddress3">
+                                <input id="applicantPermanentAddress4" name="applicantPermanentAddress4" class="form-control address" type="text"
+                                    formControlName="applicantPermanentAddress4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.countryTerritoryDomicile' | translate}}</label>
+                                <input id="applicantCountryTerritory" name="applicantCountryTerritory" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applicantCountryTerritory">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.acquiredPermanentResidence' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantAcquiredPermanentResidenceYes" 
+                                        name="applicantAcquiredPermanentResidence" type="radio" value="Yes"
+                                        formControlName="applicantAcquiredPermanentResidence">
+                                        {{'pnv-qmasEntry.form.yes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantAcquiredPermanentResidenceNo" 
+                                        name="applicantAcquiredPermanentResidence" type="radio" value="No"
+                                        formControlName="applicantAcquiredPermanentResidence">
+                                        {{'pnv-qmasEntry.form.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 1 -->
+                
+                  <!-- Part 2 - Particulars of All Family Members -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part2Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.father' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.name' | translate}}</label>
+                                <input id="fatherName" name="fatherName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="fatherName">
+                            </div>
+                            <div id="fatherSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="fatherSex" type="checkbox" value="Male"
+                                        formControlName="fatherSex">
+                                        {{'pnv-qmasEntry.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="fatherSex" type="checkbox" value="Female"
+                                        formControlName="fatherSex">
+                                        {{'pnv-qmasEntry.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="fatherDobday" name="fatherDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="fatherDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="fatherDobmonth" name="fatherDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="fatherDobmonth"
+                                          (blur)="onMonthYearChange('fatherDobday','fatherDobmonth','fatherDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="fatherDobyear" name="fatherDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="fatherDobyear" 
+                                          (blur)="onMonthYearChange('fatherDobday','fatherDobmonth','fatherDobyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.pob' | translate}}</label>
+                                <input id="fatherPob" name="fatherPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="fatherPob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="fatherMaritalStatus" class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="fatherMaritalStatus" type="radio" value="Single"
+                                        formControlName="fatherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="fatherMaritalStatus" type="radio" value="Married"
+                                        formControlName="fatherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="fatherMaritalStatus" type="radio" value="Divorced"
+                                        formControlName="fatherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="fatherMaritalStatus" type="radio" value="Separated"
+                                        formControlName="fatherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="fatherMaritalStatus" type="radio" value="Widowed"
+                                        formControlName="fatherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.occupation' | translate}}</label>
+                                <input id="fatherOccupation" name="fatherOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="fatherOccupation">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.presentCountry' | translate}}</label>
+                                <input id="fatherPresentCountry" name="fatherPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="fatherPresentCountry">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.hkidno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="fatherHkidno1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="fatherHkidno1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="fatherHkidno2" class="form-control all-caps" type="text" maxlength="1"
+                                        formControlName="fatherHkidno2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.mother' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.name' | translate}}</label>
+                                <input id="motherName" name="motherName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="motherName">
+                            </div>
+                            <div id="motherSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="motherSex" type="checkbox" value="Male"
+                                        formControlName="motherSex">
+                                        {{'pnv-qmasEntry.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="motherSex" type="checkbox" value="Female"
+                                        formControlName="motherSex">
+                                        {{'pnv-qmasEntry.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="motherDobday" name="motherDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="motherDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="motherDobmonth" name="motherDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="motherDobmonth"
+                                          (blur)="onMonthYearChange('motherDobday','motherDobmonth','motherDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="motherDobyear" name="motherDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="motherDobyear" 
+                                          (blur)="onMonthYearChange('motherDobday','motherDobmonth','motherDobyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.pob' | translate}}</label>
+                                <input id="motherPob" name="motherPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="motherPob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="motherMaritalStatus" class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="motherMaritalStatus" type="radio" value="Single"
+                                        formControlName="motherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="motherMaritalStatus" type="radio" value="Married"
+                                        formControlName="motherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="motherMaritalStatus" type="radio" value="Divorced"
+                                        formControlName="motherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="motherMaritalStatus" type="radio" value="Separated"
+                                        formControlName="motherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="motherMaritalStatus" type="radio" value="Widowed"
+                                        formControlName="motherMaritalStatus">
+                                        {{'pnv-qmasEntry.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.occupation' | translate}}</label>
+                                <input id="motherOccupation" name="motherOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="motherOccupation">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.presentCountry' | translate}}</label>
+                                <input id="motherPresentCountry" name="motherPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="motherPresentCountry">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.hkidno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="motherHkidno1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="motherHkidno1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="motherHkidno2" class="form-control all-caps" type="text" maxlength="1"
+                                        formControlName="motherHkidno2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.spouse' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.name' | translate}}</label>
+                                <input id="spouseName" name="spouseName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="spouseName">
+                            </div>
+                            <div id="spouseSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="spouseSex" type="checkbox" value="Male"
+                                        formControlName="spouseSex">
+                                        {{'pnv-qmasEntry.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="spouseSex" type="checkbox" value="Female"
+                                        formControlName="spouseSex">
+                                        {{'pnv-qmasEntry.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="spouseDobday" name="spouseDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="spouseDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="spouseDobmonth" name="spouseDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="spouseDobmonth"
+                                          (blur)="onMonthYearChange('spouseDobday','spouseDobmonth','spouseDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="spouseDobyear" name="spouseDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="spouseDobyear" 
+                                          (blur)="onMonthYearChange('spouseDobday','spouseDobmonth','spouseDobyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.pob' | translate}}</label>
+                                <input id="spousePob" name="spousePob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="spousePob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="spouseMaritalStatus" class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="spouseMaritalStatus" type="radio" value="Single"
+                                        formControlName="spouseMaritalStatus">
+                                        {{'pnv-qmasEntry.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="spouseMaritalStatus" type="radio" value="Married"
+                                        formControlName="spouseMaritalStatus">
+                                        {{'pnv-qmasEntry.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="spouseMaritalStatus" type="radio" value="Divorced"
+                                        formControlName="spouseMaritalStatus">
+                                        {{'pnv-qmasEntry.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="spouseMaritalStatus" type="radio" value="Separated"
+                                        formControlName="spouseMaritalStatus">
+                                        {{'pnv-qmasEntry.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="spouseMaritalStatus" type="radio" value="Widowed"
+                                        formControlName="spouseMaritalStatus">
+                                        {{'pnv-qmasEntry.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.occupation' | translate}}</label>
+                                <input id="spouseOccupation" name="spouseOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="spouseOccupation">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.presentCountry' | translate}}</label>
+                                <input id="spousePresentCountry" name="spousePresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="spousePresentCountry">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.hkidno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="spouseHkidno1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="spouseHkidno1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="spouseHkidno2" class="form-control all-caps" type="text" maxlength="1"
+                                        formControlName="spouseHkidno2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.accompanyToHk' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="spouseAccompanyToHk" 
+                                        name="spouseAccompanyToHk" type="radio" value="Yes"
+                                        formControlName="spouseAccompanyToHk">
+                                        {{'pnv-qmasEntry.form.yes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="spouseAccompanyToHk" 
+                                        name="spouseAccompanyToHk" type="radio" value="No"
+                                        formControlName="spouseAccompanyToHk">
+                                        {{'pnv-qmasEntry.form.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.children' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.name' | translate}}</label>
+                                <input id="childrenName" name="childrenName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="childrenName">
+                            </div>
+                            <div id="childrenSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="childrenSex" type="checkbox" value="Male"
+                                        formControlName="childrenSex">
+                                        {{'pnv-qmasEntry.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="childrenSex" type="checkbox" value="Female"
+                                        formControlName="childrenSex">
+                                        {{'pnv-qmasEntry.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="childrenDobday" name="childrenDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="childrenDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="childrenDobmonth" name="childrenDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="childrenDobmonth"
+                                          (blur)="onMonthYearChange('childrenDobday','childrenDobmonth','childrenDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="childrenDobyear" name="childrenDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="childrenDobyear" 
+                                          (blur)="onMonthYearChange('childrenDobday','childrenDobmonth','childrenDobyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.pob' | translate}}</label>
+                                <input id="childrenPob" name="childrenPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="childrenPob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="childrenMaritalStatus" class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="childrenMaritalStatus" type="radio" value="Single"
+                                        formControlName="childrenMaritalStatus">
+                                        {{'pnv-qmasEntry.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="childrenMaritalStatus" type="radio" value="Married"
+                                        formControlName="childrenMaritalStatus">
+                                        {{'pnv-qmasEntry.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="childrenMaritalStatus" type="radio" value="Divorced"
+                                        formControlName="childrenMaritalStatus">
+                                        {{'pnv-qmasEntry.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="childrenMaritalStatus" type="radio" value="Separated"
+                                        formControlName="childrenMaritalStatus">
+                                        {{'pnv-qmasEntry.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="childrenMaritalStatus" type="radio" value="Widowed"
+                                        formControlName="childrenMaritalStatus">
+                                        {{'pnv-qmasEntry.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.occupation' | translate}}</label>
+                                <input id="childrenOccupation" name="childrenOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="childrenOccupation">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.presentCountry' | translate}}</label>
+                                <input id="childrenPresentCountry" name="childrenPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="childrenPresentCountry">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.hkidno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="childrenHkidno1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="childrenHkidno1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="childrenHkidno2" class="form-control all-caps" type="text" maxlength="1"
+                                        formControlName="childrenHkidno2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.accompanyToHk' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="childrenAccompanyToHk" 
+                                        name="childrenAccompanyToHk" type="radio" value="Yes"
+                                        formControlName="childrenAccompanyToHk">
+                                        {{'pnv-qmasEntry.form.yes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="childrenAccompanyToHk" 
+                                        name="childrenAccompanyToHk" type="radio" value="No"
+                                        formControlName="childrenAccompanyToHk">
+                                        {{'pnv-qmasEntry.form.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.brothersAndSisters' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.name' | translate}}</label>
+                                <input id="brothersAndSistersName" name="brothersAndSistersName" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="brothersAndSistersName">
+                            </div>
+                            <div id="brothersAndSistersSex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="brothersAndSistersSex" type="checkbox" value="Male"
+                                        formControlName="brothersAndSistersSex">
+                                        {{'pnv-qmasEntry.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="brothersAndSistersSex" type="checkbox" value="Female"
+                                        formControlName="brothersAndSistersSex">
+                                        {{'pnv-qmasEntry.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="brothersAndSistersDobday" name="brothersAndSistersDobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="brothersAndSistersDobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="brothersAndSistersDobmonth" name="brothersAndSistersDobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="brothersAndSistersDobmonth"
+                                          (blur)="onMonthYearChange('brothersAndSistersDobday','brothersAndSistersDobmonth','brothersAndSistersDobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-qmasEntry.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="brothersAndSistersDobyear" name="brothersAndSistersDobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="brothersAndSistersDobyear" 
+                                          (blur)="onMonthYearChange('brothersAndSistersDobday','brothersAndSistersDobmonth','brothersAndSistersDobyear')">
+                                          <option value='' disabled selected>{{'pnv-qmasEntry.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.pob' | translate}}</label>
+                                <input id="brothersAndSistersPob" name="brothersAndSistersPob" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="brothersAndSistersPob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="brothersAndSistersMaritalStatus" class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="brothersAndSistersMaritalStatus" type="radio" value="Single"
+                                        formControlName="brothersAndSistersMaritalStatus">
+                                        {{'pnv-qmasEntry.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="brothersAndSistersMaritalStatus" type="radio" value="Married"
+                                        formControlName="brothersAndSistersMaritalStatus">
+                                        {{'pnv-qmasEntry.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="brothersAndSistersMaritalStatus" type="radio" value="Divorced"
+                                        formControlName="brothersAndSistersMaritalStatus">
+                                        {{'pnv-qmasEntry.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="brothersAndSistersMaritalStatus" type="radio" value="Separated"
+                                        formControlName="brothersAndSistersMaritalStatus">
+                                        {{'pnv-qmasEntry.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="brothersAndSistersMaritalStatus" type="radio" value="Widowed"
+                                        formControlName="brothersAndSistersMaritalStatus">
+                                        {{'pnv-qmasEntry.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.occupation' | translate}}</label>
+                                <input id="brothersAndSistersOccupation" name="brothersAndSistersOccupation" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="brothersAndSistersOccupation">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.presentCountry' | translate}}</label>
+                                <input id="brothersAndSistersPresentCountry" name="brothersAndSistersPresentCountry" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="brothersAndSistersPresentCountry">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.hkidno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="brothersAndSistersHkidno1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="brothersAndSistersHkidno1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="brothersAndSistersHkidno2" class="form-control all-caps" type="text" maxlength="1"
+                                        formControlName="brothersAndSistersHkidno2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 2-->
+  
+                  <!-- Part 3 - Prerequisites -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part3Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.aged18' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="aged18" 
+                                        name="aged18" type="radio" value="Yes"
+                                        formControlName="aged18">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="aged18" 
+                                        name="aged18" type="radio" value="No"
+                                        formControlName="aged18">
+                                        {{'pnv-qmasEntry.form.noNotEligible' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.capableOnOwnFinancial' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="capableOnOwnFinancial" 
+                                        name="capableOnOwnFinancial" type="radio" value="Yes"
+                                        formControlName="capableOnOwnFinancial">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="capableOnOwnFinancial" 
+                                        name="capableOnOwnFinancial" type="radio" value="No"
+                                        formControlName="capableOnOwnFinancial">
+                                        {{'pnv-qmasEntry.form.noNotEligible' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.assets' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.assetsDescription' | translate}}</label>
+                                <input id="assetsDescription1" name="assetsDescription1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="assetsDescription1">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.amount' | translate}}</label>
+                                <input id="assetsAmount1" name="assetsAmount1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="assetsAmount1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.assetsDescription' | translate}}</label>
+                                <input id="assetsDescription2" name="assetsDescription2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="assetsDescription2">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.amount' | translate}}</label>
+                                <input id="assetsAmount2" name="assetsAmount2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="assetsAmount2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.subtotalA' | translate}}</label>
+                                <input id="subtotalA" name="subtotalA" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="subtotalA">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.liabilities' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.liabilitiesDescription' | translate}}</label>
+                                <input id="liabilitiesDescription1" name="liabilitiesDescription1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="liabilitiesDescription1">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.amount' | translate}}</label>
+                                <input id="liabilitiesAmount1" name="liabilitiesAmount1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="liabilitiesAmount1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.liabilitiesDescription' | translate}}</label>
+                                <input id="liabilitiesDescription2" name="liabilitiesDescription2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="liabilitiesDescription2">
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.amount' | translate}}</label>
+                                <input id="liabilitiesAmount2" name="liabilitiesAmount2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="liabilitiesAmount2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.subtotalB' | translate}}</label>
+                                <input id="subtotalB" name="subtotalB" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="subtotalB">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.personalNetWorth' | translate}}</label>
+                                <input id="personalNetWorth" name="personalNetWorth" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="personalNetWorth">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.convictCrime' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="convictCrime" 
+                                        name="convictCrime" type="radio" value="Yes"
+                                        formControlName="convictCrime">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="convictCrime" 
+                                        name="convictCrime" type="radio" value="No"
+                                        formControlName="convictCrime">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.stateDetails' | translate}}</label>
+                                <input id="crimeHistory" name="crimeHistory" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="crimeHistory">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.refuseEntry' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="refuseEntry" 
+                                        name="refuseEntry" type="radio" value="Yes"
+                                        formControlName="refuseEntry">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="refuseEntry" 
+                                        name="refuseEntry" type="radio" value="No"
+                                        formControlName="refuseEntry">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.stateDetails' | translate}}</label>
+                                <input id="refuseEntryHistory" name="refuseEntryHistory" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refuseEntryHistory">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.refuseVisa' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="refuseVisa" 
+                                        name="refuseVisa" type="radio" value="Yes"
+                                        formControlName="refuseVisa">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="refuseVisa" 
+                                        name="refuseVisa" type="radio" value="No"
+                                        formControlName="refuseVisa">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.stateDetails' | translate}}</label>
+                                <input id="refuseVisaHistory" name="refuseVisaHistory" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="refuseVisaHistory">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.breachImmigrationLaw' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="breachImmigrationLaw" 
+                                        name="breachImmigrationLaw" type="radio" value="Yes"
+                                        formControlName="breachImmigrationLaw">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="breachImmigrationLaw" 
+                                        name="breachImmigrationLaw" type="radio" value="No"
+                                        formControlName="breachImmigrationLaw">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.stateDetails' | translate}}</label>
+                                <input id="breachImmigrationLawHistory" name="breachImmigrationLawHistory" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="breachImmigrationLawHistory">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.applyVisaInADifferentName' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applyVisaInADifferentName" 
+                                        name="applyVisaInADifferentName" type="radio" value="Yes"
+                                        formControlName="applyVisaInADifferentName">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applyVisaInADifferentName" 
+                                        name="applyVisaInADifferentName" type="radio" value="No"
+                                        formControlName="applyVisaInADifferentName">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.stateDetails' | translate}}</label>
+                                <input id="applyVisaInADifferentNameHistory" name="applyVisaInADifferentNameHistory" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="applyVisaInADifferentNameHistory">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.writtenAndSpokenProficient' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="writtenAndSpokenProficient" 
+                                        name="writtenAndSpokenProficient" type="radio" value="Yes"
+                                        formControlName="writtenAndSpokenProficient">
+                                        {{'pnv-qmasEntry.form.yesProficientIn' | translate}}</label>
+                                        <input id="writtenAndSpokenProficientDetails" name="writtenAndSpokenProficientDetails" maxlength="6"  class="form-control all-caps"
+                                        type="text" formControlName="writtenAndSpokenProficientDetails" style="width:300px">
+                                    <label class="checkbox-inline"><input id="writtenAndSpokenProficient" 
+                                        name="writtenAndSpokenProficient" type="radio" value="No"
+                                        formControlName="writtenAndSpokenProficient">
+                                        {{'pnv-qmasEntry.form.noNotEligible' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.minimumEducationLevel' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="minimumEducationLevel" 
+                                        name="minimumEducationLevel" type="radio" value="Yes"
+                                        formControlName="minimumEducationLevel">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="minimumEducationLevel" 
+                                        name="minimumEducationLevel" type="radio" value="No"
+                                        formControlName="minimumEducationLevel">
+                                        {{'pnv-qmasEntry.form.noNotEligible' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 3 -->
+
+                  <!-- Part 4 - Points-based test -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part4Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.choosePointsBasedTest' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="pointsBasedTest" 
+                                        name="pointsBasedTest" type="radio" value="generalPointsTest"
+                                        formControlName="pointsBasedTest">
+                                        {{'pnv-qmasEntry.form.generalPointsTest' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="pointsBasedTest" 
+                                        name="pointsBasedTest" type="radio" value="achievementBasedPointssTest"
+                                        formControlName="pointsBasedTest">
+                                        {{'pnv-qmasEntry.form.achievementBasedPointssTest' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 4 -->
+                  
+                  <!-- Part 5 - General Points Test -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part5Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.totalPoints225' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.age' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="age" name="age" style="width: 333px"
+                                            class="form-control datePickerDate" type="text" selection="age">
+                                            <option value='' selected>{{'pnv-qmasEntry.form.18To39' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.40To44' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.45To50' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.51OrAbove' | translate}}</option>
+                                            <option value='00' disabled selected>
+                                                {{'pnv-qmasEntry.form.age' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.academicProfessionalQualifications' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="academicProfessionalQualifications" name="academicProfessionalQualifications" style="width: 696px"
+                                            class="form-control datePickerDate" type="text" selection="academicProfessionalQualifications">
+                                            <option value='' selected>{{'pnv-qmasEntry.form.doctoralDegree' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.masterDegree' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.bachelorDegree' | translate}}</option>
+                                            <option value='00' disabled selected>
+                                                {{'pnv-qmasEntry.form.academicProfessionalQualificationsA' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.additionalPointsByRenownedInstitutionRecognized' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.stateInstitutionName' | translate}}</label>
+                                <input id="additionalPointsByRenownedInstitutionRecognized" name="additionalPointsByRenownedInstitutionRecognized" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="additionalPointsByRenownedInstitutionRecognized">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.workExperience' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="workExperience" name="workExperience" style="width: 696px"
+                                            class="form-control datePickerDate" type="text" selection="workExperience">
+                                            <option value='' selected>{{'pnv-qmasEntry.form.10YearsWorkExperienceAnd5YearsSeniorRole' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.5YearsWorkExperienceAnd2YearsSeniorRole' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.5YearsWorkExperience' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.2YearsWorkExperience' | translate}}</option>
+                                            <option value='00' disabled selected>
+                                                {{'pnv-qmasEntry.form.workExperienceA' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.2YearsInternationalWorkExperience' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="twoYearsInternationalWorkExperience" 
+                                        name="twoYearsInternationalWorkExperience" type="radio" value="Yes"
+                                        formControlName="twoYearsInternationalWorkExperience">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="twoYearsInternationalWorkExperience" 
+                                        name="twoYearsInternationalWorkExperience" type="radio" value="No"
+                                        formControlName="twoYearsInternationalWorkExperience">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.talentList' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="talentList" 
+                                        name="talentList" type="radio" value="Yes"
+                                        formControlName="talentList">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="talentList" 
+                                        name="talentList" type="radio" value="No"
+                                        formControlName="talentList">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label required-star">{{'pnv-qmasEntry.form.stateTalentList' | translate}}</label>
+                                    <input id="additionalPointsUnderTalentList" name="additionalPointsUnderTalentList" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="additionalPointsUnderTalentList">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.languageProficiency' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="languageProficiency" name="languageProficiency" style="width: 696px"
+                                            class="form-control datePickerDate" type="text" selection="languageProficiency">
+                                            <option value='' selected>{{'pnv-qmasEntry.form.bothWrittenSpokenChineseEnglish' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.WrittenSpokenChineseOrEnglishAnd1ForeignLanguage' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.WrittenSpokenChineseOrEnglish' | translate}}</option>
+                                            <option value='00' disabled selected>
+                                                {{'pnv-qmasEntry.form.languageProficiency' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.familyBackground' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.1immediateFamilyMemberIsAHkPermanentResident' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="oneImmediateFamilyMemberIsAHkPermanentResident" 
+                                        name="oneImmediateFamilyMemberIsAHkPermanentResident" type="radio" value="Yes"
+                                        formControlName="oneImmediateFamilyMemberIsAHkPermanentResident">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="oneImmediateFamilyMemberIsAHkPermanentResident" 
+                                        name="oneImmediateFamilyMemberIsAHkPermanentResident" type="radio" value="No"
+                                        formControlName="oneImmediateFamilyMemberIsAHkPermanentResident">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.accompanyingMarriedSpouseIsEducated' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="accompanyingMarriedSpouseIsEducated" 
+                                        name="accompanyingMarriedSpouseIsEducated" type="radio" value="Yes"
+                                        formControlName="accompanyingMarriedSpouseIsEducated">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="accompanyingMarriedSpouseIsEducated" 
+                                        name="accompanyingMarriedSpouseIsEducated" type="radio" value="No"
+                                        formControlName="accompanyingMarriedSpouseIsEducated">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.accompanyingUnmarriedDependentChildUnderage18' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="accompanyingUnmarriedDependentChildUnderage18" name="accompanyingUnmarriedDependentChildUnderage18" style="width: 696px"
+                                            class="form-control datePickerDate" type="text" selection="accompanyingUnmarriedDependentChildUnderage18">
+                                            <option value='' selected>{{'pnv-qmasEntry.form.noAccompanyingUnmarriedDependentChildUnderage19' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.1AccompanyingUnmarriedDependentChildUnderage20' | translate}}</option>
+                                            <option value='' selected>{{'pnv-qmasEntry.form.2AccompanyingUnmarriedDependentChildUnderage21' | translate}}</option>
+                                            <option value='00' disabled selected>
+                                                {{'pnv-qmasEntry.form.accompanyingUnmarriedDependentChildUnderage18' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 5 -->
+                  
+                  <!-- Part 6 - Achievement-based Points Test -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part6Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.achievement' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding-left: 20px;">
+                                <textarea name="achievement" rows="12" style="width: 688px; height: 150px;">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.achievementProofs' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="achievementProofs" 
+                                        name="achievementProofs" type="checkbox" value="publishedWork"
+                                        formControlName="achievementProofs">
+                                        {{'pnv-qmasEntry.form.publishedWork' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="achievementProofs" 
+                                        name="achievementProofs" type="checkbox" value="pressArticle"
+                                        formControlName="achievementProofs">
+                                        {{'pnv-qmasEntry.form.pressArticle' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="achievementProofs" 
+                                        name="achievementProofs" type="checkbox" value="scholarship"
+                                        formControlName="achievementProofs">
+                                        {{'pnv-qmasEntry.form.scholarship' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="achievementProofs" 
+                                        name="achievementProofs" type="checkbox" value="internationalAward"
+                                        formControlName="achievementProofs">
+                                        {{'pnv-qmasEntry.form.internationalAward' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="achievementProofs" 
+                                        name="achievementProofs" type="checkbox" value="intellectualPropertyRights"
+                                        formControlName="achievementProofs">
+                                        {{'pnv-qmasEntry.form.intellectualPropertyRights' | translate}}</label>                                        
+                                    <label class="checkbox-inline"><input id="achievementProofs" 
+                                        name="achievementProofs" type="checkbox" value="othersIntellectualPropertyRights"
+                                        formControlName="achievementProofs">
+                                        {{'pnv-qmasEntry.form.othersIntellectualPropertyRights' | translate}}
+                                        <input id="othersProofs" name="othersProofs" maxlength="6"  class="box all-caps"
+                                        type="text" style="width: 90px;" formControlName="othersProofs">
+                                    </label>                                       
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <div class="form-group">
+                                            <label class="checkbox-inline"><input id="othersIntellectualPropertyRights" 
+                                                name="othersIntellectualPropertyRights" type="radio" value="Patent"
+                                                formControlName="othersIntellectualPropertyRights">
+                                                {{'pnv-qmasEntry.form.patent' | translate}}</label>
+                                            <label class="checkbox-inline"><input id="othersIntellectualPropertyRights" 
+                                                name="othersIntellectualPropertyRights" type="radio" value="Copyright"
+                                                formControlName="othersIntellectualPropertyRights">
+                                                {{'pnv-qmasEntry.form.copyright' | translate}}</label>
+                                            <label class="checkbox-inline"><input id="othersIntellectualPropertyRights" 
+                                                name="othersIntellectualPropertyRights" type="radio" value="Trademark"
+                                                formControlName="othersIntellectualPropertyRights">
+                                                {{'pnv-qmasEntry.form.trademark' | translate}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.infoForStatisticalPurpose' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.accompanyMarriedSpouseEducated' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="accompanyMarriedSpouseEducated" 
+                                        name="accompanyMarriedSpouseEducated" type="radio" value="Yes"
+                                        formControlName="accompanyMarriedSpouseEducated">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="accompanyMarriedSpouseEducated" 
+                                        name="accompanyMarriedSpouseEducated" type="radio" value="No"
+                                        formControlName="accompanyMarriedSpouseEducated">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="accompanyMarriedSpouseEducated" 
+                                        name="accompanyMarriedSpouseEducated" type="radio" value="NA"
+                                        formControlName="accompanyMarriedSpouseEducated">
+                                        {{'pnv-qmasEntry.form.na' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 6 -->
+                  
+                  <!-- Part 7 - Academic/Professional Attainment -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part7Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.listAllAcademicAttainment' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.degree' | translate}}</label>
+                                <input id="degree1" name="degree1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="degree1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.major' | translate}}</label>
+                                <input id="major1" name="major1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="major1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.institution' | translate}}</label>
+                                <input id="institution1" name="institution1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="institution1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.studyType' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="studyType1" 
+                                        name="studyType1" type="radio" value="fullTime"
+                                        formControlName="studyType1">
+                                        {{'pnv-qmasEntry.form.fullTime' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="studyType1" 
+                                        name="studyType1" type="radio" value="partTime"
+                                        formControlName="studyType1">
+                                        {{'pnv-qmasEntry.form.partTime' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="studyType1" 
+                                        name="studyType1" type="radio" value="distanceLearning"
+                                        formControlName="studyType1">
+                                        {{'pnv-qmasEntry.form.distanceLearning' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.city' | translate}}</label>
+                                <input id="city1" name="city1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="city1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.periodOfStudy' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyFromMonth1" name="academicPeriodOfStudyFromMonth1" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="academicPeriodOfStudyFromMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyFromYear1" name="academicPeriodOfStudyFromYear1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="academicPeriodOfStudyFromYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyToMonth1" name="academicPeriodOfStudyToMonth1" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="academicPeriodOfStudyToMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyToYear1" name="academicPeriodOfStudyToYear1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="academicPeriodOfStudyToYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.yearObtained' | translate}}</label>
+                                <input id="yearObtained1" name="yearObtained1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="yearObtained1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.ifItHasMetSpecification' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="academicIfItHasMetSpecification1" 
+                                        name="academicIfItHasMetSpecification1" type="radio" value="yes"
+                                        formControlName="academicIfItHasMetSpecification1">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="academicIfItHasMetSpecification1" 
+                                        name="academicIfItHasMetSpecification1" type="radio" value="no"
+                                        formControlName="academicIfItHasMetSpecification1">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.degree' | translate}}</label>
+                                <input id="degree2" name="degree2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="degree2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.major' | translate}}</label>
+                                <input id="major2" name="major2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="major2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.institution' | translate}}</label>
+                                <input id="institution2" name="institution2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="institution2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.studyType' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="studyType2" 
+                                        name="studyType2" type="radio" value="fullTime"
+                                        formControlName="studyType2">
+                                        {{'pnv-qmasEntry.form.fullTime' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="studyType2" 
+                                        name="studyType2" type="radio" value="partTime"
+                                        formControlName="studyType2">
+                                        {{'pnv-qmasEntry.form.partTime' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="studyType2" 
+                                        name="studyType2" type="radio" value="distanceLearning"
+                                        formControlName="studyType2">
+                                        {{'pnv-qmasEntry.form.distanceLearning' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.city' | translate}}</label>
+                                <input id="city2" name="city2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="city2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.periodOfStudy' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyFromMonth2" name="academicPeriodOfStudyFromMonth2" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="academicPeriodOfStudyFromMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyFromYear2" name="academicPeriodOfStudyFromYear2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="academicPeriodOfStudyFromYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyToMonth2" name="academicPeriodOfStudyToMonth2" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="academicPeriodOfStudyToMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="academicPeriodOfStudyToYear2" name="academicPeriodOfStudyToYear2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="academicPeriodOfStudyToYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.yearObtained' | translate}}</label>
+                                <input id="yearObtained2" name="yearObtained2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="yearObtained2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.ifItHasMetSpecification' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="academicIfItHasMetSpecification2" 
+                                        name="academicIfItHasMetSpecification2" type="radio" value="yes"
+                                        formControlName="academicIfItHasMetSpecification2">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="academicIfItHasMetSpecification2" 
+                                        name="academicIfItHasMetSpecification2" type="radio" value="no"
+                                        formControlName="academicIfItHasMetSpecification2">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                  </div>
+                  <!-- End of Part 7 -->
+                  
+                  <!-- Part 8 - Work Experience -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part8Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.listFullTimeInChronologicalOrder' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.employerName' | translate}}</label>
+                                <input id="workExperienceEmployerName1" name="workExperienceEmployerName1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceEmployerName1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.employerCity' | translate}}</label>
+                                <input id="workExperienceEmployerCity1" name="workExperienceEmployerCity1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceEmployerCity1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.employerNature' | translate}}</label>
+                                <input id="workExperienceEmployerNature1" name="workExperienceEmployerNature1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceEmployerNature1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.position' | translate}}</label>
+                                <input id="workExperiencePosition1" name="workExperiencePosition1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="workExperiencePosition1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.occupationalLevel' | translate}}</label>
+                                <input id="workExperienceOccupationalLevel1" name="workExperienceOccupationalLevel1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceOccupationalLevel1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.natureDuties' | translate}}</label>
+                                <input id="workExperienceNatureDuties1" name="workExperienceNatureDuties1" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceNatureDuties1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.period' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="workExperienceFromMonth1" name="workExperienceFromMonth1" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="workExperienceFromMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="workExperienceFromYear1" name="workExperienceFromYear1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="workExperienceFromYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="workExperienceToMonth1" name="workExperienceToMonth1" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="workExperienceToMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="workExperienceToYear1" name="workExperienceToYear1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="workExperienceToYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.duration' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="workExperienceDuration1" name="workExperienceDuration1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="workExperienceDuration1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.years' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.ifItHasMetSpecification' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="workExperienceIfItHasMetSpecification1" 
+                                        name="workExperienceIfItHasMetSpecification1" type="radio" value="yes"
+                                        formControlName="workExperienceIfItHasMetSpecification1">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="workExperienceIfItHasMetSpecification1" 
+                                        name="workExperienceIfItHasMetSpecification1" type="radio" value="no"
+                                        formControlName="workExperienceIfItHasMetSpecification1">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.employerName' | translate}}</label>
+                                <input id="workExperienceEmployerName2" name="workExperienceEmployerName2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceEmployerName2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.employerCity' | translate}}</label>
+                                <input id="workExperienceEmployerCity2" name="workExperienceEmployerCity2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceEmployerCity2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.employerNature' | translate}}</label>
+                                <input id="workExperienceEmployerNature2" name="workExperienceEmployerNature2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceEmployerNature2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.position' | translate}}</label>
+                                <input id="workExperiencePosition2" name="workExperiencePosition2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="workExperiencePosition2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.occupationalLevel' | translate}}</label>
+                                <input id="workExperienceOccupationalLevel2" name="workExperienceOccupationalLevel2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceOccupationalLevel2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.natureDuties' | translate}}</label>
+                                <input id="workExperienceNatureDuties2" name="workExperienceNatureDuties2" maxlength="6"  class="form-control all-caps"
+                                type="text" formControlName="workExperienceNatureDuties2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.period' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="workExperienceFromMonth2" name="workExperienceFromMonth2" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="workExperienceFromMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="workExperienceFromYear2" name="workExperienceFromYear2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="workExperienceFromYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="workExperienceToMonth2" name="workExperienceToMonth2" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="workExperienceToMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="workExperienceToYear2" name="workExperienceToYear2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="workExperienceToYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.duration' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="workExperienceDuration2" name="workExperienceDuration2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="workExperienceDuration2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.years' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.ifItHasMetSpecification' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="workExperienceIfItHasMetSpecification2" 
+                                        name="workExperienceIfItHasMetSpecification2" type="radio" value="yes"
+                                        formControlName="workExperienceIfItHasMetSpecification2">
+                                        {{'pnv-qmasEntry.form.capYes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="workExperienceIfItHasMetSpecification2" 
+                                        name="workExperienceIfItHasMetSpecification2" type="radio" value="no"
+                                        formControlName="workExperienceIfItHasMetSpecification2">
+                                        {{'pnv-qmasEntry.form.capNo' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.totalNumberOfYearsOfWorkExperience' | translate}}</label>
+                                <input id="totalNumberOfYearsOfWorkExperience" name="totalNumberOfYearsOfWorkExperience" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="totalNumberOfYearsOfWorkExperience">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 8 -->
+                  
+                  <!-- Part 9 - Career or Academic Accomplishments and Future Plans -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part9Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.summariseCareerAcademicAccomplishmentsFuturePlan' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" style="padding-left: 20px;">
+                                <textarea name="careerAcademicAccomplishmentsFuturePlan" rows="12" style="width: 688px; height: 150px;">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 9 -->
+                  
+                  <!-- Part 10 - List all countries/territories -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part10Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.countryTerritory' | translate}}</label>
+                                <input id="countryTerritory1" name="countryTerritory1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="countryTerritory1">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.duration' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="duration1" name="duration1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="duration1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.years' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.period' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="countryFromMonth1" name="countryFromMonth1" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="countryFromMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="countryFromYear1" name="countryFromYear1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="countryFromYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="countryToMonth1" name="countryToMonth1" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="countryToMonth1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="countryToYear1" name="countryToYear1" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="countryToYear1">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.countryTerritory' | translate}}</label>
+                                <input id="countryTerritory2" name="countryTerritory2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="countryTerritory2">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.duration' | translate}}</label>
+                                <div class="flex-container">                                    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="duration2" name="duration2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="duration2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.years' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.period' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.from' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="countryFromMonth2" name="countryFromMonth2" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="countryFromMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="countryFromYear2" name="countryFromYear2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="countryFromYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.to' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="countryToMonth2" name="countryToMonth2" style="width: 85px" class="form-control datePickerDate" 
+                                        type="text" formControlName="countryToMonth2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.mm' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="countryToYear2" name="countryToYear2" style="width: 95px"
+                                            class="form-control datePickerMonth" type="text" formControlName="countryToYear2">
+                                            <option value='' disabled selected>
+                                                {{'pnv-qmasEntry.form.yy' | translate}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 10 -->
+                  
+                  <!-- Part 11 - Language Skills -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part11Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.listTheLanguages' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.language' | translate}}</label>
+                                <input id="language1" name="language1" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="language1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.languageSkills' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="written" 
+                                        name="written1" type="checkbox" value="Yes"
+                                        formControlName="written1">
+                                        {{'pnv-qmasEntry.form.written' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="spoken" 
+                                        name="written1" type="checkbox" value="No"
+                                        formControlName="written1">
+                                        {{'pnv-qmasEntry.form.spoken' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.firstSpokenLanguage' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="firstSpokenLanguage1" 
+                                        name="firstSpokenLanguage1" type="radio" value="Yes"
+                                        formControlName="firstSpokenLanguage1">
+                                        {{'pnv-qmasEntry.form.yes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="firstSpokenLanguage1" 
+                                        name="firstSpokenLanguage1" type="radio" value="No"
+                                        formControlName="firstSpokenLanguage1">
+                                        {{'pnv-qmasEntry.form.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.language' | translate}}</label>
+                                <input id="language2" name="language2" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="language2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.languageSkills' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="written" 
+                                        name="written2" type="checkbox" value="Yes"
+                                        formControlName="written2">
+                                        {{'pnv-qmasEntry.form.written' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="spoken" 
+                                        name="written2" type="checkbox" value="No"
+                                        formControlName="written2">
+                                        {{'pnv-qmasEntry.form.spoken' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-qmasEntry.form.firstSpokenLanguage' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="firstSpokenLanguage2" 
+                                        name="firstSpokenLanguage2" type="radio" value="Yes"
+                                        formControlName="firstSpokenLanguage2">
+                                        {{'pnv-qmasEntry.form.yes' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="firstSpokenLanguage2" 
+                                        name="firstSpokenLanguage2" type="radio" value="No"
+                                        formControlName="firstSpokenLanguage2">
+                                        {{'pnv-qmasEntry.form.no' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 11 -->
+                  
+                  <!-- Part 12 - Sector -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-qmasEntry.form.part12Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.listSector' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-qmasEntry.form.sectorName' | translate}}</label>
+                                <input id="sectorName" name="sectorName" maxlength="16"  class="form-control all-caps"
+                                type="text" formControlName="sectorName">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 12 -->
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

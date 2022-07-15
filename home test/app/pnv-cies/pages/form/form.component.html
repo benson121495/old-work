@@ -1,0 +1,1070 @@
+<div class="container">
+    <app-topbar [title]="'pnvCies.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnvCies.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Personal Particulars -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvCies.form.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.chiName' | translate}}</label>
+                                    <input id="chinName" name="chinName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chinName">                    
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.maidenSurName' | translate}}</label>
+                                    <input id="maidenSurName" name="maidenSurName" maxlength="6"
+                                        class="form-control all-caps" type="text" formControlName="maidenSurName">          
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.engSurName' | translate}}</label>
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engSurName">                 
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenName" name="engGivenName" formControlName="engGivenName" class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.alias' | translate}}</label>
+                                    <input id="alias" name="alias" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="alias">
+                                </div>
+                                <div id="sex" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="male" name="male" type="checkbox" formControlName="male">
+                                            {{'pnvCies.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="female" name="female" type="checkbox" formControlName="female">
+                                            {{'pnvCies.form.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.nationality' | translate}}</label>
+                                    <input id="nationality" name="nationality" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="nationality">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="maritalStatus" class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvCies.form.maritalStatus' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="maritalStatusNotMarried"
+                                                name="maritalStatus" type="radio" value="notMarried"
+                                                (click)="maritalStatus='notMarried'">
+                                            {{'pnvCies.form.notMarried' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="maritalStatusMarried"
+                                                name="maritalStatus" type="radio" value="married"
+                                                (click)="maritalStatus='married'">
+                                            {{'pnvCies.form.married' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="maritalStatusDivorced"
+                                                name="maritalStatus" type="radio" value="divorced"
+                                                (click)="maritalStatus='divorced'">
+                                            {{'pnvCies.form.divorced' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="maritalStatusSeparated"
+                                                name="maritalStatus" type="radio" value="separated"
+                                                (click)="maritalStatus='separated'">
+                                            {{'pnvCies.form.separated' | translate}}
+                                        </label>
+                                        <label class="checkbox-inline"><input id="maritalStatusWidowed"
+                                                name="maritalStatus" type="radio" value="widowed"
+                                                (click)="maritalStatus='widowed'">
+                                            {{'pnvCies.form.widowed' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>  
+
+                            <div class="row">                       
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.hkidNo' | translate}}</label>
+                                        <div class="col-md-8"  align:left>
+                                            <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                                [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}">
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                        [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.occupation' | translate}}</label>
+                                    <input id="occupation" name="occupation" class="form-control" maxlength="33" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.travelDocType' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-12" style="padding-left: 0px;">
+                                            <select id="district" name="district" class="form-control"
+                                                type="text">
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>        
+                           
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label required-star">
+                                        {{'pnvCies.form.travelDocNo' | translate}}</label>
+                                    <input id="travelDocNo" name="travelDocNo" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="travelDocNo"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">                          
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.travelDocIssuePlace' | translate}}</label>
+                                    <input id="travelDocIssuePlace" name="travelDocIssuePlace"
+                                        class="form-control all-caps" maxlength="50" type="text" 
+                                        formControlName="travelDocIssuePlace">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.travelDocIssueDate' | translate}}</label>
+
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocDay" name="travelDocDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.travelDocExpDate' | translate}}</label>
+
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocExpDay" name="travelDocExpDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocExpMonth" name="travelDocExpMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="travelDocExpYear" name="travelDocExpYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.email' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" maxlength="33" type="text" 
+                                    formControlName="email">
+                                </div>                                      
+                            </div>
+<br>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.hkAddress' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.roomFlat' | translate}}</label>
+                                    <input id="roomFlat" name="roomFlat" class="form-control" maxlength="8" type="text" 
+                                    formControlName="roomFlat">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.floor' | translate}}</label>
+                                    <input id="floor" name="floor" class="form-control" maxlength="8" type="text" 
+                                    formControlName="floor">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.block' | translate}}</label>
+                                    <input id="block" name="block" class="form-control" maxlength="8" type="text" 
+                                    formControlName="block">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.building' | translate}}</label>
+                                    <input id="building" name="building" class="form-control" maxlength="8" type="text" 
+                                    formControlName="building">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.estate' | translate}}</label>
+                                    <input id="estate" name="estate" class="form-control" maxlength="8" type="text" 
+                                    formControlName="estate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.street' | translate}}</label>
+                                    <input id="street" name="street" class="form-control" maxlength="8" type="text" 
+                                    formControlName="street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.district' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-6" style="padding-left: 0px;">
+                                            <select id="district" name="district" class="form-control"
+                                                type="text">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.district' | translate}}
+                                                </option>
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+<br>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvCies.form.correspondAddress' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.roomFlat' | translate}}</label>
+                                    <input id="roomFlat" name="roomFlat" class="form-control" maxlength="8" type="text" formControlName="roomFlat">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.floor' | translate}}</label>
+                                    <input id="corrFloor" name="corrFloor" class="form-control" maxlength="8" type="text" 
+                                    formControlName="floor">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.block' | translate}}</label>
+                                    <input id="corrBlock" name="corrBlock" class="form-control" maxlength="8" type="text" 
+                                    formControlName="block">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.building' | translate}}</label>
+                                    <input id="corrBuilding" name="corrBuilding" class="form-control" maxlength="8" type="text" 
+                                    formControlName="building">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.estate' | translate}}</label>
+                                    <input id="corrEstate" name="corrEstate" class="form-control" maxlength="8" type="text" 
+                                    formControlName="estate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.street' | translate}}</label>
+                                    <input id="corrStreet" name="corrStreet" class="form-control" maxlength="8" type="text" 
+                                    formControlName="street">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.district' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-6" style="padding-left: 0px;">
+                                            <select id="corrDistrict" name="corrDistrict" class="form-control"
+                                                type="text">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.district' | translate}}
+                                                </option>
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+<br>
+                            <div class="row">    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.contactTelNo' | translate}}</label>
+                                    <input id="contactTelNo" name="contactTelNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="contactTelNo">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.faxNo' | translate}}</label>
+                                    <input id="faxNo" name="faxNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="faxNo">
+                                </div>       
+                            </div>
+<br>
+                            <div class="row">
+                                <div id="currentCondStay" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.currentCondStay' | translate}}</label>
+                                    <div class="form-group" style="margin-bottom: 0px;">
+                                        <label class="checkbox-inline"><input id="currentCondStayCsVisitor"
+                                                name="currentCondStay" type="radio" value="csVisitor"
+                                                (click)="currentCondStay='csVisitor'">
+                                            {{'pnvCies.form.csVisitor' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="currentCondStayCsNpr"
+                                                name="currentCondStay" type="radio" value="csNpr"
+                                                (click)="currentCondStay='csNpr'">
+                                            {{'pnvCies.form.csNpr' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label class="checkbox-inline"><input id="currentCondStaycsOthers"
+                                        name="currentCondStay" type="radio" value="csOthers"
+                                        (click)="currentCondStay='csOthers'">{{'pnvCies.form.csOthers' | translate}}</label>
+                                    <div style="padding-left: 33px;">
+                                        <input id="csOthers" name="csOthers"
+                                        maxlength="3" type="text" class="checkbox-inline form-control" formControlName="csOthers">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.lastArr' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="lastArrDay" name="lastArrDay" class="form-control datePickerDate "
+                                                type="text" formControlName="lastArrDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="lastArrMonth" name="lastArrMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="lastArrMonth"
+                                                (blur)="onMonthYearChange('lastArrDay','lastArrMonth','lastArrYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="lastArrYear" name="lastArrYear" class="form-control datePickerYear "
+                                                type="text" formControlName="lastArrYear"
+                                                (blur)="onMonthYearChange('lastArrDay','lastArrMonth','lastArrYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.ls' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="lsDay" name="lsDay" class="form-control datePickerDate "
+                                                type="text" formControlName="lsDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="lsMonth" name="lsMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="lsMonth"
+                                                (blur)="onMonthYearChange('lsDay','lsMonth','lsYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="lsYear" name="lsYear" class="form-control datePickerYear "
+                                                type="text" formControlName="lsYear"
+                                                (blur)="onMonthYearChange('lsDay','lsMonth','lsYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>      
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.extLs' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="extLsDay" name="extLsDay" class="form-control datePickerDate "
+                                                type="text" formControlName="extLsDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="extLsMonth" name="extLsMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="extLsMonth"
+                                                (blur)="onMonthYearChange('extLsDay','extLsMonth','extLsYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="extLsYear" name="extLsYear" class="form-control datePickerYear "
+                                                type="text" formControlName="extLsYear"
+                                                (blur)="onMonthYearChange('extLsDay','extLsMonth','extLsYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'pnvCies.form.reasonsProposeV' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <input id="reasonsProposeV1" name="reasonsProposeV1" class="form-control address" type="text"
+                                        formControlName="reasonsProposeV1">
+                                    <input id="reasonsProposeV2" name="reasonsProposeV2" class="form-control address" type="text"
+                                        formControlName="reasonsProposeV2">
+                                    <input id="reasonsProposeV3" name="reasonsProposeV3" class="form-control address" type="text"
+                                        formControlName="reasonsProposeV3">
+                                </div>
+                            </div>
+
+                            <div class="row col-md-12">
+                                <div class=" form-group">
+                                    <label class="control-label">{{'pnvCies.form.reasonsProposeNpr' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div style="padding-bottom: 15px;">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="applyUnderTes" name="applyUnderTes" type="checkbox">
+                                            {{'pnvCies.form.rpEmployUnderGep' | translate}}</label>
+                                    </div>
+                                    <div class="row">   
+                                        <label class="checkbox-inline">{{'pnvCies.form.applyUnderTes' | translate}}</label>
+                                    </div>      
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="applyUnderTesYes"
+                                            name="applyUnderTes" type="radio" value="applyUnderTesYes"
+                                            (click)="applyUnderTes='applyUnderTesYes'">
+                                            {{'pnvCies.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="applyUnderTesNo"
+                                            name="applyUnderTes" type="radio" value="applyUnderTesNo"
+                                            (click)="applyUnderTes='applyUnderTesNo'">
+                                            {{'pnvCies.form.no' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div style="padding-bottom: 15px;">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="rpInvestUnderGep" name="rpInvestUnderGep" type="checkbox">
+                                            {{'pnvCies.form.rpInvestUnderGep' | translate}}
+                                        </label>
+                                        
+                                    </div>
+                                    <div class="row">   
+                                        <label class="checkbox-inline">{{'pnvCies.form.businessSupport' | translate}}</label>
+                                    </div>
+                                        
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="businessSupportYes"
+                                            name="businessSupport" type="radio" value="investUnderGepYes"
+                                            (click)="businessSupport='businessSupportYes'">
+                                            {{'pnvCies.form.yes' | translate}}</label>                                       
+                                    </div>
+                                    <div style="margin-left: 20px;">
+                                        <div class="row">    
+                                            <div class="col-md-12 form-group">
+                                                <label class="control-label">{{'pnvCies.form.supOrgName' | translate}}</label>
+                                                <input id="supOrgName" supOrgNameame="contactTelNo" class="form-control all-caps" maxlength="100"
+                                                    type="text">
+                                            </div>
+                                        </div>
+                                        <div class="row"> 
+                                            <div class="col-md-12 form-group">
+                                                <label class="control-label">{{'pnvCies.form.progName' | translate}}</label>
+                                                <input id="progName" name="progName" class="form-control all-caps" maxlength="100"
+                                                    type="progName">
+                                            </div>       
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="businessSupportNo"
+                                            name="businessSupport" type="radio" value="businessSupportNo"
+                                            (click)="businessSupport='businessSupportNo'">
+                                            {{'pnvCies.form.no' | translate}}</label>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row"  style="padding-bottom: 15px;">
+                                    <label class="checkbox-inline"><input id="reasonsProposeNprRpEmployUnderImmiArrg" name="reasonsProposeNprRpEmployUnderImmiArrg" type="checkbox">
+                                        {{'pnvCies.form.rpEmployUnderImmiArrg' | translate}}
+                                    </label>
+                                </div>
+                                <div class="row"  style="padding-bottom: 15px;">
+                                    <label class="checkbox-inline"><input id="reasonsProposeNprRpEmployUnderSLS" name="reasonsProposeNprRpEmployUnderSLS" type="checkbox">
+                                        {{'pnvCies.form.rpEmployUnderSLS' | translate}}
+                                    </label>
+                                </div>
+                                <div class="row"  style="padding-bottom: 15px;">
+                                    <label class="checkbox-inline"><input id="reasonsProposeNprRpResUnderQMAS" name="reasonsProposeNprRpResUnderQMAS" type="checkbox">
+                                        {{'pnvCies.form.rpResUnderQMAS' | translate}}
+                                    </label>
+                                </div>
+                                <div class="row"  style="padding-bottom: 15px;">
+                                    <label class="checkbox-inline"><input id="reasonsProposeNprRpStudy" name="reasonsProposeNprRpStudy" type="checkbox">
+                                        {{'pnvCies.form.rpStudy' | translate}}
+                                    </label>
+                                </div>
+                                <div class="row"  style="padding-bottom: 15px;">
+                                    <label class="checkbox-inline"><input id="reasonsProposeNprRpDependent" name="reasonsProposeNprRpDependent" type="checkbox">
+                                        {{'pnvCies.form.rpDependent' | translate}}</label>
+                                </div>
+                                <div class="row"  style="padding-bottom: 15px;">
+                                    <label class="checkbox-inline"><input id="reasonsProposeNprRpEmployUnderAdmission" name="reasonsProposeNprRpEmployUnderAdmission" type="checkbox">
+                                        {{'pnvCies.form.rpEmployUnderAdmission' | translate}}
+                                    </label>
+                                </div>
+                                <div class="row">
+                                    <label class="checkbox-inline"><input id="rpOthers" name="rpOthers" type="checkbox">
+                                        {{'pnvCies.form.rpOthers' | translate}}
+                                    </label>
+                                </div>  
+                                <div class="row"  style="padding-left: 20px;" >
+                                    <input id="rpOthersInput" name="rpOthersInput" class="checkbox-inline form-control all-caps"
+                                    maxlength="100" type="text">
+
+                                </div>                   
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 1 -->
+
+                    <!-- Part 2 - Particulars of Sponsor (if applicable) -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvCies.form.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">                    
+                            <div class="row">
+                                <div id="sponsor" class="col-md-12 form-group">
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="sponsorIndividual"
+                                                name="sponsor" type="radio" value="individual"
+                                                (click)="sponsor='individual'">
+                                            {{'pnvCies.form.individual' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="sponsorGroup"
+                                                name="sponsor" type="radio" value="group"
+                                                (click)="sponsor='group'">
+                                            {{'pnvCies.form.group' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sponsorName' | translate}}</label>
+                                    <input id="sponsorName" name="sponsorName" class="form-control all-caps" maxlength="30" type="text" 
+                                    formControlName="sponsorName">
+                                </div>
+              
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.hkidNo' | translate}}</label>
+                                        <div class="col-md-8"  align:left>
+                                            <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                                [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}">
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                        [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sponsorRelationship' | translate}}</label>
+                                    <input id="sponsorRelationship" name="sponsorRelationship" class="form-control all-caps" 
+                                    maxlength="30" type="text" formControlName="sponsorRelationship">
+                                </div>
+                            </div>
+                          
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.coSchName' | translate}}</label>
+                                    <input id="coSchName" name="coSchName" class="form-control all-caps" maxlength="30" type="text" 
+                                    formControlName="coSchName">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.buzRegCertNo' | translate}}</label>
+                                    <input id="buzRegCertNo" name="buzRegCertNo" class="form-control all-caps" maxlength="30" type="text" 
+                                    formControlName="coSchName">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+
+                    <!-- Part 3 - Reason for Visiting Hong Kong Frequently -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvCies.form.part3Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.accompanyingPerson' | translate}} (1)</label>
+                                </div>
+                            </div>                          
+                           
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.chiName' | translate}}</label>
+                                    <input id="chinNameAccompanyA" name="chinNameAccompanyA" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chinName">                     
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.engSurName' | translate}}</label>
+                                    <input id="engSurNameAccompanyA" name="engSurNameAccompanyA" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engSurName">                 
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenNameAccompanyA" name="engGivenNameAccompanyA" formControlName="engGivenName"
+                                        maxlength="33" class="form-control all-caps" type="text" formControlName="engGivenName">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.alias' | translate}}</label>
+                                    <input id="aliasAccompanyA" name="aliasAccompanyA" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="alias">
+                                </div>
+                                <div id="sexAccompanyA" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="maleAccompanyA" name="maleAccompanyA" type="checkbox">
+                                            {{'pnvCies.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="femaleAccompanyA" name="femaleAccompanyA" type="checkbox">
+                                            {{'pnvCies.form.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDayAccompanyA" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonthAccompanyA" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYearAccompanyA" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirthAccompanyA" name="placeOfBirthAccompanyA" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+                                </div>
+                            </div>
+
+                            <div class="row">                       
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.hkidNo' | translate}}</label>
+                                        <div class="col-md-8"  align:left>
+                                            <input id="hkId1AccompanyA" class="form-control all-caps" type="text" maxlength="8"
+                                                [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}">
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2AccompanyA" class="form-control all-caps" type="text" maxlength="1"
+                                                        [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sponsorRelationship' | translate}}</label>
+                                    <input id="sponsorRelationshipAccompanyA" name="sponsorRelationshipAccompanyA" class="form-control" 
+                                    maxlength="33" type="text" formControlName="sponsorRelationship">
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.accompanyingPerson' | translate}} (2)</label>
+                                </div>
+                            </div>                          
+                           
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.chiName' | translate}}</label>
+
+                                    <input id="chinNameAccompanyB" name="chinNameAccompanyB" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chinName">
+                       
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvCies.form.engSurName' | translate}}</label>
+                                    <input id="engSurNameAccompanyB" name="engSurNameAccompanyB" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engSurName">                 
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenNameAccompanyB" name="engGivenNameAccompanyB" formControlName="engGivenName"
+                                        maxlength="33" class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.alias' | translate}}</label>
+                                    <input id="aliasAccompanyB" name="aliasAccompanyB" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="alias">
+                                </div>
+                                <div id="sexAccompanyB" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="maleAccompanyB" name="maleAccompanyB" type="checkbox">
+                                            {{'pnvCies.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="femaleAccompanyB" name="femaleAccompanyB" type="checkbox">
+                                            {{'pnvCies.form.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDayAccompanyB" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonthAccompanyB" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYearAccompanyB" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvCies.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirthAccompanyB" name="placeOfBirthAccompanyB" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+                                </div>
+                            </div>
+
+                            <div class="row">                       
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvCies.form.hkidNo' | translate}}</label>
+                                        <div class="col-md-8"  align:left>
+                                            <input id="hkId1AccompanyB" class="form-control all-caps" type="text" maxlength="8"
+                                                [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}">
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2AccompanyB" class="form-control all-caps" type="text" maxlength="1"
+                                                        [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnvCies.form.sponsorRelationship' | translate}}</label>
+                                    <input id="sponsorRelationshipAccompanyB" name="sponsorRelationshipAccompanyB" class="form-control" 
+                                    maxlength="33" type="text" formControlName="sponsorRelationship">
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                    <!-- End of part 3 -->
+
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                                type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                                {{ 'COMMON.RESET' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                </div>    
+            </div>
+            
+            
+        </form>
+    </div>
+</div>

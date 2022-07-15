@@ -1,0 +1,269 @@
+<div class="container">
+    <app-topbar [title]="'pnv-teResident.formA.Title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-teResident.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->             
+                  <!-- Part 1 - Lost passport/travel document particulars -->
+				  <div class="panel panel-default">
+					<div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+					  <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-teResident.formA.part1Title' | translate}}
+					</div>
+					<div class="panel-body">
+                        <div class="row">
+							<div class="col-md-6 form-group">
+							  <label class="control-label required-star">{{'pnv-teResident.formA.documentName' | translate}}</label>
+							  <input id="documentName" name="documentName" maxlength="6"  class="form-control all-caps"
+							  type="text" formControlName="documentName">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.documentType' | translate}}</label>
+								<input id="documentType" name="documentType" maxlength="6"  class="form-control all-caps"
+								type="text" formControlName="documentType">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.documentDate' | translate}}</label>
+								<div class="flex-container">
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="documentDateDay" name="documentDateDay" class="form-control datePickerDate" 
+									  type="text" formControlName="documentDateDay">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.day' | translate}}
+										  </option>
+										  <option value='00' selected> DD </option>
+										  <option *ngFor="let day of fromDayList" value="{{day}}">
+											  {{day}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="documentDateMonth" name="documentDateMonth" class="form-control datePickerMonth" 
+									  type="text" formControlName="documentDateMonth"
+										  (blur)="onMonthYearChange('documentDateDay','documentDateMonth','documentDateYear')">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.month' | translate}}
+										  </option>
+										  <option value='00' selected> MM </option>
+										  <option *ngFor="let month of monthList" value="{{month}}">
+											  {{month}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-4" style="padding-left: 0px;">
+									  <select id="documentDateYear" name="documentDateYear" class="form-control datePickerYear " 
+										  type="text" formControlName="documentDateYear" 
+										  (blur)="onMonthYearChange('documentDateDay','documentDateMonth','documentDateYear')">
+										  <option value='' disabled selected>{{'pnv-teResident.formA.year' | translate}}</option>
+										  <option value='0000' selected> YYYY </option>
+										  <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+									  </select>
+								  </div> 
+								</div>
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.documentPlace' | translate}}</label>
+								<input id="documentPlace" name="documentPlace" maxlength="6"  class="form-control all-caps"
+								type="text" formControlName="documentPlace">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+							  <label class="control-label required-star">{{'pnv-teResident.formA.documentCircumstance' | translate}}</label>
+							  <input id="documentCircumstance" name="documentCircumstance" maxlength="6"  class="form-control all-caps"
+							  type="text" formControlName="documentCircumstance">
+							</div>
+						</div>
+					</div>
+				  </div>
+                  <!-- End of Part 1-->
+				  
+                  <!-- Part 2 - Arrival Particulars -->
+				  <div class="panel panel-default">
+					<div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+					  <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-teResident.formA.part2Title' | translate}}
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.arrivalDate' | translate}}</label>
+								<div class="flex-container">
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="arrivalDateDay" name="arrivalDateDay" class="form-control datePickerDate" 
+									  type="text" formControlName="arrivalDateDay">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.day' | translate}}
+										  </option>
+										  <option value='00' selected> DD </option>
+										  <option *ngFor="let day of fromDayList" value="{{day}}">
+											  {{day}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="arrivalDateMonth" name="arrivalDateMonth" class="form-control datePickerMonth" 
+									  type="text" formControlName="arrivalDateMonth"
+										  (blur)="onMonthYearChange('arrivalDateDay','arrivalDateMonth','arrivalDateYear')">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.month' | translate}}
+										  </option>
+										  <option value='00' selected> MM </option>
+										  <option *ngFor="let month of monthList" value="{{month}}">
+											  {{month}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-4" style="padding-left: 0px;">
+									  <select id="arrivalDateYear" name="arrivalDateYear" class="form-control datePickerYear " 
+										  type="text" formControlName="arrivalDateYear" 
+										  (blur)="onMonthYearChange('arrivalDateDay','arrivalDateMonth','arrivalDateYear')">
+										  <option value='' disabled selected>{{'pnv-teResident.formA.year' | translate}}</option>
+										  <option value='0000' selected> YYYY </option>
+										  <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+									  </select>
+								  </div> 
+								</div>
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.arrivalNumber' | translate}}</label>
+								<input id="arrivalNumber" name="arrivalNumber" maxlength="6"  class="form-control all-caps"
+								type="text" formControlName="arrivalNumber">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.arrivalDate' | translate}}</label>
+								<div class="flex-container">
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="arrivalLimitOfStayDay" name="arrivalLimitOfStayDay" class="form-control datePickerDate" 
+									  type="text" formControlName="arrivalLimitOfStayDay">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.day' | translate}}
+										  </option>
+										  <option value='00' selected> DD </option>
+										  <option *ngFor="let day of fromDayList" value="{{day}}">
+											  {{day}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="arrivalLimitOfStayMonth" name="arrivalLimitOfStayMonth" class="form-control datePickerMonth" 
+									  type="text" formControlName="arrivalLimitOfStayMonth"
+										  (blur)="onMonthYearChange('arrivalLimitOfStayDay','arrivalLimitOfStayMonth','arrivalLimitOfStayYear')">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.month' | translate}}
+										  </option>
+										  <option value='00' selected> MM </option>
+										  <option *ngFor="let month of monthList" value="{{month}}">
+											  {{month}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-4" style="padding-left: 0px;">
+									  <select id="arrivalLimitOfStayYear" name="arrivalLimitOfStayYear" class="form-control datePickerYear " 
+										  type="text" formControlName="arrivalLimitOfStayYear" 
+										  (blur)="onMonthYearChange('arrivalLimitOfStayDay','arrivalLimitOfStayMonth','arrivalLimitOfStayYear')">
+										  <option value='' disabled selected>{{'pnv-teResident.formA.year' | translate}}</option>
+										  <option value='0000' selected> YYYY </option>
+										  <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+									  </select>
+								  </div> 
+								</div>
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <!-- End of Part 2 -->
+				  
+				  <!-- Part 3 - Departure Schedule -->
+				  <div class="panel panel-default">
+					<div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+					  <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-teResident.formA.part3Title' | translate}}
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.departureDate' | translate}}</label>
+								<div class="flex-container">
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="departureDateDay" name="departureDateDay" class="form-control datePickerDate" 
+									  type="text" formControlName="departureDateDay">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.day' | translate}}
+										  </option>
+										  <option value='00' selected> DD </option>
+										  <option *ngFor="let day of fromDayList" value="{{day}}">
+											  {{day}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-3" style="padding-left: 0px;">
+									  <select id="departureDateMonth" name="departureDateMonth" class="form-control datePickerMonth" 
+									  type="text" formControlName="departureDateMonth"
+										  (blur)="onMonthYearChange('departureDateDay','departureDateMonth','departureDateYear')">
+										  <option value='' disabled selected>
+											  {{'pnv-teResident.formA.month' | translate}}
+										  </option>
+										  <option value='00' selected> MM </option>
+										  <option *ngFor="let month of monthList" value="{{month}}">
+											  {{month}}</option>
+									  </select>
+								  </div>
+								  <div class="col-md-4" style="padding-left: 0px;">
+									  <select id="departureDateYear" name="departureDateYear" class="form-control datePickerYear " 
+										  type="text" formControlName="departureDateYear" 
+										  (blur)="onMonthYearChange('departureDateDay','departureDateMonth','departureDateYear')">
+										  <option value='' disabled selected>{{'pnv-teResident.formA.year' | translate}}</option>
+										  <option value='0000' selected> YYYY </option>
+										  <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+									  </select>
+								  </div> 
+								</div>
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.departureTime' | translate}}</label>
+								<input id="departureTime" name="departureTime" maxlength="6"  class="form-control all-caps"
+								type="text" formControlName="departureTime">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-group">
+							  <label class="control-label required-star">{{'pnv-teResident.formA.departureDestination' | translate}}</label>
+							  <input id="departureDestination" name="departureDestination" maxlength="6"  class="form-control all-caps"
+							  type="text" formControlName="departureDestination">
+							</div>
+							<div class="col-md-6 form-group">
+								<label class="control-label required-star">{{'pnv-teResident.formA.departureNumber' | translate}}</label>
+								<input id="departureNumber" name="departureNumber" maxlength="6"  class="form-control all-caps"
+								type="text" formControlName="departureNumber">
+							  </div>
+						</div>
+					</div>
+				  </div>
+                  <!-- End of Part 3 -->
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

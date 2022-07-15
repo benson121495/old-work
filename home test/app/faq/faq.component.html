@@ -1,0 +1,99 @@
+<div class="container">
+<app-topbar [title]="title"></app-topbar>
+<div lang="en" class="en no-touch">
+    <div id="wrapper">
+        <div id="pageContainer" class="mt-3">
+            <a class="access" href="#content" id="skiptocontent">Main content</a>
+            <div class="box" id="content" role="main">
+                <!-- Travel Document  -->
+                <div class="ui-collapsible-set">
+                    <div class="faqCategory ui-collapsible">
+                        <h2 class="lite-h2-title-gray ui-collapsible-heading" aria-expanded="true">
+                            <a (click)="collapseOASection()" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right">
+                                <span class="ui-btn-inner">
+                                    <span class="ui-btn-text">{{'FAQS.OA' | translate}}
+                                        <span class="ui-collapsible-heading-status"></span>
+                                    </span>
+                                    <span [ngClass]="collapseOA?'ui-icon ui-icon-minus':'ui-icon ui-icon-plus'"></span>
+                                </span>
+                            </a>
+                        </h2>
+                        <ul class="faq ui-collapsible-content ui-body-a ui-collapsible-set" aria-hidden="false" [ngClass]="collapseOA?'show':'hide'">
+                            <ng-container *ngFor="let number of tdNumberofQuestions;let i = index">
+                                <li class="ui-collapsible ui-first-child">
+                                    <h3 class="subtitle urlDiv ui-collapsible-heading ui-collapsible-heading-collapsed" aria-controls="faq-cat-1-q1" aria-expanded="false">
+                                        <a (click)="show('faq-cat-1-q'+number)" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-left">
+                                            <span class="ui-btn-inner">
+                                                <span class="ui-btn-text">{{'FAQS.OA-Q'+number | translate}}
+                                                    <span class="ui-collapsible-heading-status"></span>
+                                                </span>
+                                                <span [ngClass]="id == 'faq-cat-1-q'+number?'ui-icon ui-icon-minus':'ui-icon ui-icon-plus'"></span>
+                                            </span>
+                                        </a>
+                                    </h3>
+                                    <div class="faqAnswer ui-collapsible-content ui-collapsible-content-collapsed" id="{{ 'faq-cat-1-q' + number }}" aria-hidden="true"
+                                        [ngClass]="id == 'faq-cat-1-q'+number?'show':'hide'">
+                                            <div [innerHTML]= "getFAQAnswer('FAQS.OA-Q'+number+'-DETAILS' | translate)"> </div >
+                                    </div>
+                                </li>
+                            </ng-container>
+                        </ul>
+                    </div>
+
+                    <div class="faqCategory ui-collapsible">
+                        <h2 class="lite-h2-title-gray ui-collapsible-heading" aria-expanded="true">
+                            <a target="_blank" href="https://www.gov.hk/en/about/helpdesk/faq/infosec/index.htm?url=https://webapp.immd.gov.hk/content_ogcio/pvbooking/html/english/pnv_appointmentbooking_faq.html&_sm_au_=iVVnLrnQLtWMTnf7" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right">
+                                <span class="ui-btn-inner">
+                                    <span class="ui-btn-text">{{'FAQS.INFORMATION-SECURITY' | translate}}
+                                        <span class="ui-collapsible-heading-status"></span>
+                                    </span>
+                                    <span [ngClass]="collapseAAB?'ui-icon ui-icon-minus':'ui-icon ui-icon-plus'"></span>
+                                </span>
+                            </a>
+                        </h2>
+                    </div>
+
+                    <div class="faqCategory ui-collapsible">
+                        <h2 class="lite-h2-title-gray ui-collapsible-heading" aria-expanded="true">
+                            <a target="_blank" href="https://www.gov.hk/en/about/helpdesk/faq/infosec/index.htm?url=https://webapp.immd.gov.hk/content_ogcio/pvbooking/html/english/pnv_appointmentbooking_faq.html&_sm_au_=iVVnLrnQLtWMTnf7" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right">
+                                <span class="ui-btn-inner">
+                                    <span class="ui-btn-text">{{'FAQS.ONLINE-PAYMENT'| translate}}
+                                        <span class="ui-collapsible-heading-status"></span>
+                                    </span>
+                                    <span [ngClass]="collapseAAB?'ui-icon ui-icon-minus':'ui-icon ui-icon-plus'"></span>
+                                </span>
+                            </a>
+                        </h2>
+                    </div>
+                    
+                    <div class="faqCategory ui-collapsible">
+                        <h2 class="lite-h2-title-gray ui-collapsible-heading" aria-expanded="true">
+                            <a target="_blank" href="https://www.gov.hk/en/about/helpdesk/faq/other/index.htm?url=https://webapp.immd.gov.hk/content_ogcio/pvbooking/html/english/pnv_appointmentbooking_faq.html" class="ui-collapsible-heading-toggle ui-btn ui-btn-icon-right">
+                                <span class="ui-btn-inner">
+                                    <span class="ui-btn-text">{{'FAQS.OTHER' | translate}}
+                                        <span class="ui-collapsible-heading-status"></span>
+                                    </span>
+                                    <span [ngClass]="collapseAAB?'ui-icon ui-icon-minus':'ui-icon ui-icon-plus'"></span>
+                                </span>
+                            </a>
+                        </h2>
+                    </div>
+
+                <div class="fieldsContainer">
+                    <div class="backtotop" (click)="goToSection('skiptocontent')"></div>
+                    <span>
+                        <span class="backtotoplink" (click)="goToSection('skiptocontent')">Back to top</span>
+                    </span>
+                </div>
+
+                <div id="layoutCloseButton" class="fieldsContainer col-xs-12 col-lg-2 col-md-2">
+                    <button title="Close" id="closeBtn" type="button" class="btn btn-brown btn-block" onclick="window.close();">
+                        <!-- <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>  -->
+                        {{'COMMON.CLOSE' | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,58 @@
+<br />
+<div class="container">
+  <app-topbar [title]="'assg.title' | translate"></app-topbar>
+  <div class="container np">
+    <form [formGroup]="fillForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+      <div class="content" role="main" id="content">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table class="table ">
+              <tbody>
+                <tr style="border-top-color: white">
+                  <td style="border-top-color: white">
+                    {{'assg.flowSelect.new_selectTitle' | translate}}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3" style="background:#DDE4F6;">
+                    <label class="radio-inline">
+                      <input id="applicant" type="radio" name="selected" formControlName="selected" value="A" (change)="selected='A'">
+                      <b> {{'assg.flowSelect.option1' | translate}}</b></label>
+                  </td>
+                </tr>
+                <br />
+                <tr>
+                  <td style="border-top-color: white">
+                    {{'assg.flowSelect.new_selectTitle2' | translate}}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3" style="background:#DDE4F6;">
+                    <label class="radio-inline">
+                      <input id="asDepid" type="radio" name="selected" formControlName="selected" value="S" (change)="selected='S'">
+                      <b> {{'assg.flowSelect.new_option2' | translate}} </b></label>
+                  </td>
+                </tr>
+                <br />
+                <tr>
+                  <div class="errorMsg col-md-12 col-xs-12" style="color:red" *ngIf="errorChk===1">
+                    E-0102: {{'634-E-0102' | translate}}
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+            <button class="btn btn-brown btn-block" type="button" (click)="onSubmit()">{{'button.continue' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

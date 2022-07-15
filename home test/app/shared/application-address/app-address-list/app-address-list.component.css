@@ -1,0 +1,237 @@
+.countryValue {
+    text-transform: capitalize;
+}
+
+.chargeAmount {
+    border-bottom: solid;
+    border-width: 1px;
+}
+
+.deliveryCharge {
+    margin-top: 5px !important;
+    visibility: hidden;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.optionGroup {
+    font-weight: bold;
+}
+
+.optionChild {
+    padding-left: 15px;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 10px;
+}
+
+td.td-50 {
+    width: 50%;
+}
+
+label.label-left-align {
+    text-align: left;
+}
+
+fieldset.fieldset-custom {
+    padding: 10px;
+    border: #AAA 1px solid;
+    box-sizing: border-box;
+}
+
+legend.legend-custom {
+    border-bottom: 0;
+    font-size: 1em;
+    width: auto;
+    padding: 5px;
+    margin-bottom: 0px;
+    border-color: #888;
+}
+
+.form-control {
+    height: 34px !important;
+}
+
+.addSelected {
+    background-color: #337ab7 !important;
+    color: #fff;
+    border-color: #337ab7 !important;
+    border-radius: 0px;
+}
+
+.notSelected {
+    background-color: #fff !important;
+    color: #337ab7;
+    border-color: #337ab7 !important;
+    border-radius: 0px;
+}
+
+widthStyle {
+    width: 100%;
+}
+
+.resizeNone {
+    resize: none;
+}
+
+.sckBackground {
+    padding-left: 10px !important;
+}
+
+.sckLink {
+    padding-top: 4px;
+    padding-bottom: 2px;
+    padding-right: 10px;
+}
+
+.red-text {
+    color: red;
+}
+
+.required {
+    color: red;
+}
+
+
+/* Start anim */
+
+.font {
+    size: small;
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 50px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/ opacity */
+}
+
+.modal-content {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+/* Add Animation */
+
+.modal-content,
+#caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+    to {
+        transform: scale(1)
+    }
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    opacity: 1;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.txt-area-width {
+    margin-top: 2px;
+    cursor: text;
+    width: 100%;
+}
+
+
+/* 100% Image Width on Smaller Screens */
+
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
+}
+
+
+/* End anim */
+
+.radio-bold {
+    font-weight: bold !important;
+}
+
+.brdr-clr {
+    border-color: #ddd !important;
+}
+
+.label-algn {
+    padding: 10px 4px 0px 24px;
+}
+
+.add-font {
+    font-size: 15px;
+}
+.mb-3 {
+    margin-bottom: 3px;
+}
+.mb5{
+    margin-bottom: 5px;
+}
+.mt5{
+    margin-top: 5px;
+}

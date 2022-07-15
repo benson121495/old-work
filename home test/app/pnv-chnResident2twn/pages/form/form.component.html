@@ -1,0 +1,426 @@
+<div class="container">
+    <app-topbar [title]="'pnv-chnResident2twn.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-chnResident2twn.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->             
+                  <!-- Part 1 - Type of Hong Kong Multiple Entry Permit -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-chnResident2twn.form.part1Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.guidanceNotes' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.permitType' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="permitType" name="permitType" style="width: 333px"
+                                            class="form-control" type="text" selection="permitType">
+                                            <option value='' selected>{{'pnv-chnResident2twn.form.validForOneYear' | translate}}</option>
+                                            <option value='' selected>{{'pnv-chnResident2twn.form.validForThreeYears' | translate}}</option>
+                                            <option value='00' disabled selected>Please Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.applicationType' | translate}}</label>
+                                <div class="flex-container">
+                                    <div class="col-md-12" style="padding-left: 0px;">
+                                        <select id="applicationType" name="applicationType" style="width: 333px"
+                                            class="form-control" type="text" selection="applicationType">
+                                            <option value='' selected>{{'pnv-chnResident2twn.form.firstApplication' | translate}}</option>
+                                            <option value='' selected>{{'pnv-chnResident2twn.form.replacement' | translate}}</option>
+                                            <option value='' selected>{{'pnv-chnResident2twn.form.reIssueLoss' | translate}}</option>
+                                            <option value='' selected>{{'pnv-chnResident2twn.form.reIssueDamage' | translate}}</option>
+                                            <option value='00' disabled selected>Please Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 1-->
+  
+                  <!-- Part 2 - Personal Particulars -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-chnResident2twn.form.part2Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.chiName' | translate}}</label>
+                              <input id="chiName" name="chiName" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="chiName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.maidenSurname' | translate}}</label>
+                              <input id="maidenSurname" name="maidenSurname" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="maidenSurname">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.engSurname' | translate}}</label>
+                              <input id="engSurname" name="engSurname" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="engSurname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.engGivenNames' | translate}}</label>
+                              <input id="engGivenNames" name="engGivenNames" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="engGivenNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.alias' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.aliasInChi' | translate}}</label>
+                              <input id="aliasInChi" name="aliasInChi" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="aliasInChi">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.aliasInEngSurname' | translate}}</label>
+                              <input id="aliasInEngSurname" name="aliasInEngSurname" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="aliasInEngSurname">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.aliasInEngGivenNames' | translate}}</label>
+                              <input id="aliasInEngGivenNames" name="aliasInEngGivenNames" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="aliasInEngGivenNames">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="sex" class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantMale" 
+                                        name="sex" type="checkbox" value="Male"
+                                        formControlName="sex">
+                                        {{'pnv-chnResident2twn.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantFemale" 
+                                        name="sex" type="checkbox" value="Female"
+                                        formControlName="sex">
+                                        {{'pnv-chnResident2twn.form.female' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-chnResident2twn.form.dob' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="dobday" name="dobday" class="form-control datePickerDate" 
+                                      type="text" formControlName="dobday">
+                                          <option value='' disabled selected>
+                                              {{'pnv-chnResident2twn.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="dobmonth" name="dobmonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="dobmonth"
+                                          (blur)="onMonthYearChange('dobday','dobmonth','dobyear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-chnResident2twn.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="dobyear" name="dobyear" class="form-control datePickerYear " 
+                                          type="text" formControlName="dobyear" 
+                                          (blur)="onMonthYearChange('dobday','dobmonth','dobyear')">
+                                          <option value='' disabled selected>{{'pnv-chnResident2twn.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.pob' | translate}}</label>
+                              <input id="pob" name="pob" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="pob">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div id="maritalStatus" class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'pnv-chnResident2twn.form.maritalStatus' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="applicantBachelor" 
+                                        name="maritalStatus" type="radio" value="Single"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-chnResident2twn.form.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantMarried" 
+                                        name="maritalStatus" type="radio" value="Married"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-chnResident2twn.form.married' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantDivorced" 
+                                        name="maritalStatus" type="radio" value="Divorced"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-chnResident2twn.form.divorced' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantSeparated" 
+                                        name="maritalStatus" type="radio" value="Separated"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-chnResident2twn.form.separated' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="applicantWidowed" 
+                                        name="maritalStatus" type="radio" value="Widowed"
+                                        formControlName="maritalStatus">
+                                        {{'pnv-chnResident2twn.form.widowed' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.travelDocHeld' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.type' | translate}}</label>
+                              <input id="type" name="type" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="type">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.number' | translate}}</label>
+                              <input id="number" name="number" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="number">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-chnResident2twn.form.doi' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="doiDay" name="doiDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="doiDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-chnResident2twn.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="doiMonth" name="doiMonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="doiMonth"
+                                          (blur)="onMonthYearChange('doiDay','doiMonth','doiYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-chnResident2twn.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="doiYear" name="doiYear" class="form-control datePickerYear " 
+                                          type="text" formControlName="doiYear" 
+                                          (blur)="onMonthYearChange('doiDay','doiMonth','doiYear')">
+                                          <option value='' disabled selected>{{'pnv-chnResident2twn.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'pnv-chnResident2twn.form.doe' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="doeDay" name="doeDay" class="form-control datePickerDate" 
+                                      type="text" formControlName="doeDay">
+                                          <option value='' disabled selected>
+                                              {{'pnv-chnResident2twn.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> DD </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="doeMonth" name="doeMonth" class="form-control datePickerMonth" 
+                                      type="text" formControlName="doeMonth"
+                                          (blur)="onMonthYearChange('doeDay','doeMonth','doeYear')">
+                                          <option value='' disabled selected>
+                                              {{'pnv-chnResident2twn.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> MM </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="doeYear" name="doeYear" class="form-control datePickerYear " 
+                                          type="text" formControlName="doeYear" 
+                                          (blur)="onMonthYearChange('doeDay','doeMonth','doeYear')">
+                                          <option value='' disabled selected>{{'pnv-chnResident2twn.form.year' | translate}}</option>
+                                          <option value='0000' selected> YYYY </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                      </select>
+                                  </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.poi' | translate}}</label>
+                              <input id="poi" name="poi" maxlength="6"  class="form-control all-caps"
+                              type="text" formControlName="poi">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.addressHK' | translate}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.addressRoom' | translate}}</label>
+                              <input id="addressRoom" name="addressRoom" class="form-control address" 
+                              type="text" formControlName="addressRoom">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.addressFloor' | translate}}</label>
+                              <input id="address2" name="address2" class="form-control address" 
+                              type="text" formControlName="addressFloor">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.addressBlock' | translate}}</label>
+                              <input id="addressBlock" name="addressBlock" class="form-control address" 
+                              type="text" formControlName="addressBlock">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.addressBuilding' | translate}}</label>
+                              <input id="addressBuilding" name="addressBuilding" class="form-control address" 
+                              type="text" formControlName="addressBuilding">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.addressEstate' | translate}}</label>
+                              <input id="addressEstate" name="addressEstate" class="form-control address" 
+                              type="text" formControlName="addressEstate">
+                            </div>
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'pnv-chnResident2twn.form.addressStreet' | translate}}</label>
+                              <input id="addressStreet" name="addressStreet" class="form-control address" 
+                              type="text" formControlName="addressStreet">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                            <label class="control-label">{{'pnv-chnResident2twn.form.addressDistrict' | translate}}</label>
+                            <select id="addressDistrict" name="addressDistrict" class="form-control address" 
+                            type="text" formControlName="addressDistrict">
+                              <option value='' disabled selected>Please select</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.twIdno' | translate}}</label>
+                              <input id="twIdno" name="twIdno" class="form-control all-caps" 
+                              type="text" formControlName="twIdno">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.hkidno' | translate}}</label>
+                                <div class="col-xs-8">
+                                    <input id="hkidno1" class="form-control all-caps" type="text" maxlength="8"
+                                    formControlName="hkidno1">
+                                </div>
+                                <div class="col-xs-4">
+                                <div class="hkbracket">
+                                    <input id="hkidno2" class="form-control all-caps" type="text" maxlength="1"
+                                    formControlName="hkidno2">
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'pnv-chnResident2twn.form.occupation' | translate}}</label>
+                              <input id="occupation" name="occupation" class="form-control all-caps" 
+                              type="text" formControlName="occupation">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <div class="flex-container">
+                                    <div class="col-xs-8" style="padding-left: 0px;">
+                                        <label class="control-label required-star">{{'pnv-chnResident2twn.form.contactTelephoneNo' | translate}}</label>
+                                        <input id="contactTelephoneNo" name="contactTelephoneNo" maxlength="8"  class="form-control all-caps"
+                                        type="text" formControlName="contactTelephoneNo">
+                                    </div>
+                                    <div class="col-xs-4" style="padding-left: 0px;">
+                                        <label class="control-label">{{'pnv-chnResident2twn.form.ext' | translate}}</label>
+                                        <input id="ext" name="ext" maxlength="4"  class="form-control all-caps"
+                                        type="text" formControlName="ext">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'pnv-chnResident2twn.form.email' | translate}}</label>
+                                <input id="email" name="email" class="form-control all-caps" 
+                                type="text" formControlName="email">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <!-- End of Part 2 -->
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,15 @@
+.padding-bottom-zero {
+    padding-bottom: 0px!important
+}
+
+
+.sub-text {
+    /* padding: 1px 9px 15px 0px; */
+    padding: 4px 15px 4px 0px;
+    color:#116fbf;
+    margin-bottom: 10px;
+}
+
+.list-style-none {
+    list-style:none!important;
+}

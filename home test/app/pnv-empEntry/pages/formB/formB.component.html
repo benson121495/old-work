@@ -1,0 +1,982 @@
+<div class="container">
+  <app-topbar [title]="'empEntry.formB.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'empEntry.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Application for employment as Professionals in Hong Kong-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'empEntry.formB.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.appCompanyName' | translate}}</label>
+      
+                                <input id="appCompanyName" name="appCompanyName" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyName">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.contactPerson' | translate}}</label>
+      
+                                <input id="contactPerson" name="contactPerson" class="form-control all-caps"
+                                    type="text" formControlName="contactPerson">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.appCompanyEmail' | translate}}</label>
+      
+                                <input id="appCompanyEmail" name="appCompanyEmail" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyEmail">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.website' | translate}}</label>
+      
+                                <input id="website" name="website" class="form-control all-caps"
+                                    type="text" formControlName="website">
+                            </div>
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'empEntry.formB.appCompanyAddress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.roomValue' | translate}}</label>
+                                <input id="appCompanyRoomValue" name="appCompanyRoomValue" class="form-control appCompanyRoomValue" type="text"
+                                  formControlName="appCompanyRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.floorValue' | translate}}</label>
+                                <input id="appCompanyFloorValue" name="appCompanyFloorValue" class="form-control appCompanyFloorValue" type="text"
+                                    formControlName="appCompanyFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.blockValue' | translate}}</label>
+                                <input id="appCompanyBlockValue" name="appCompanyBlockValue" class="form-control appCompanyBlockValue" type="text"
+                                    formControlName="appCompanyBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.buildingValue' | translate}}</label>
+                                <input id="appCompanyBuildingValue" name="appCompanyBuildingValue" class="form-control appCompanyBuildingValue" type="text"
+                                    formControlName="appCompanyBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.estateValue' | translate}}</label>
+                                <input id="appCompanyEstateValue" name="appCompanyEstateValue" class="form-control appCompanyEstateValue" type="text"
+                                    formControlName="appCompanyEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.streetValue' | translate}}</label>
+                                <input id="appCompanyStreetValue" name="appCompanyStreetValue" class="form-control appCompanyStreetValue" type="text"
+                                    formControlName="appCompanyStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.district' | translate}}</label>
+                                <select id="appCompanyDistrict" name="appCompanyDistrict" class="form-control appCompanyDistrict" type="text"
+                                    formControlName="appCompanyDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">{{'empEntry.formB.correspondenceAddress' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.roomValue' | translate}}</label>
+                            <input id="correspondenceAddressRoomValue" name="correspondenceAddressRoomValue" class="form-control correspondenceAddressRoomValue" type="text"
+                              formControlName="correspondenceAddressRoomValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.floorValue' | translate}}</label>
+                            <input id="correspondenceAddressFloorValue" name="correspondenceAddressFloorValue" class="form-control correspondenceAddressFloorValue" type="text"
+                                formControlName="correspondenceAddressFloorValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.blockValue' | translate}}</label>
+                            <input id="correspondenceAddressBlockValue" name="correspondenceAddressBlockValue" class="form-control correspondenceAddressBlockValue" type="text"
+                                formControlName="correspondenceAddressBlockValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.buildingValue' | translate}}</label>
+                            <input id="correspondenceAddressBuildingValue" name="correspondenceAddressBuildingValue" class="form-control correspondenceAddressBuildingValue" type="text"
+                                formControlName="correspondenceAddressBuildingValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.estateValue' | translate}}</label>
+                            <input id="correspondenceAddressEstateValue" name="correspondenceAddressEstateValue" class="form-control correspondenceAddressEstateValue" type="text"
+                                formControlName="correspondenceAddressEstateValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.streetValue' | translate}}</label>
+                            <input id="correspondenceAddressStreetValue" name="correspondenceAddressStreetValue" class="form-control correspondenceAddressStreetValue" type="text"
+                                formControlName="correspondenceAddressStreetValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'empEntry.formB.district' | translate}}</label>
+                            <select id="correspondenceAddressDistrict" name="correspondenceAddressDistrict" class="form-control correspondenceAddressDistrict" type="text"
+                                formControlName="correspondenceAddressDistrict">
+                                <option value='' disabled selected>
+                                    {{'Please Select' | translate}}
+                                </option>
+                                <option value='00' selected> district1 </option>
+                                <option value='01' selected> district2 </option>
+                                        
+                            </select>
+                        </div>                            
+
+                    </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.appCompanyPhoneNo' | translate}}</label>
+                                <input id="appCompanyPhoneNo" name="appCompanyPhoneNo" class="form-control all-caps" maxlength="8"
+                                    type="text" formControlName="appCompanyPhoneNo">
+
+                                <div *ngIf="submitted && f.appCompanyPhoneNo.errors && f.appCompanyPhoneNo.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="control-label">{{'empEntry.formB.appCompanyPhoneExt' | translate}}</label>
+                                <input id="appCompanyPhoneExt" name="appCompanyPhoneExt" class="form-control all-caps" maxlength="4"
+                                    type="text" formControlName="appCompanyPhoneExt">
+
+                                <div *ngIf="submitted && f.appCompanyPhoneExt.errors && f.appCompanyPhoneExt.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'empEntry.formB.appCompanyFaxNo' | translate}}</label>
+      
+                                <input id="appCompanyFaxNo" name="appCompanyFaxNo" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyFaxNo">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.regNo' | translate}}</label>
+      
+                                <input id="regNo" name="regNo" class="form-control all-caps"
+                                    type="text" formControlName="regNo">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.commencementDate' | translate}}</label>
+
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="commencementDay" name="commencementDay" class="form-control datePickerDate "
+                                            type="text" formControlName="commencementDay">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="commencementMonth" name="commencementMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="commencementMonth"
+                                            (blur)="onMonthYearChange('commencementDay','commencementMonth','commencementYear')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="commencementYear" name="commencementYear" class="form-control datePickerYear "
+                                            type="text" formControlName="commencementYear"
+                                            (blur)="onMonthYearChange('commencementDay','commencementMonth','commencementYear')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.nature' | translate}}</label>
+      
+                                <input id="nature" name="nature" class="form-control all-caps"
+                                    type="text" formControlName="nature">
+                            </div>
+                        </div>
+
+                        <div class="row">      
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.ifSubsidiary' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="ifSubsidiary" type="radio" value="yes"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='Yes'">
+                                        {{'empEntry.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="ifSubsidiary" type="radio" value="no"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='No'">
+                                        {{'empEntry.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="ifSubsidiary==='Yes'">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.parentCompanyName' | translate}}</label>
+              
+                                      <input id="parentCompanyName" name="parentCompanyName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="parentCompanyName">
+                                </div>
+                                    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.parentCompanyAddress' | translate}}</label>
+                                    <input id="parentCompanyAddress1" name="parentCompanyAddress1" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress1">
+                                    <input id="parentCompanyAddress2" name="parentCompanyAddress2" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress2">
+                                    <input id="parentCompanyAddress3" name="parentCompanyAddress3" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress3">
+    
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                                                    
+                            </ng-container>
+                        </div>
+                        
+                      </div>
+                  </div>
+                   <!-- End of Part 1 -->
+
+                  <!-- Part 2 - Proposed Stay in Hong Kong for Employment -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'empEntry.formB.part2Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'empEntry.formB.employeeName' | translate}}
+                                    </label>
+                                </div>
+                                
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'empEntry.formB.employeeSurName' | translate}}</label>
+          
+                                    <input id="employeeSurName" name="employeeSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="employeeSurName"
+                                        (change)="cutValues($event.target.value,'employeeSurName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+          
+                            
+          
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'empEntry.formB.employeeGivenName' | translate}}</label>
+          
+                                    <input id="employeeGivenName" name="employeeGivenName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="employeeGivenName"
+                                        (change)="cutValues($event.target.value,'employeeGivenName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+          
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'empEntry.formB.postTitle' | translate}}</label>
+              
+                                      <input id="postTitle" name="postTitle" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="postTitle">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <label class="control-label required-star">{{'empEntry.formB.isIntraTransfer' | translate}}</label>
+                                        <div class="row">
+                                            
+                                            <label class="checkbox-inline"><input id="yes" name="isIntraTransfer" type="radio" value="yes"
+                                                formControlName="isIntraTransfer" (click)="isIntraTransfer='Yes'">
+                                            {{'empEntry.formB.yes' | translate}}</label>
+                                      
+                                             <label class="checkbox-inline"><input id="no" name="isIntraTransfer" type="radio" value="no"
+                                                formControlName="isIntraTransfer" (click)="isIntraTransfer='No'">
+                                            {{'empEntry.formB.no' | translate}}</label> 
+                                        </div>
+                                                                
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.salary' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label class="control-label">{{'empEntry.formB.hkd' | translate}}</label>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <input id="salary" name="salary" maxlength="33"
+                                                class="form-control all-caps" type="text" formControlName="salary"
+                                                (change)="cutValues($event.target.value,'salary')"
+                                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row"> 
+                                <div class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'empEntry.formB.fringeBenefit' | translate}}</label>
+          
+                                    <input id="fringeBenefit" name="fringeBenefit" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="fringeBenefit"
+                                        (change)="cutValues($event.target.value,'fringeBenefit')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+          
+                            </div>
+
+                            <div class="row"> 
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.fringeBenefitValue' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label class="control-label">{{'empEntry.formB.hkd' | translate}}</label>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <input id="fringeBenefitValue" name="fringeBenefitValue" maxlength="33"
+                                                class="form-control all-caps" type="text" formControlName="fringeBenefitValue"
+                                                (change)="cutValues($event.target.value,'fringeBenefitValue')"
+                                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.packageValue' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label class="control-label">{{'empEntry.formB.hkd' | translate}}</label>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <input id="packageValue" name="packageValue" maxlength="33"
+                                                class="form-control all-caps" type="text" formControlName="packageValue"
+                                                (change)="cutValues($event.target.value,'packageValue')"
+                                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                        </div>
+                                    </div>
+                                </div>
+          
+                            </div>
+
+                            <div class="row">                                
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'empEntry.formB.jobDuty' | translate}}</label>
+          
+                                    <input id="jobDuty" name="jobDuty" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="jobDuty"
+                                        (change)="cutValues($event.target.value,'jobDuty')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <label class="control-label required-star">{{'empEntry.formB.isExistingPost' | translate}}</label>
+                                        <div class="row">
+                                            
+                                            <label class="checkbox-inline"><input id="yes" name="isExistingPost" type="radio" value="yes"
+                                                formControlName="isExistingPost" (click)="isExistingPost='Yes'">
+                                            {{'empEntry.formB.yes' | translate}}</label>
+                                      
+                                             <label class="checkbox-inline"><input id="no" name="isExistingPost" type="radio" value="no"
+                                                formControlName="isExistingPost" (click)="isExistingPost='No'">
+                                            {{'empEntry.formB.no' | translate}}</label> 
+                                        </div>
+                                                                
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <ng-container *ngIf="isExistingPost==='Yes'">
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'empEntry.formB.currentQualification' | translate}}</label>
+                  
+                                          <input id="currentQualification" name="currentQualification" maxlength="6" class="form-control all-caps"
+                                            type="text" formControlName="currentQualification">
+                                    </div>
+                                        
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'empEntry.formB.salaryOffered' | translate}}</label>
+                  
+                                          <input id="salaryOffered" name="salaryOffered" maxlength="6" class="form-control all-caps"
+                                            type="text" formControlName="salaryOffered">
+                                    </div>
+                                                                        
+                                </ng-container>
+                            </div>
+                      
+                            <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class="control-label">{{'empEntry.formB.justification' | translate}}</label>
+                  
+                                          <input id="justification" name="justification" maxlength="6" class="form-control all-caps"
+                                            type="text" formControlName="justification">
+                                    </div>
+                                        
+                            </div>
+
+                      </div>
+                  </div>
+                  <!-- End of Part 2 -->
+
+                  <!-- Part 3 - Accompanying Dependant(Spouse and unmarried dependent children under the age of 18) (if applicable) -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'empEntry.formB.part3Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">
+                                    {{'empEntry.formB.turnover' | translate}}
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="ui-input-text control-label required-star">{{'empEntry.formB.turnoverYear' | translate}}
+                                </label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="turnoverFromYear1" name="turnoverFromYear1" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverFromYear1"
+                                            (blur)="onMonthYearChange('turnoverFromYear1','turnoverToYear1')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-xs-1">
+                                        <label class="ui-input-text control-label">{{'empEntry.formB.slash' | translate}}
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="turnoverToYear1" name="turnoverToYear1" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverToYear1"
+                                            (blur)="onMonthYearChange('turnoverFromYear1','turnoverToYear1')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="ui-input-text control-label required-star">{{'empEntry.formB.valueOfTurnover' | translate}}
+                                </label>
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'empEntry.formB.hkd' | translate}}</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <input id="turnover1" name="turnover1" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="turnover1"
+                                            (change)="cutValues($event.target.value,'turnover1')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="ui-input-text control-label required-star">{{'empEntry.formB.turnoverYear' | translate}}
+                                </label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="turnoverFromYear2" name="turnoverFromYear2" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverFromYear2"
+                                            (blur)="onMonthYearChange('turnoverFromYear2','turnoverToYear2')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-xs-1">
+                                        <label class="ui-input-text control-label ">{{'empEntry.formB.slash' | translate}}
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="turnoverToYear2" name="turnoverToYear2" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverToYear2"
+                                            (blur)="onMonthYearChange('turnoverFromYear2','turnoverToYear2')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="ui-input-text control-label required-star">{{'empEntry.formB.valueOfTurnover' | translate}}
+                                </label>
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'empEntry.formB.hkd' | translate}}</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <input id="turnover2" name="turnover2" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="turnover2"
+                                            (change)="cutValues($event.target.value,'turnover2')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'empEntry.formB.paidUp' | translate}}</label>
+      
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'empEntry.formB.hkd' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input id="paidUp" name="paidUp" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="paidUp"
+                                            (change)="cutValues($event.target.value,'paidUp')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                      </div>
+                  </div>
+                  <!-- End of Part 3 -->
+
+                  <!-- Part 4 - Higher Education Qualifications Obtained in Hong Kong (if applicable) -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'empEntry.formB.part4Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">{{'empEntry.formB.staffingPosition' | translate}}</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="staffingPositionAtDay" name="staffingPositionAtDay" class="form-control datePickerDate "
+                                            type="text" formControlName="staffingPositionAtDay">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="staffingPositionAtMonth" name="staffingPositionAtMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="staffingPositionAtMonth"
+                                            (blur)="onMonthYearChange('staffingPositionAtDay','staffingPositionAtMonth','staffingPositionAtYear')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="staffingPositionAtYear" name="staffingPositionAtYear" class="form-control datePickerYear "
+                                            type="text" formControlName="staffingPositionAtYear"
+                                            (blur)="onMonthYearChange('staffingPositionAtDay','staffingPositionAtMonth','staffingPositionAtYear')">
+                                            <option value='' disabled selected>
+                                                {{'empEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">{{'empEntry.formB.noOfProf' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'empEntry.formB.local' | translate}}</label>
+      
+                                <input id="localProf" name="localProf" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="localProf"
+                                    (change)="cutValues($event.target.value,'localProf')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'empEntry.formB.nonLocal' | translate}}</label>
+      
+                                <input id="nonLocalProf" name="nonLocalProf" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="nonLocalProf"
+                                    (change)="cutValues($event.target.value,'nonLocalProf')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">{{'empEntry.formB.noOfStaff' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'empEntry.formB.local' | translate}}</label>
+      
+                                <input id="localStaff" name="localStaff" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="localStaff"
+                                    (change)="cutValues($event.target.value,'localStaff')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'empEntry.formB.nonLocal' | translate}}</label>
+      
+                                <input id="nonLocalStaff" name="nonLocalStaff" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="nonLocalStaff"
+                                    (change)="cutValues($event.target.value,'nonLocalStaff')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+                        </div>
+
+                      </div>
+                  </div>
+                  <!-- End of Part 4 -->
+
+                  <!-- Part 5 - Academic/Professional Qualifications -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'empEntry.formB.part5Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">      
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.ifSuccessfulObtain' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="ifSuccessfulObtain" type="radio" value="yes"
+                                            formControlName="ifSuccessfulObtain" (click)="ifSuccessfulObtain='Yes'">
+                                        {{'empEntry.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="ifSuccessfulObtain" type="radio" value="no"
+                                            formControlName="ifSuccessfulObtain" (click)="ifSuccessfulObtain='No'">
+                                        {{'empEntry.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="ifSuccessfulObtain==='Yes'">
+                                <div class="col-xs-12">
+                                    <label class="control-label">{{'empEntry.formB.employRef' | translate}}</label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.employRefNo' | translate}}</label>
+              
+                                      <input id="employRefNo" name="employRefNo" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="employRefNo">
+                                </div>
+                                                                    
+                            </ng-container>
+                        </div>
+
+                        <div class="row">      
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'empEntry.formB.anyApplication' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="anyApplication" type="radio" value="yes"
+                                            formControlName="anyApplication" (click)="anyApplication='Yes'">
+                                        {{'empEntry.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="anyApplication" type="radio" value="no"
+                                            formControlName="anyApplication" (click)="anyApplication='No'">
+                                        {{'empEntry.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="anyApplication==='Yes'">    
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label">{{'empEntry.formB.refNo' | translate}}</label>
+                                    <input id="refNo" name="refNo" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="refNo"
+                                        (change)="cutValues($event.target.value,'refNo')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+    
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label">{{'empEntry.formB.appPostTitle' | translate}}</label>
+          
+                                    <input id="appPostTitle" name="appPostTitle" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="appPostTitle"
+                                        (change)="cutValues($event.target.value,'appPostTitle')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>                                                                 
+                                                                    
+                            </ng-container>
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="anyApplication==='Yes'">    
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label">{{'empEntry.formB.noOfWorker' | translate}}</label>
+                                    <input id="noOfWorker" name="noOfWorker" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="noOfWorker"
+                                        (change)="cutValues($event.target.value,'noOfWorker')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'empEntry.formB.appDate' | translate}}</label>
+    
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="appDay" name="appDay" class="form-control datePickerDate "
+                                                type="text" formControlName="appDay">
+                                                <option value='' disabled selected>
+                                                    {{'empEntry.formB.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+    
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="appMonth" name="appMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="appMonth"
+                                                (blur)="onMonthYearChange('appDay','appMonth','appYear')">
+                                                <option value='' disabled selected>
+                                                    {{'empEntry.formB.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+    
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="appYear" name="appYear" class="form-control datePickerYear "
+                                                type="text" formControlName="appYear"
+                                                (blur)="onMonthYearChange('appDay','appMonth','appYear')">
+                                                <option value='' disabled selected>
+                                                    {{'empEntry.formB.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                                                              
+                                                                    
+                            </ng-container>
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="anyApplication==='Yes'">  
+                                <div class="col-md-12 form-group">
+                                    <label class="control-label">{{'empEntry.formB.appResult' | translate}}</label>
+                                </div>
+                                
+                                <div class="col-md-6 form-group">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="checkbox-inline"><input id="approved" name="appResult" type="radio" value="yes"
+                                                formControlName="appResult" (click)="appResult='approved'">
+                                            {{'empEntry.formB.approved' | translate}}</label>
+                                      
+                                             <label class="checkbox-inline"><input id="notApproved" name="appResult" type="radio" value="no"
+                                                formControlName="appResult" (click)="appResult='notApproved'">
+                                            {{'empEntry.formB.notApproved' | translate}}</label> 
+                                        </div>
+                                                                
+                                    </div>
+                                </div>                                                                
+                                                                    
+                            </ng-container>
+                        </div>
+                        
+                
+                      </div>
+                  </div>
+                  <!-- End of Part 5 -->
+
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

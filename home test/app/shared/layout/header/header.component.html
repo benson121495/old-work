@@ -1,0 +1,34 @@
+<header class="navbar navbar-default" id="top">
+    <div class="container">
+        <div class="content" id="content">
+            <div class="row">
+                <div id="branding">
+                    <div id="govhklogo">
+                        <div class="{{'HEADER.LOGO-CLASS' | translate}}"></div>
+                    </div>
+                </div>
+                <div class="header-nav">
+                    <div id="topNav">
+                        <ul class="nav nav-pills navbar-left hidden-xs">
+                            <li *ngIf="commonService.logoCheckLang !== 'en-US' ">
+                                <a class="cursor-pointer" (click)="changeLanguage('en-US')">ENG</a>
+                            </li>
+                            <li *ngIf="commonService.logoCheckLang !== 'zh-HK' ">
+                                <a class="cursor-pointer" (click)="changeLanguage('zh-HK')" title="Traditional">繁</a>
+                            </li>
+                            <li *ngIf="commonService.logoCheckLang !== 'zh-CN' ">
+                                <a class="cursor-pointer" (click)="changeLanguage('zh-CN')" title="Simplified">简</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <ul *ngIf="!commonService.illustratePage" class="nav nav-pills navbar-right header-nav-right">
+                        <li>
+                            <a (click)="openModal()" class="cursor-pointer">{{'HEADER.EXIT' | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-modal [ngClass]="commonService.showModal?'show':'hide'"></app-modal>
+</header>

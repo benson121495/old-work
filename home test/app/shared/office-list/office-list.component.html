@@ -1,0 +1,95 @@
+<div [formGroup]="formGroupname">
+    <table class="table ">
+
+        <tbody *ngFor="let region of officeList">
+
+            <tr>
+                <td colspan="3" style="background:#DDE4F6;">{{region.regionName}}</td>
+            </tr>
+            <tr *ngFor="let office of region.offices">
+                <div class="modal" [ngClass]="{ 'show-modal': showLocationMap, 'hide-modal': !showLocationMap  }" *ngIf="showLocationMap">
+                    <span id="close" class="close" (click)="hideLocationMapPopup()">&times;</span>
+                    <br />
+                    <table class="table" style="margin-left:25%; width:50% ; height: 12%;">
+                        <tbody>
+                            <tr style="background:#DDE4F6;">
+                                <td style="background:#DDE4F6;" colspan="2"><b>{{selectedOfficeList.offName}}</b></td><br/>
+
+                            </tr>
+                            <tr valign="top">
+                                <td style="border-top-color: white;background:white">
+                                    {{'es.birthsearch.officeinfowindow.addr' | translate}}
+                                </td>
+                                <td style="border-top-color: white;background:white">
+                                    {{selectedOfficeList.addr}} {{selectedOfficeList.addrHint}}
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="border-top-color: white;background:white">
+                                    {{'es.birthsearch.officeinfowindow.tel' | translate}}
+                                </td>
+                                <td style="border-top-color: white;background:white">
+                                    {{selectedOfficeList.telNum}}<br/>
+                                </td>
+                            </tr>
+                            <tr valign="top">
+                                <td style="border-top-color: white;background:white">
+                                    {{'es.birthsearch.officeinfowindow.workhour' | translate}}
+                                </td>
+                                <td style="border-top-color: white;background:white">
+                                    <ng-container>
+                                        {{selectedOfficeList.offHrWdStart1}} am - {{selectedOfficeList.offHrWdEnd1}} pm &
+                                    </ng-container>
+
+                                    <ng-container>
+                                        {{selectedOfficeList.offHrWdStart2}} am - {{selectedOfficeList.offHrWdEnd2}} pm (Mon-Fri)
+                                    </ng-container><br/>
+
+                                    <ng-container>
+                                        {{selectedOfficeList.offHrSatStart1}} am - {{selectedOfficeList.offHrSatEnd1}} pm &
+                                    </ng-container>
+
+                                    <ng-container>
+                                        {{selectedOfficeList.offHrSatStart2}} am - {{selectedOfficeList.offHrSatEnd2}} pm (Sat)
+                                    </ng-container><br/>
+
+                                    <ng-container>
+                                        {{selectedOfficeList.offHrSunStart1}} am - {{selectedOfficeList.offHrSunEnd1}} pm &
+                                    </ng-container>
+
+                                    <ng-container>
+                                        {{selectedOfficeList.offHrSunStart2}} am - {{selectedOfficeList.offHrSunEnd2}} pm (Sun)
+                                    </ng-container><br/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <img id="image-modal" src="assets/image/Maps/{{selectedOfficeList.locationMap}}" class="modal-content">
+                    <div id="caption"></div>
+                </div>
+                <td style="border-top-color: white">
+                    <ng-container>
+                        <label class="checkbox-inline"> <input type="radio" name="officeValue" formControlName="officeValue"
+                        value="{{office.officeCode}}">
+                    {{office.district.districtName}} </label>
+
+                    </ng-container>
+                </td>
+                <td style="border-top-color: white">
+                    {{office.officeOffName}}
+                    <br />
+                    <!-- <a (click)="showLocationMapPopup(office)">
+                {{'COMMON.LOCATION-MAP-AND-WORK-HOURS' | translate}}
+            </a> -->
+                    <a (click)="commonService.showLocationMap(office)">{{'birthsearch.acknowledge.locmapAndWorkinghours' | translate}}
+            </a>
+
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,73 @@
+<div class="container">
+    <app-topbar [title]="'coe.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'coe.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form (ngSubmit)="next()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.acknowledgement.title.acknowledgement' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <label class="control-label">{{'coe.acknowledgement.receipt' | translate}}</label>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                                    <button id="submitBtn" value="" name="submitBtn" type="button"
+                                        class="btn btn-brown btn-block"
+                                        (click)="backClicked()">{{ 'COMMON.SAVE-ONLY' | translate }}
+                                    </button>
+                                </div>
+                                <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                                    <button type="submit"
+                                        class="btn btn-brown btn-block">{{ 'COMMON.PRINT' | translate}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i
+                                class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.acknowledgement.title.service' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <label
+                                    class="control-label col-md-6">{{'coe.acknowledgement.typeService' | translate}}</label>
+                                <label class="control-label col-md-6">{{'coe.acknowledgement.coe' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i
+                                class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.acknowledgement.title.transaction' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <label
+                                    class="control-label col-md-6">{{'coe.acknowledgement.transDateTime' | translate}}</label>
+                            </div>
+                            <div class="row">
+                                <label
+                                    class="control-label col-md-6">{{'coe.acknowledgement.transReference' | translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block" (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.COMPLETE' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

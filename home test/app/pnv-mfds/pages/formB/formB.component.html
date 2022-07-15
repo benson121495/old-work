@@ -1,0 +1,555 @@
+<div class="container">
+    <app-topbar [title]="'pnv-mfds.formB.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-mfds.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel  np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                <!-- ----------------------------------------- content ---------------------------------------- -->             
+                  <!-- Part 1 - Lost passport/travel document particulars -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-mfds.formB.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.chiName' | translate}}</label>
+                                    <input id="bapplicantChiName" name="bapplicantChiName" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="bapplicantChiName">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.engSurname' | translate}}</label>
+                                    <input id="bapplicantEngSurname" name="bapplicantEngSurname" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="bapplicantEngSurname">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.engGivenNames' | translate}}</label>
+                                    <input id="bapplicantEngGivenNames" name="bapplicantEngGivenNames" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="bapplicantEngGivenNames">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="bapplicantSex" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="bapplicantSex" 
+                                            name="bapplicantSex" type="checkbox" value="Male"
+                                            formControlName="bapplicantSex">
+                                            {{'pnv-mfds.formB.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="bapplicantSex" 
+                                            name="bapplicantSex" type="checkbox" value="Female"
+                                            formControlName="bapplicantSex">
+                                            {{'pnv-mfds.formB.female' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="bapplicantDobday" name="bapplicantDobday" class="form-control datePickerDate" 
+                                          type="text" formControlName="bapplicantDobday">
+                                              <option value='' disabled selected>
+                                                  {{'pnv-mfds.formB.day' | translate}}
+                                              </option>
+                                              <option value='00' selected> DD </option>
+                                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                  {{day}}</option>
+                                          </select>
+                                      </div>
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="bapplicantDobmonth" name="bapplicantDobmonth" class="form-control datePickerMonth" 
+                                          type="text" formControlName="bapplicantDobmonth"
+                                              (blur)="onMonthYearChange('bapplicantDobday','bapplicantDobmonth','bapplicantDobyear')">
+                                              <option value='' disabled selected>
+                                                  {{'pnv-mfds.formB.month' | translate}}
+                                              </option>
+                                              <option value='00' selected> MM </option>
+                                              <option *ngFor="let month of monthList" value="{{month}}">
+                                                  {{month}}</option>
+                                          </select>
+                                      </div>
+                                      <div class="col-md-4" style="padding-left: 0px;">
+                                          <select id="bapplicantDobyear" name="bapplicantDobyear" class="form-control datePickerYear " 
+                                              type="text" formControlName="bapplicantDobyear" 
+                                              (blur)="onMonthYearChange('bapplicantDobday','bapplicantDobmonth','bapplicantDobyear')">
+                                              <option value='' disabled selected>{{'pnv-mfds.formB.year' | translate}}</option>
+                                              <option value='0000' selected> YYYY </option>
+                                              <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                          </select>
+                                      </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.currentAddress' | translate}}</label>
+                                    <input id="bapplicantCurrentAddress1" name="bapplicantCurrentAddress1" class="form-control address" 
+                                    type="text" formControlName="bapplicantCurrentAddress1">
+                                    <input id="bapplicantCurrentAddress2" name="bapplicantCurrentAddress2" class="form-control address" 
+                                    type="text" formControlName="bapplicantCurrentAddress2">
+                                    <input id="bapplicantCurrentAddress3" name="bapplicantCurrentAddress3" class="form-control address" 
+                                    type="text" formControlName="bapplicantCurrentAddress3">
+                                    <input id="bapplicantCurrentAddress4" name="bapplicantCurrentAddress4" class="form-control address" 
+                                    type="text" formControlName="bapplicantCurrentAddress4">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.position' | translate}}</label>
+                                    <input id="bapplicantPosition" name="bapplicantPosition" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="bapplicantPosition">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.stayTime' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="bapplicantStayLengthOfYear" name="bapplicantStayLengthOfYear" class="form-control datePickerDate" 
+                                            type="text" formControlName="bapplicantStayLengthOfYear">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-mfds.formB.lengthOfYear' | translate}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="bapplicantStayLengthOfMonth" name="bapplicantStayLengthOfMonth" 
+                                                class="form-control datePickerMonth" type="text" formControlName="bapplicantStayLengthOfMonth">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-mfds.formB.lengthOfMonth' | translate}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="bapplicantStayLengthOfDay" name="bapplicantStayLengthOfDay" 
+                                                class="form-control datePickerMonth" type="text" formControlName="bapplicantStayLengthOfDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-mfds.formB.lengthOfDay' | translate}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.stayPurpose' | translate}}</label>
+                                    <input id="bapplicantStayPurpose" name="bapplicantStayPurpose" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="bapplicantStayPurpose">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.addressAfterArriving' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressRoom' | translate}}</label>
+                                  <input id="bapplicantAddressAfterArrivingRoom" name="bapplicantAddressAfterArrivingRoom" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingRoom">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressFloor' | translate}}</label>
+                                  <input id="bapplicantAddressAfterArrivingFloor" name="bapplicantAddressAfterArrivingFloor" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingFloor">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBlock' | translate}}</label>
+                                  <input id="bapplicantAddressAfterArrivingBlock" name="bapplicantAddressAfterArrivingBlock" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingBlock">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBuilding' | translate}}</label>
+                                  <input id="bapplicantAddressAfterArrivingBuilding" name="bapplicantAddressAfterArrivingBuilding" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingBuilding">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressEstate' | translate}}</label>
+                                  <input id="bapplicantAddressAfterArrivingEstate" name="bapplicantAddressAfterArrivingEstate" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingEstate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressStreet' | translate}}</label>
+                                  <input id="bapplicantAddressAfterArrivingStreet" name="bapplicantAddressAfterArrivingStreet" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingStreet">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressDistrict' | translate}}</label>
+                                  <select id="bapplicantAddressAfterArrivingDistrict" name="bapplicantAddressAfterArrivingDistrict" class="form-control address" 
+                                  type="text" formControlName="bapplicantAddressAfterArrivingDistrict">
+                                  <option value='' disabled selected>Please select</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'pnv-mfds.formB.relationship' | translate}}</label>
+                                  <input id="bapplicantRelationship" name="bapplicantRelationship" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelationship">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.time' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="bapplicantLengthOfYear" name="bapplicantLengthOfYear" style="width: 85px" class="form-control datePickerDate" 
+                                            type="text" formControlName="bapplicantLengthOfYear">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-mfds.formB.lengthOfYear' | translate}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="bapplicantLengthOfMonth" name="bapplicantLengthOfMonth" style="width: 95px"
+                                                class="form-control datePickerMonth" type="text" formControlName="bapplicantLengthOfMonth">
+                                                <option value='' disabled selected>
+                                                    {{'pnv-mfds.formB.lengthOfMonth' | translate}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.otherRelative' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.relativeName' | translate}}</label>
+                                  <input id="bapplicantRelativeName" name="bapplicantRelativeName" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeName">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.relativeRelation' | translate}}</label>
+                                  <input id="bapplicantRelativeRelation" name="bapplicantRelativeRelation" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeRelation">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.relativeAddress' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressRoom' | translate}}</label>
+                                  <input id="bapplicantRelativeAddressRoom" name="bapplicantRelativeAddressRoom" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressRoom">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressFloor' | translate}}</label>
+                                  <input id="bapplicantRelativeAddressFloor" name="bapplicantRelativeAddressFloor" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressFloor">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBlock' | translate}}</label>
+                                  <input id="bapplicantRelativeAddressBlock" name="bapplicantRelativeAddressBlock" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressBlock">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBuilding' | translate}}</label>
+                                  <input id="bapplicantRelativeAddressBuilding" name="bapplicantRelativeAddressBuilding" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressBuilding">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressEstate' | translate}}</label>
+                                  <input id="bapplicantRelativeAddressEstate" name="bapplicantRelativeAddressEstate" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressEstate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressStreet' | translate}}</label>
+                                  <input id="bapplicantRelativeAddressStreet" name="bapplicantRelativeAddressStreet" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressStreet">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressDistrict' | translate}}</label>
+                                  <select id="bapplicantRelativeAddressDistrict" name="bapplicantRelativeAddressDistrict" class="form-control address" 
+                                  type="text" formControlName="bapplicantRelativeAddressDistrict">
+                                  <option value='' disabled selected>Please select</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <!-- End of Part 1-->
+				  
+                  <!-- Part 2 - Arrival Particulars -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-mfds.formB.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.chiName' | translate}}</label>
+                                    <input id="sponsorChiName" name="sponsorChiName" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorChiName">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.engSurname' | translate}}</label>
+                                    <input id="sponsorEngSurname" name="sponsorEngSurname" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorEngSurname">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.engGivenNames' | translate}}</label>
+                                    <input id="sponsorEngGivenNames" name="sponsorEngGivenNames" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorEngGivenNames">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="sponsorSex" class="col-md-6 form-group">
+                                    <label class="control-label">{{'pnv-mfds.formB.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="sponsorSex" 
+                                            name="sponsorSex" type="checkbox" value="Male"
+                                            formControlName="sponsorSex">
+                                            {{'pnv-mfds.formB.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="sponsorSex" 
+                                            name="sponsorSex" type="checkbox" value="Female"
+                                            formControlName="sponsorSex">
+                                            {{'pnv-mfds.formB.female' | translate}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="sponsorDobday" name="sponsorDobday" class="form-control datePickerDate" 
+                                          type="text" formControlName="sponsorDobday">
+                                              <option value='' disabled selected>
+                                                  {{'pnv-mfds.formB.day' | translate}}
+                                              </option>
+                                              <option value='00' selected> DD </option>
+                                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                  {{day}}</option>
+                                          </select>
+                                      </div>
+                                      <div class="col-md-3" style="padding-left: 0px;">
+                                          <select id="sponsorDobmonth" name="sponsorDobmonth" class="form-control datePickerMonth" 
+                                          type="text" formControlName="sponsorDobmonth"
+                                              (blur)="onMonthYearChange('sponsorDobday','sponsorDobmonth','sponsorDobyear')">
+                                              <option value='' disabled selected>
+                                                  {{'pnv-mfds.formB.month' | translate}}
+                                              </option>
+                                              <option value='00' selected> MM </option>
+                                              <option *ngFor="let month of monthList" value="{{month}}">
+                                                  {{month}}</option>
+                                          </select>
+                                      </div>
+                                      <div class="col-md-4" style="padding-left: 0px;">
+                                          <select id="sponsorDobyear" name="sponsorDobyear" class="form-control datePickerYear " 
+                                              type="text" formControlName="sponsorDobyear" 
+                                              (blur)="onMonthYearChange('sponsorDobday','sponsorDobmonth','sponsorDobyear')">
+                                              <option value='' disabled selected>{{'pnv-mfds.formB.year' | translate}}</option>
+                                              <option value='0000' selected> YYYY </option>
+                                              <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                                          </select>
+                                      </div> 
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.dop' | translate}}</label>
+                                    <input id="sponsorDop" name="sponsorDop" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorDop">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.nationality' | translate}}</label>
+                                    <input id="sponsorNationality" name="sponsorNationality" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorNationality">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.passportNo' | translate}}</label>
+                                    <input id="sponsorPassportNo" name="sponsorPassportNo" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorPassportNo">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.durationYear' | translate}}</label>
+                                    <input id="sponsorDurationYear" name="sponsorDurationYear" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorDurationYear">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.position' | translate}}</label>
+                                    <input id="sponsorPosition" name="sponsorPosition" maxlength="6"  class="form-control all-caps"
+                                    type="text" formControlName="sponsorPosition">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.address' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressRoom' | translate}}</label>
+                                  <input id="sponsorAddressRoom" name="sponsorAddressRoom" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressRoom">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressFloor' | translate}}</label>
+                                  <input id="sponsorAddressFloor" name="sponsorAddressFloor" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressFloor">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBlock' | translate}}</label>
+                                  <input id="sponsorAddressBlock" name="sponsorAddressBlock" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressBlock">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBuilding' | translate}}</label>
+                                  <input id="sponsorAddressBuilding" name="sponsorAddressBuilding" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressBuilding">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressEstate' | translate}}</label>
+                                  <input id="sponsorAddressEstate" name="sponsorAddressEstate" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressEstate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressStreet' | translate}}</label>
+                                  <input id="sponsorAddressStreet" name="sponsorAddressStreet" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressStreet">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressDistrict' | translate}}</label>
+                                  <select id="sponsorAddressDistrict" name="sponsorAddressDistrict" class="form-control address" 
+                                  type="text" formControlName="sponsorAddressDistrict">
+                                  <option value='' disabled selected>Please select</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label required-star">{{'pnv-mfds.formB.tel' | translate}}</label>
+                                  <input id="sponsorTel" name="sponsorTel" class="form-control address" 
+                                  type="text" formControlName="sponsorTel">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnv-mfds.formB.officeAddress' | translate}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressRoom' | translate}}</label>
+                                  <input id="sponsorOfficeAddressRoom" name="sponsorOfficeAddressRoom" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressRoom">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressFloor' | translate}}</label>
+                                  <input id="sponsorOfficeAddressFloor" name="sponsorOfficeAddressFloor" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressFloor">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBlock' | translate}}</label>
+                                  <input id="sponsorOfficeAddressBlock" name="sponsorOfficeAddressBlock" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressBlock">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressBuilding' | translate}}</label>
+                                  <input id="sponsorOfficeAddressBuilding" name="sponsorOfficeAddressBuilding" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressBuilding">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressEstate' | translate}}</label>
+                                  <input id="sponsorOfficeAddressEstate" name="sponsorOfficeAddressEstate" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressEstate">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressStreet' | translate}}</label>
+                                  <input id="sponsorOfficeAddressStreet" name="sponsorOfficeAddressStreet" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressStreet">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                  <label class="control-label">{{'pnv-mfds.formB.addressDistrict' | translate}}</label>
+                                  <select id="sponsorOfficeAddressDistrict" name="sponsorOfficeAddressDistrict" class="form-control address" 
+                                  type="text" formControlName="sponsorOfficeAddressDistrict">
+                                  <option value='' disabled selected>Please select</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="row">              
+                                <div class="col-md-6 form-group">
+                                    <div class="flex-container">
+                                        <div class="col-xs-8" style="padding-left: 0px;">
+                                            <label class="control-label required-star">{{'pnv-mfds.formB.tel' | translate}}</label>
+                                            <input id="sponsorOfficeTel" name="sponsorOfficeTel" maxlength="8"  class="form-control all-caps"
+                                            type="text" formControlName="sponsorOfficeTel">
+                                        </div>
+                                        <div class="col-xs-4" style="padding-left: 0px;">
+                                            <label class="control-label">{{'pnv-mfds.formB.ext' | translate}}</label>
+                                            <input id="sponsorOfficeExt" name="sponsorOfficeExt" maxlength="4"  class="form-control all-caps"
+                                            type="text" formControlName="sponsorOfficeExt">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  <!-- End of Part 2 -->
+				  
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                            type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit"
+                            class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+          </div>
+      </form>
+    </div>
+</div>

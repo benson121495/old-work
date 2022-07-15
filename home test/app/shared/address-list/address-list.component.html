@@ -1,0 +1,263 @@
+<div [formGroup]="inputFormGroup">
+  <div class="tab-content">
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <label class="control-label required-star">&nbsp;&nbsp;{{'COMMON.INPUT_RES_ADDRESS' | translate}}
+        </label>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <button id="submitBtn" name="submitBtn" type="button" class="btn btn-brown btn-block"
+            (click)="showAddressModal()">
+            {{'COMMON.INPUT' | translate}}
+          </button>
+          <textarea [hidden]="!hasAddress" disabled class="all-caps resizeNone txt-area-width" rows="5"
+            style="width: 100%; height:100%;" cols="45" placeholder="{{'PLACE-HOLDERS.INPUT-ADDRESS'|translate}}"
+            formControlName="totalAddress"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ----------------------------------------- address modal ---------------------------------------- -->
+
+  <div id="{{prefix}}pdfAddressModal" class="addModal modal" align="center" style="display:none">
+    <div class="modal-dialog" style="width: 80%;">
+      <div class="modal-content" style="width: 99%;">
+        <div class="modal-body">
+          <div class="scrollpane">
+            <div class="content" style="width: 100%; overflow:hidden; box-sizing:border-box;">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title">
+                    <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'birthsearch.form.address.area' | translate}}
+                  </h3>
+                </div>
+                <div class="panel-body">
+                  <div class="row form-group">
+                    <div class="col-xs-12 tab">
+                    </div>
+                  </div>
+                  <div class="overflow">
+                    <!-- <div class="row" *ngIf="f.addressType!=undefined && f.addressType.value === 'STRD'" align="left"> -->
+                    <div class="row" align="left">
+                      <!-- <div class="col-md-3 form-group"> -->
+                      <div *ngIf="displayWithinHK" class="form-group col-sm-3"><label class="control-label">
+                          <input type="radio" name="addTypeRadio" id="addTypeRadio" formControlName="addTypeRadio"
+                            value="withinHK">&nbsp;
+                          {{'birthsearch.form.particularsOfApplicant.address.addressType.withinHongKong' | translate}}</label>
+                      </div>
+                      <!-- </div> -->
+                      <!-- <div class="col-md-3 form-group"> -->
+                      <div *ngIf="displayOutsideHK" class="form-group col-sm-3"><label class="control-label">
+                          <input type="radio" name="addTypeRadio" id="addTypeRadio" formControlName="addTypeRadio"
+                            value="outsideHK">&nbsp;
+                          {{'birthsearch.form.particularsOfApplicant.address.addressType.outsideHongKong' | translate}}</label>
+                      </div>
+                      <!-- </div> -->
+                      <!-- <div class="col-md-3 form-group"> -->
+                      <div *ngIf="displayHkPB" class="form-group col-sm-3"><label class="control-label">
+                          <input type="radio" name="addTypeRadio" id="addTypeRadio" formControlName="addTypeRadio"
+                            value="hkPB">&nbsp;
+                          {{'birthsearch.form.particularsOfApplicant.address.addressType.hongKongPOBox' | translate}}</label>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="panel panel-primary">
+                          <div class="panel-heading">
+                            <h3 class="panel-title">
+                              <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'APPLICANT.ADD-TYPE' | translate}}
+                            </h3>
+                          </div>
+                          <div class="panel-body">
+                            <div class="tab-content">
+                              <div class="tab-pane fade in active" role="tabpanel">
+                                <div class="formPanel">
+
+                                  <div class="row" align="left">
+                                    <div class="col-md-6">
+                                      <label class="control-label"
+                                        for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.roomFlat' | translate}}</label>
+                                      <!-- </div>
+                                <div class="col-md-6"> -->
+                                      <input id="houseNum" name="houseNum" formControlName="houseNumber" maxlength="5"
+                                        placeholder="" title="" class="form-control all-caps" type="text"
+                                        (input)="cutValues($event.target.value,'houseNumber')">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                      <label class="control-label"
+                                        for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.floor' | translate}}</label>
+                                      <!-- </div>
+                                  <div class="col-md-6"> -->
+                                      <input id="floor" name="floor" formControlName="floor" maxlength="5"
+                                        placeholder="" title="" class="form-control all-caps" type="text"
+                                        (input)="cutValues($event.target.value,'floor')">
+                                    </div>
+                                  </div>
+                                  <!-- <div class="errorMsg"  style="color:red" role="alert"
+                            *ngIf="errorAddress3.length !== 0">
+                            <strong></strong>1. A-Z, 0-9, Chinese characters and special characters are allowed
+                          </div> -->
+                                  <br>
+                                  <div class="row" align="left">
+                                    <div class="col-md-6">
+                                      <label class="control-label"
+                                        for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.block' | translate}}</label>
+                                      <!-- </div>
+                                  <div class="col-md-6"> -->
+                                      <input id="block" name="block" formControlName="block" maxlength="5"
+                                        placeholder="" title="" class="form-control all-caps" type="text"
+                                        (input)="cutValues($event.target.value,'block')">
+                                    </div>
+                                    <!-- </div>
+                          <br>
+                          <div class="row" align="left"> -->
+                                    <div class="col-md-6">
+                                      <label class="control-label"
+                                        for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.buildingPhase' | translate}}</label>
+                                      <!-- </div>
+                                  <div class="col-md-6"> -->
+                                      <input id="phase" name="phase" formControlName="phase" maxlength="35"
+                                        placeholder="" title="" class="form-control all-caps" type="text"
+                                        (input)="cutValues($event.target.value,'phase')">
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <div class="row" align="left">
+                                    <div class="col-md-6">
+                                      <label class="control-label" for="streetVillage">
+                                        {{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.ii.estateVillageNoName' | translate}}</label>
+                                      <!-- </div>
+                                  <div class="col-md-6"> -->
+                                      <input id="estateName" name="estateName" formControlName="estateName"
+                                        maxlength="35" placeholder="" title="" class="form-control all-caps" type="text"
+                                        (input)="cutValues($event.target.value,'estateName')">
+                                    </div>
+                                    <!-- </div>
+                          <br>
+                          <div class="row" align="left"> -->
+                                    <div class="col-md-6">
+                                      <label class="control-label"
+                                        for="streetVillage">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.streetNoName' | translate}}</label>
+                                      <!-- </div>
+                                  <div class="col-md-6"> -->
+                                      <input id="streetName" name="streetName" formControlName="streetName"
+                                        maxlength="35" placeholder="" title="" class="form-control all-caps" type="text"
+                                        (input)="cutValues($event.target.value,'streetName')">
+                                    </div>
+                                  </div>
+                                  <br>
+
+                                  <!-- <br> -->
+                                  <div class="row" align="left">
+                                    <div class="col-md-6 form-group">
+                                      <!-- <b class="required">*</b> -->
+                                      <label
+                                        class="control-label required-star">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.area' | translate}}</label>
+
+                                      <select id="region" name="region" class="form-control" formControlName="regionCd"
+                                        maxlength="15" (change)="processSelected(f.regionCd.value)">
+                                        <option value='' selected disabled>
+                                          {{'ADDRESS_LOOKUP_SUBREG.DEFAULT_SELECT' | translate}}</option>
+                                        <option *ngFor="let item of regionList" [value]="item['value']"
+                                          [attr.data-regionSelected]="item['label']">{{item['label']
+                                    | translate}}</option>
+                                      </select>
+
+
+                                      <div class="errorMsg"  style="color:red" role="alert"
+                                        *ngIf="errorAddress.length !== 0">
+                                        <strong></strong>Please select a Area
+                                      </div>
+
+
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                      <!-- <b class="required">*</b> -->
+                                      <label class="control-label required-star"
+                                        for="district">{{'birthsearch.form.searchInformation.addressOfBirthHospitalInHongKong.i.district' | translate}}</label>
+
+                                      <select [disabled]="regionName == ''" id="districtName" name="districtName"
+                                        class="form-control" formControlName="districtName">
+
+
+
+                                        <option value='' selected disabled>
+                                          {{'DISTRICT_LOOKUP_SUBREG.DEFAULT_SELECT' | translate}}</option>
+                                        <optgroup *ngFor="let obj of subDistList" [attr.id]="obj.districtCd"
+                                          [attr.label]="obj[langCode()+'Name']">
+                                          <option *ngFor="let subObj of obj.children" [value]="subObj['label']"
+                                            [attr.data]="subObj['label']">
+                                            {{subObj['label'] | translate}}</option>
+                                        </optgroup>
+                                      </select>
+
+                                      <div class="errorMsg"  style="color:red" role="alert"
+                                        *ngIf="errorAddress2.length !== 0">
+                                        <strong></strong>Please select a District
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="row" align="left">
+                                    <div class="col-md-6 form-group">
+                                      <label class="control-label"
+                                        *ngIf="otherInfoMan== 0">{{'birthsearch.form.particularsOfApplicant.address.otherInformation' | translate}}
+                                      </label>
+                                      <label class="control-label required-star"
+                                        *ngIf="otherInfoMan!= 0">{{'birthsearch.form.particularsOfApplicant.address.otherInformation' | translate}}
+                                      </label>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                      <input class="form-control all-caps" formControlName="add1" maxlength="35"
+                                        (input)="cutValues($event.target.value,'add1')">
+                                      <br>
+                                      <input class="form-control all-caps" formControlName="add2" maxlength="35"
+                                        (input)="cutValues($event.target.value,'add2')">
+
+                                      <div class="errorMsg"  style="color:red" role="alert"
+                                        *ngIf="errorAddress4.length !== 0">
+                                        <strong></strong>Please input other information(e.g. country name, Zip code,
+                                        P.O. Box)
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-body row" align="left">
+
+          <div class="col-md-3">
+            <button type="button" class="btn btn-brown btn-block" (click)="hideAddressModal()">
+              {{'birthsearch.button.cancel' | translate}}
+            </button>
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" class="btn btn-brown btn-block" (click)="continueAddress()">
+              {{'COMMON.CONTINUE' | translate}}
+            </button>
+          </div>
+
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of address body -->

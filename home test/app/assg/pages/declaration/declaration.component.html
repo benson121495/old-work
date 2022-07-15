@@ -1,0 +1,130 @@
+<div class="container">
+    <app-topbar [title]="'assg.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'assg.sideStepMenu' | translate"
+        [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'assg.declaration.title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <ol type="i">
+                                        <li>
+                                            <ol type="a">
+                                                <li>
+                                                    <div>
+                                                        <label class="checkbox-inline">
+                                                            <input id="aTrue" value="true" name="a" type="radio"
+                                                                (change)="a=true">
+                                                            {{'assg.declaration.1.a1' | translate}}</label>
+                                                    </div>
+                                                    <div>
+                                                        <label class="checkbox-inline">
+                                                            <input id="aFalse" value="false" name="a" type="radio"
+                                                                (change)="a=false">
+                                                            {{'assg.declaration.1.a2' | translate}}</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input *ngIf="!a" id="sponsorStatusOthers" name="aName"
+                                                            class="form-control" type="text">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <label class="checkbox-inline">
+                                                            <input id="bTrue" value="true" name="b" type="radio"
+                                                                (change)="b=true">
+                                                            {{'assg.declaration.1.b1' | translate}}</label>
+                                                    </div>
+                                                    <div>
+                                                        <label class="checkbox-inline">
+                                                            <input id="aFalse" value="false" name="b" type="radio"
+                                                                (change)="b=false">
+                                                            {{'assg.declaration.1.b2' | translate}}</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input *ngIf="!b" id="sponsorStatusOthers" name="aName"
+                                                            class="form-control" type="text">
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <label class="checkbox-inline">
+                                                            <input id="cTrue" value="true" name="c" type="radio"
+                                                                (change)="c=true">
+                                                            {{'assg.declaration.1.c1' | translate}}</label>
+                                                    </div>
+                                                    <div>
+                                                        <label class="checkbox-inline">
+                                                            <input id="cFalse" value="false" name="c" type="radio"
+                                                                (change)="c=false">
+                                                            {{'assg.declaration.1.c2' | translate}}</label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input *ngIf="!c" id="sponsorStatusOthers" name="aName"
+                                                            class="form-control" type="text">
+                                                    </div>
+                                                </li>
+                                            </ol>
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.2' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.3' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.4' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.5' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.6' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.7' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.8' | translate}}
+                                        </li>
+                                        <li>
+                                            {{'assg.declaration.9' | translate}}
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <app-signature-pad [ngClass]="signPadService.showSignPad?'show':'hide'" (signed)="onSubmit($event)">
+                    </app-signature-pad>
+
+                    <!-- ----------------------------------------- content end ---------------------------------------- -->
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="backBtn" value="" name="backBtn" type="button" class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block">{{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="button" class="btn btn-brown btn-block"
+                            (click)="signForm()">{{ 'coe.declaration.sign' | translate }}</button>
+                    </div>
+                    <!-- ----------------------------------------- end button ---------------------------------------- -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

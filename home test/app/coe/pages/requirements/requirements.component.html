@@ -1,0 +1,184 @@
+<div class="container">
+    <app-topbar [title]="title"></app-topbar>
+    <app-sidenav [sideNavItem]="sideNavItem"></app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <div class="container np">
+            <div class="content" role="main" id="content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list-alt"></i> {{'birthsearch.notice' | translate}}:
+                        </h3>
+                    </div>
+                    <div class="panel-body terms-wrapper">
+                        <div class="tab-pane fade in active" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div>
+                                            <ul class="liststyle red-text">
+                                                <li [innerHtml]="'birthsearch.notice.1' | translate">
+                                                </li>
+                                                <li [innerHtml]="'birthsearch.notice.2' | translate">
+                                                </li>
+                                                <li [innerHtml]="'birthsearch.notice.3' | translate">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  Important Announcement -->
+                <div *ngIf="announcementMsg && announcementMsg.length > 0" class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            {{'announcement.title' | translate}}
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div id="dbtTab" class="tab-pane fade in active" role="tabpanel">
+                                <div *ngFor="let msg of announcementMsg" class="row">
+                                    <div class="col-md-12">
+                                        <ng-container *ngIf="translateservice.currentLang == 'en-US'">
+                                            <p [innerHtml]="msg.engMessage"></p>
+                                        </ng-container>
+                                        <ng-container *ngIf="translateservice.currentLang == 'zh-HK'">
+                                            <p [innerHtml]="msg.chtMessage"></p>
+                                        </ng-container>
+                                        <ng-container *ngIf="translateservice.currentLang == 'zh-CN'">
+                                            <p [innerHtml]="msg.chsMessage"></p>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- // Important Announcement -->
+                <div class="panel panel-default">
+                    <div class="panel-body terms-wrapper">
+                        <div id="dbtTab" class="tab-pane fade in active" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p class="subtitle gap">{{'common.items.must'| translate}}</p>
+                                        <div>
+                                            <div class="adobe-wrapper">
+                                                <label class="control-label">
+                                                    {{'common.adobe.reader.title'| translate}}
+                                                </label>
+                                                <p>
+                                                    <a href="http://www.adobe.com/products/acrobat/readstep2.html"
+                                                        target="_blank">{{'common.download' | translate}}</a>
+                                                </p>
+                                            </div>
+                                            <div class="adobe-wrapper">
+                                                <label class="control-label">
+                                                    {{'common.adobe.font.title'| translate}}
+                                                </label>
+                                                <p>
+                                                    <a href="http://www.adobe.com/products/acrobat/acrrasianfontpack.html"
+                                                        target="_blank">{{'common.download' | translate}}</a>
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                        <p class="subtitle gap">{{'common.items.must'| translate}}</p>
+                                        <div>
+                                            <div class="pay-wrapper">
+                                                <label class="control-label">
+                                                    {{'common.payment.title'| translate}}
+                                                </label>
+                                                <p>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'en-US'">
+                                                        <a href="https://www.gov.hk/en/about/helpdesk/faq/payment/index.htm"
+                                                            target="_blank">{{'common.payment.msg' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'zh-HK'">
+                                                        <a href="https://www.gov.hk/tc/about/helpdesk/faq/payment/index.htm"
+                                                            target="_blank">{{'common.payment.msg' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'zh-CN'">
+                                                        <a href="https://www.gov.hk/sc/about/helpdesk/faq/payment/index.htm"
+                                                            target="_blank">{{'common.payment.msg' | translate}}</a>
+                                                    </ng-container>
+                                                    <!-- <a (click)="navigateToUrl('bdm_submission_faq.html', 'faq')">{{'common.payment.msg' | translate}}</a> -->
+                                                </p>
+                                            </div>
+
+                                            <div class="character-wrapper">
+                                                <label class="control-label">
+                                                    {{'common.hkscs.title'| translate}}
+                                                </label>
+                                                <p>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'en-US'">
+                                                        <a href="https://www.ogcio.gov.hk/en/our_work/business/tech_promotion/ccli/hkscs/"
+                                                            target="_blank">{{'common.download' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'zh-HK'">
+                                                        <a href="https://www.ogcio.gov.hk/tc/our_work/business/tech_promotion/ccli/hkscs/"
+                                                            target="_blank">{{'common.download' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'zh-CN'">
+                                                        <a href="https://www.ogcio.gov.hk/sc/our_work/business/tech_promotion/ccli/hkscs/"
+                                                            target="_blank">{{'common.download' | translate}}</a>
+                                                    </ng-container>
+                                                    <!-- <a href="http://www.adobe.com/products/acrobat/readstep2.html" target="_blank">{{'common.download' | translate}}</a> -->
+                                                </p>
+                                                <p>{{'common.hkscs.note.title' | translate}}
+                                                    {{'common.hkscs.note.msg' | translate}}</p>
+                                                <p>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'en-US'">
+                                                        <a href="https://www.gov.hk/en/about/helpdesk/faq/other/index.htm"
+                                                            target="_blank">{{'common.hkscs.faq' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'zh-HK'">
+                                                        <a href="https://www.gov.hk/tc/about/helpdesk/faq/other/index.htm"
+                                                            target="_blank">{{'common.hkscs.faq' | translate}}</a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="translateservice.currentLang == 'zh-CN'">
+                                                        <a href="https://www.gov.hk/sc/about/helpdesk/faq/other/index.htm"
+                                                            target="_blank">{{'common.hkscs.faq' | translate}}</a>
+                                                    </ng-container>
+                                                    <!-- <a (click)="navigateToUrl('bdm_submission_faq.html', 'faq')">{{'common.hkscs.faq' | translate}}</a> -->
+                                                </p>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="printer-wrapper">
+                                            <label class="control-label">
+                                                {{'common.printer.title'| translate}}
+                                            </label>
+                                            <p class="brk1"></p>
+                                        </div>
+                                        <p class="red-text">
+                                            {{ 'birthsearch.start.must.recommended.note' | translate }}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ---------------------------------------- start button ---------------------------------------- -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-6  col-xs-12 m-5000 ">
+                        <button id="startid" name="startBtn" type="button" class="btn btn-brown btn-block"
+                            (click)="next()">{{'COMMON.START' | translate}}
+                        </button>
+                    </div>
+
+                </div>
+                <!-- ----------------------------------------- end button ---------------------------------------- -->
+
+            </div>
+        </div>
+    </div>
+</div>

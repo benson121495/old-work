@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-xs-12
+    col-md-12 form-group">
+        <label class="control-label">{{label}}</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9 col-xs-12 form-group">
+        <input name="fileName" [(ngModel)]="fileName" class="form-control" type="text" disabled />
+    </div>
+    <div class="col-md-3 col-xs-12 form-group">
+
+        <ng-container *ngIf="isConfirm;else fileInput">
+            <button class="col-md-12 col-xs-12 btn btn-brown btn-block" type="button"
+                (click)="viewFile()">{{'coe.documents.view' | translate}}</button>
+        </ng-container>
+        <ng-template #fileInput>
+            <input [multiple]="multiple" type="file" (change)="onFileSelected($event.target.files);" #file>
+            <button class="col-xs-12 btn btn-brown btn-block" type="button"
+                (click)="file.click()">{{'coe.documents.selectFile' | translate}}</button>
+            <button class="col-xs-12 btn btn-brown btn-block" type="button"
+                (click)="resetFile()">{{'coe.documents.cancelFile' | translate}}</button>
+        </ng-template>
+    </div>
+</div>

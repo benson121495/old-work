@@ -1,0 +1,47 @@
+<div class="app-wrapper">
+<app-loader *ngIf="commonService.showLoading"></app-loader>
+<p-dialog [(visible)]="modalStatus && surgeControlService.allowSurge" [modal]="true" [responsive]="true" [minY]="70"
+    [baseZIndex]="10000" [closable]="false">
+    <p-header>
+        <h1>{{'ERROR-APP.SESSION-TIMEOUT' | translate}}</h1>
+    </p-header>
+    <div class="description-wrapper">
+        <p class="align-center">{{'ERROR-APP.SESSION-TIMEOUT-POPUP-DIS' | translate}}</p>
+    </div>
+    <p-footer>
+        <div class="action-btn-wrapper">
+            <button type="button" pButton (click)="hideModal('yes'); surgeControlService.renewToken()"
+                label="{{'COMMON.CONFIRM' | translate}}" class="ui-button-success overlay-button confirm"></button>
+            <button type="button" pButton (click)="hideModal('no');" label="{{'COMMON.CANCEL' | translate}}"
+                class="ui-button-danger overlay-button cancel"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+<p-dialog [(visible)]="surgeControlService.overallTimeOutPopup" [modal]="true" [responsive]="true" [minY]="70"
+    [baseZIndex]="10000" [closable]="false">
+    <p-header>
+        <h1>{{'ERROR-APP.SESSION-TIMEOUT' | translate}}</h1>
+    </p-header>
+    <div class="description-wrapper">
+        <p class="align-center">{{'ERROR-APP.OVERALL-SESSION-TIMEOUT-POPUP-DIS' | translate}}</p>
+    </div>
+    <p-footer>
+        <div class="action-btn-wrapper">
+            <button type="button" pButton (click)="overAllTimeOutHideModal()"
+                label="{{'COMMON.OK' | translate}}"
+                class="ui-button-success overlay-button confirm"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+<app-header></app-header>
+
+<router-outlet></router-outlet>
+<br />
+<app-footer class="mt-auto"> </app-footer>
+
+<eservice2-error-modal [ngClass]="commonService.showErrorModal?'show':'hide'"></eservice2-error-modal>
+
+<eservice2-info-modal [ngClass]="commonService.showInfoModal?'show':'hide'"></eservice2-info-modal>
+
+<eservice2-location-map *ngIf="commonService.showOfficeLocationMap"></eservice2-location-map>
+</div>

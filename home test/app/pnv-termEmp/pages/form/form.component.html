@@ -1,0 +1,235 @@
+<div class="container">
+  <app-topbar [title]="'pnv-termEmp.form.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnv-termEmp.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  <div class="col-sm-9 right-panel  np-right">
+    <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+        <div class="container np">
+            <div class="content" role="main" id="content">
+              <!-- ----------------------------------------- content ---------------------------------------- -->             
+                <!-- Part 1 - Employment Information -->
+                <div class="panel panel-default">
+                  <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                    <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-termEmp.form.part1Title' | translate}}
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">              
+                      <div class="col-md-6 form-group">
+                        <label class="control-label required-star">{{'pnv-termEmp.form.visaRef' | translate}}</label>
+                        <div class="col-xs-8">
+                          <input id="visaRef1" class="form-control all-caps" type="text" maxlength="11">
+                        </div>
+                        <div class="col-xs-4">
+                          <div class="hkbracket">
+                              <input id="visaRef2" class="form-control all-caps" type="text" maxlength="1">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label class="control-label required-star">{{'pnv-termEmp.form.employmentContractNo' | translate}}</label>
+                        <input id="employmentContractNo" name="employmentContractNo" maxlength="6"  class="form-control all-caps"
+                        type="text" >
+                     </div>
+                    </div>                                      
+                  </div>
+                </div>
+                <!-- End of Part 1-->
+
+                <!-- Part 2 - Employer's Information -->
+                <div class="panel panel-default">
+                  <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                      <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-termEmp.form.part2Title' | translate}}
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'pnv-termEmp.form.employerName' | translate}}</label>
+                            <input id="englishName" name="englishName" maxlength="6"  class="form-control all-caps"
+                            type="text" >
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label class="control-label required-star">{{'pnv-termEmp.form.employerHkidNo' | translate}}</label>
+                          <div class="col-xs-8">
+                            <input id="employerHkidNo1" class="form-control all-caps" type="text" maxlength="8">
+                          </div>
+                          <div class="col-xs-4">
+                            <div class="hkbracket">
+                                <input id="employerHkidNo2" class="form-control all-caps" type="text" maxlength="1">
+                            </div>
+                          </div>
+                        </div>
+                    </div>                 
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                      <label
+                          class="control-label required-star">{{'pnv-termEmp.form.employerDayTimePhoneNo' | translate}}</label>
+                      <input id="employerDayTimePhoneNo" name="employerDayTimePhoneNo" maxlength="33"
+                          class="form-control all-caps" type="text">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                      <label class="control-label required-star">{{'pnv-termEmp.form.employerAddress' | translate}}</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label class="control-label">{{'pnv-termEmp.form.addressRoom' | translate}}</label>
+                        <input id="addressRoom" name="addressRoom" class="form-control address" type="text">
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label class="control-label">{{'pnv-termEmp.form.addressFloor' | translate}}</label>
+                        <input id="address2" name="address2" class="form-control address" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label class="control-label">{{'pnv-termEmp.form.addressBlock' | translate}}</label>
+                        <input id="addressBlock" name="addressBlock" class="form-control address" type="text">
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label class="control-label">{{'pnv-termEmp.form.addressBuilding' | translate}}</label>
+                        <input id="addressBuilding" name="addressBuilding" class="form-control address" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label class="control-label">{{'pnv-termEmp.form.addressEstate' | translate}}</label>
+                        <input id="addressEstate" name="addressEstate" class="form-control address" type="text">
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label class="control-label">{{'pnv-termEmp.form.addressStreet' | translate}}</label>
+                        <input id="addressStreet" name="addressStreet" class="form-control address" type="text">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                      <label class="control-label">{{'pnv-termEmp.form.addressDistrict' | translate}}</label>
+                      <select id="addressStreet" name="addressStreet" class="form-control" type="text">
+                        <option value='' disabled selected>Please select</option>
+                      </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Part 2 -->
+                <!-- Part 3 - Employee's Information -->
+                <div class="panel panel-default">
+                  <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                    <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-termEmp.form.part3Title' | translate}}
+                  </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label class="control-label required-star">{{'pnv-termEmp.form.employeeName' | translate}}</label>
+                        <input id="employeeName" name="employeeName" maxlength="6" class="form-control all-caps"
+                            type="text">
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label class="control-label required-star">{{'pnv-termEmp.form.employeeHkidNo' | translate}}</label>
+                        <div class="col-xs-8">
+                          <input id="employeeHkidNo1" class="form-control all-caps" type="text" maxlength="8">
+                        </div>
+                        <div class="col-xs-4">
+                          <div class="hkbracket">
+                              <input id="employeeHkidNo2" class="form-control all-caps" type="text" maxlength="1">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                          <label
+                              class="control-label required-star">{{'pnv-termEmp.form.employeeDayTimePhoneNo' | translate}}</label>
+                          <input id="employeeDayTimePhoneNo" name="employeeDayTimePhoneNo" maxlength="33"
+                              class="form-control all-caps" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End of Part 3-->
+
+                <!-- Part 4 - Application Details -->
+                <div class="panel panel-default">
+                  <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                    <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnv-termEmp.form.part4Title' | translate}}
+                  </div>
+                  <div class="panel-body">
+                    <label class="control-label required-star">{{'pnv-termEmp.form.contractTermDate' | translate}}
+                    <div class="flex-container">
+                      <div class="col-md-3" style="padding-left: 0px;" style="padding-top: 5px;">
+                          <select id="lastDateDay" name="lastDateDay"
+                              class="form-control datePickerDate" type="text">
+                              <option value='' disabled selected>
+                                  {{'pnv-termEmp.form.day' | translate}}
+                              </option>
+                              <option value='00' selected> DD </option>
+                              <option *ngFor="let day of fromDayList" value="{{day}}">
+                                  {{day}}</option>
+                          </select>
+                      </div>
+                      <div class="col-md-3" style="padding-left: 0px;" style="padding-top: 5px;">
+                          <select id="lastDateMonth" name="lastDateMonth"
+                              class="form-control datePickerMonth" type="text"
+                              (blur)="onMonthYearChange('lastDateDay','lastDateMonth','lastDateYear')">
+                              <option value='' disabled selected>
+                                  {{'pnv-termEmp.form.month' | translate}}
+                              </option>
+                              <option value='00' selected> MM </option>
+                              <option *ngFor="let month of monthList" value="{{month}}">
+                                  {{month}}</option>
+                          </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 0px;" style="padding-top: 5px;">
+                          <select id="lastDateYear" name="lastDateYear"
+                              class="form-control datePickerYear " type="text"
+                              (blur)="onMonthYearChange('lastDateDay','lastDateMonth','lastDateYear')">
+                              <option value='' disabled selected>{{'pnv-termEmp.form.year' | translate}}</option>
+                              <option value='0000' selected> YYYY </option>
+                              <option *ngFor="let year of yearsList" value="{{year}}">{{year}}</option>
+                          </select>
+                      </div> 
+                    </div>
+                    </label>
+                    <div class="row">
+                      <div class="col-md-10 form-group">
+                        <label
+                            class="control-label">{{'pnv-termEmp.form.reasonForTermination' | translate}}</label>
+                        <input id="reasonForTermination" name="reasonForTermination" maxlength="500"
+                            class="form-control all-caps" type="text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- End of Part 4-->
+                <!-- ----------------------------------------- button ---------------------------------------- -->
+                <div class="row">
+                  <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                      <button id="submitBtn" value="" name="submitBtn" type="button"
+                          class="btn btn-brown btn-block"
+                          (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                      </button>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                          type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                          {{ 'COMMON.RESET' | translate }}
+                      </button>
+                  </div>
+                  <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                          class="btn btn-brown btn-block">
+                          {{ 'COMMON.SAVE' | translate }}
+                      </button>
+                  </div>
+                  <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                      <button type="submit"
+                          class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                  </div>
+              </div>
+              <!-- ----------------------------------------- endP button ---------------------------------------- -->
+              </div>
+        </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,1566 @@
+<div class="container">
+  <app-topbar [title]="'techtas.formA.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'techtas.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Personal Particulars-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formA.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.chiName' | translate}}</label>
+    
+                              <input id="chiName" name="chiName" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="chiName"
+                                  (input)="maskChineseValues($event.target.value, 'chiName')">
+                          </div>
+                          
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.maidenSurName' | translate}}</label>
+    
+                              <input id="maidenSurName" name="maidenSurName" class="form-control all-caps"
+                                  type="text" formControlName="maidenSurName">
+                          </div>
+                        </div>
+    
+                        <div class="row">
+    
+                          <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label required-star">{{'techtas.formA.engSurName' | translate}}</label>
+    
+                              <input id="engSurName" name="engSurName" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="engSurName"
+                                  (change)="cutValues($event.target.value,'engSurName')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+    
+                      
+    
+                          <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label required-star">{{'techtas.formA.engGivenName' | translate}}</label>
+    
+                              <input id="engGivenName" name="engGivenName" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="engGivenName"
+                                  (change)="cutValues($event.target.value,'engGivenName')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+    
+                      </div>
+    
+                      <div class="row">
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.alias' | translate}}</label>
+                              <input id="alias" name="alias" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="alias"
+                                  (input)="maskChineseValues($event.target.value, 'alias')">
+                          </div>
+                      </div>
+    
+                      <div class="row">
+                          <div id="sex" class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.sex' | translate}}</label>
+                              <div class="form-group">
+                                    <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                            formControlName="sex">
+                                        {{'techtas.formA.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                            formControlName="sex">
+                                        {{'techtas.formA.female' | translate}}
+                                    </label>
+                                
+                                </div>
+                            </div>
+    
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'techtas.formA.dob' | translate}}</label>
+    
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                            type="text" formControlName="dobDay">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formA.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="dobMonth"
+                                            (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                            type="text" formControlName="dobYear"
+                                            (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formA.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            
+                      </div>
+    
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.placeOfBirth' | translate}}</label>
+                              <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="placeOfBirth">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.nationality' | translate}}</label>
+                              <input id="nationality" name="nationality" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="nationality">
+                          </div>
+                            
+                            
+                      </div>
+
+                      <div class='row'>
+                          <div class="col-md-12 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.maritalStatus' | translate}}</label>
+                              <div class="form-group">
+                                  <div class="row">
+                                    <label class="checkbox-inline"><input id="single" name="maritalStatus" type="radio" value="single"
+                                            formControlName="maritalStatus">
+                                        {{'techtas.formA.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="married" name="maritalStatus" type="radio" value="married"
+                                            formControlName="maritalStatus">
+                                        {{'techtas.formA.married' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="separated" name="maritalStatus" type="radio" value="separated"
+                                        formControlName="maritalStatus">
+                                    {{'techtas.formA.separated' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="divorced" name="maritalStatus" type="radio" value="divorced"
+                                        formControlName="maritalStatus">
+                                        {{'techtas.formA.divorced' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="widowed" name="maritalStatus" type="radio" value="widowed"
+                                        formControlName="maritalStatus">
+                                        {{'techtas.formA.widowed' | translate}}
+                                    </label>
+                                </div>
+                              </div> 
+
+
+
+                          </div>
+
+                      </div>
+
+                      <div class='row'>
+                          <div class="form-group col-md-6">
+                              <label class="control-label">{{'techtas.formA.hkIdNo' | translate}}</label>
+                               <div class="row form-group">
+                                <div class="col-xs-8">
+                                    <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                        [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                        formControlName="hkIdValue1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                            [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                            formControlName="hkIdValue2">
+                                    </div>
+                                </div>
+                               </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.mainlandIdNo' | translate}}</label>
+                              <input id="mainlandIdNo" name="mainlandIdNo" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="mainlandIdNo">
+
+                          </div>
+
+                      </div>
+    
+    
+                      <div class="row">        
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.travelDocType' | translate}}</label>
+                              <select id="travelDocType" name="travelDocType" class="form-control travelDocType" type="text"
+                                  formControlName="travelDocType">
+                                  <option value='' disabled selected>
+                                      {{'techtas.formA.selectType' | translate}}
+                                  </option>
+                                  <option value='00' selected> {{'Type1'}} </option>
+                                  <option value='01' selected> {{'Type2'}} </option>
+                                  <option value='02' selected> {{'Type3'}} </option>
+                                        
+                              </select>         
+                                    
+                          </div>
+    
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.travelDocValue' | translate}}</label>
+                              <input id="travelDocValue" name="travelDocValue" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="travelDocValue"
+                                  (input)="maskChineseValues($event.target.value, 'travelDocValue')">
+                          </div>
+                      </div>
+
+                      <div class="row">      
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.placeOfIssue' | translate}}</label>
+                              <input id="travelDocIssuePlace" name="travelDocIssuePlace" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="travelDocIssuePlace"
+                                  (input)="maskChineseValues($event.target.value, 'travelDocIssuePlace')">
+                          </div>
+
+                      </div>
+
+                      <div class="row">
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.dateOfIssue' | translate}}</label>
+
+                              <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocIssueDay" name="travelDocIssueDay" class="form-control datePickerDate "
+                                          type="text" formControlName="travelDocIssueDay">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocIssueMonth" name="travelDocIssueMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="travelDocIssueMonth"
+                                          (blur)="onMonthYearChange('travelDocIssueDay','travelDocIssueMonth','travelDocIssueYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="travelDocIssueYear" name="travelDocIssueYear" class="form-control datePickerYear "
+                                          type="text" formControlName="travelDocIssueYear"
+                                          (blur)="onMonthYearChange('travelDocIssueDay','travelDocIssueMonth','travelDocIssueYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.expDate' | translate}}</label>
+
+                              <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocExpDay" name="travelDocExpDay" class="form-control datePickerDate "
+                                          type="text" formControlName="travelDocExpDay">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="travelDocExpMonth" name="travelDocExpMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="travelDocExpMonth"
+                                          (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="travelDocExpYear" name="travelDocExpYear" class="form-control datePickerYear "
+                                          type="text" formControlName="travelDocExpYear"
+                                          (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">      
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.email' | translate}}</label>
+                              <input id="email" name="email" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="email"
+                                  (input)="maskChineseValues($event.target.value, 'email')">
+                          </div>
+
+                      </div>
+
+                      <div class="row">      
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.phoneNo' | translate}}</label>
+                              <input id="phoneNo" name="phoneNo" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="phoneNo"
+                                  (input)="maskChineseValues($event.target.value, 'phoneNo')">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.faxNo' | translate}}</label>
+                              <input id="faxNo" name="faxNo" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="faxNo"
+                                  (input)="maskChineseValues($event.target.value, 'faxNo')">
+                          </div>
+
+                      </div>
+
+                      <div class="row">      
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'techtas.formA.domicileCountry' | translate}}</label>
+                              <input id="domicileCountry" name="domicileCountry" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="domicileCountry"
+                                  (input)="maskChineseValues($event.target.value, 'domicileCountry')">
+                          </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.hasPermanentResidence' | translate}}</label>
+                            <div class="form-group">
+                                <div class="row">
+                                  <label class="checkbox-inline"><input id="yes" name="hasPermanentResidence" type="radio" value="yes"
+                                          formControlName="hasPermanentResidence">
+                                      {{'techtas.formA.yes' | translate}}</label>
+                                  <label class="checkbox-inline"><input id="no" name="hasPermanentResidence" type="radio" value="no"
+                                          formControlName="hasPermanentResidence">
+                                      {{'techtas.formA.no' | translate}}
+                                  </label>
+                              </div>
+                            </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">      
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'techtas.formA.lengthOfResidence' | translate}}</label>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <div class="flex-container">    
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="residenceMonth" name="residenceMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="residenceMonth"
+                                        (blur)="onMonthYearChange('residenceMonth','residenceYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="residenceYear" name="residenceYear" class="form-control datePickerMonth"
+                                        type="text" formControlName="residenceYear"
+                                        (blur)="onMonthYearChange('residenceMonth','residenceYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.residenceYear' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'techtas.formA.presentAddress' | translate}}</label>
+                            <input id="presentAddress1" name="presentAddress1" class="form-control address" type="text"
+                                formControlName="presentAddress1">
+                            <input id="presentAddress2" name="presentAddress2" class="form-control address" type="text"
+                                formControlName="presentAddress2">
+                            <input id="presentAddress3" name="presentAddress3" class="form-control address" type="text"
+                                formControlName="presentAddress3">
+
+                            <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formA.permanentAddress' | translate}}</label>
+                            <input id="permanentAddress1" name="permanentAddress1" class="form-control address" type="text"
+                                formControlName="permanentAddress1">
+                            <input id="permanentAddress2" name="permanentAddress2" class="form-control address" type="text"
+                                formControlName="permanentAddress2">
+                            <input id="permanentAddress3" name="permanentAddress3" class="form-control address" type="text"
+                                formControlName="permanentAddress3">
+
+                            <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+
+                  </div>
+                  <!-- End of Part 1 -->
+
+                  <!-- Part 2 - Academic/Professional Qualifications (-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formA.part2Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">{{'techtas.formA.part2aTitle' | translate}}</label>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.schoolName' | translate}}</label>
+                              <input id="schoolName" name="schoolName" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="schoolName">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.major' | translate}}</label>
+                              <input id="major" name="major" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="major">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.qualification' | translate}}</label>
+                              <input id="qualification" name="qualification" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="qualification">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-labe required-star">{{'techtas.formA.periodOfStudy' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.from' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="periodOfStudyFromMonth" name="periodOfStudyFromMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="periodOfStudyFromMonth"
+                                          (blur)="onMonthYearChange('periodOfStudyFromMonth','periodOfStudyFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="periodOfStudyFromYear" name="periodOfStudyFromYear" class="form-control datePickerYear "
+                                          type="text" formControlName="periodOfStudyFromYear"
+                                          (blur)="onMonthYearChange('periodOfStudyFromMonth','periodOfStudyFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.to' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="periodOfStudyToMonth" name="periodOfStudyToMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="periodOfStudyToMonth"
+                                          (blur)="onMonthYearChange('periodOfStudyToMonth','periodOfStudyToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="periodOfStudyToYear" name="periodOfStudyToYear" class="form-control datePickerYear "
+                                          type="text" formControlName="periodOfStudyToYear"
+                                          (blur)="onMonthYearChange('periodOfStudyToMonth','periodOfStudyToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.schoolName' | translate}}</label>
+                              <input id="schoolName" name="schoolName" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="schoolName">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.major' | translate}}</label>
+                              <input id="major" name="major" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="major">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.qualification' | translate}}</label>
+                              <input id="qualification" name="qualification" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="qualification">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-labe required-star">{{'techtas.formA.periodOfStudy' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.from' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="periodOfStudyFromMonth" name="periodOfStudyFromMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="periodOfStudyFromMonth"
+                                          (blur)="onMonthYearChange('periodOfStudyFromMonth','periodOfStudyFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="periodOfStudyFromYear" name="periodOfStudyFromYear" class="form-control datePickerYear "
+                                          type="text" formControlName="periodOfStudyFromYear"
+                                          (blur)="onMonthYearChange('periodOfStudyFromMonth','periodOfStudyFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.to' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="periodOfStudyToMonth" name="periodOfStudyToMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="periodOfStudyToMonth"
+                                          (blur)="onMonthYearChange('periodOfStudyToMonth','periodOfStudyToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="periodOfStudyToYear" name="periodOfStudyToYear" class="form-control datePickerYear "
+                                          type="text" formControlName="periodOfStudyToYear"
+                                          (blur)="onMonthYearChange('periodOfStudyToMonth','periodOfStudyToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.schoolName' | translate}}</label>
+                              <input id="schoolName" name="schoolName" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="schoolName">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.major' | translate}}</label>
+                              <input id="major" name="major" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="major">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.qualification' | translate}}</label>
+                              <input id="qualification" name="qualification" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="qualification">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-labe required-star">{{'techtas.formA.periodOfStudy' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.from' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="periodOfStudyFromMonth" name="periodOfStudyFromMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="periodOfStudyFromMonth"
+                                          (blur)="onMonthYearChange('periodOfStudyFromMonth','periodOfStudyFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="periodOfStudyFromYear" name="periodOfStudyFromYear" class="form-control datePickerYear "
+                                          type="text" formControlName="periodOfStudyFromYear"
+                                          (blur)="onMonthYearChange('periodOfStudyFromMonth','periodOfStudyFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.to' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="periodOfStudyToMonth" name="periodOfStudyToMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="periodOfStudyToMonth"
+                                          (blur)="onMonthYearChange('periodOfStudyToMonth','periodOfStudyToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="periodOfStudyToYear" name="periodOfStudyToYear" class="form-control datePickerYear "
+                                          type="text" formControlName="periodOfStudyToYear"
+                                          (blur)="onMonthYearChange('periodOfStudyToMonth','periodOfStudyToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">                        
+                        <div class="col-md-12">
+                          <label class="control-labe required-star">{{'techtas.formA.part2bTitle' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.qualification' | translate}}</label>
+                            <input id="qualification" name="qualification" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="qualification">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.issueOrg' | translate}}</label>
+                            <input id="issueOrg" name="issueOrg" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="issueOrg">
+                        </div>                    
+                        
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formA.dateOfIssue' | translate}}</label>
+
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="qualificationIssueDay" name="qualificationIssueDay" class="form-control datePickerDate "
+                                        type="text" formControlName="qualificationIssueDay">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="qualificationIssueMonth" name="qualificationIssueMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="qualificationIssueMonth"
+                                        (blur)="onMonthYearChange('qualificationIssueDay','qualificationIssueMonth','qualificationIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="qualificationIssueYear" name="qualificationIssueYear" class="form-control datePickerYear "
+                                        type="text" formControlName="qualificationIssueYear"
+                                        (blur)="onMonthYearChange('qualificationIssueDay','qualificationIssueMonth','qualificationIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.qualification' | translate}}</label>
+                            <input id="qualification" name="qualification" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="qualification">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.issueOrg' | translate}}</label>
+                            <input id="issueOrg" name="issueOrg" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="issueOrg">
+                        </div>                    
+                        
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formA.dateOfIssue' | translate}}</label>
+
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="qualificationIssueDay" name="qualificationIssueDay" class="form-control datePickerDate "
+                                        type="text" formControlName="qualificationIssueDay">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="qualificationIssueMonth" name="qualificationIssueMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="qualificationIssueMonth"
+                                        (blur)="onMonthYearChange('qualificationIssueDay','qualificationIssueMonth','qualificationIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="qualificationIssueYear" name="qualificationIssueYear" class="form-control datePickerYear "
+                                        type="text" formControlName="qualificationIssueYear"
+                                        (blur)="onMonthYearChange('qualificationIssueDay','qualificationIssueMonth','qualificationIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.qualification' | translate}}</label>
+                            <input id="qualification" name="qualification" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="qualification">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.issueOrg' | translate}}</label>
+                            <input id="issueOrg" name="issueOrg" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="issueOrg">
+                        </div>                    
+                        
+                     </div>
+
+                     <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formA.dateOfIssue' | translate}}</label>
+
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="qualificationIssueDay" name="qualificationIssueDay" class="form-control datePickerDate "
+                                        type="text" formControlName="qualificationIssueDay">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="qualificationIssueMonth" name="qualificationIssueMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="qualificationIssueMonth"
+                                        (blur)="onMonthYearChange('qualificationIssueDay','qualificationIssueMonth','qualificationIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="qualificationIssueYear" name="qualificationIssueYear" class="form-control datePickerYear "
+                                        type="text" formControlName="qualificationIssueYear"
+                                        (blur)="onMonthYearChange('qualificationIssueDay','qualificationIssueMonth','qualificationIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'techtas.formA.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                  </div>
+                  <!-- End of Part 2 -->
+
+                  <!-- Part 3 - Employment Record (-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formA.part3Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.companyName' | translate}}</label>
+                            <input id="companyName" name="companyName" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="companyName">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.companyAddress' | translate}}</label>
+                            <input id="companyAddress" name="companyAddress" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="companyAddress">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.position' | translate}}</label>
+                              <input id="position" name="position" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="position">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.nature' | translate}}</label>
+                              <input id="nature" name="nature" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="nature">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-labe required-star">{{'techtas.formA.employmentPeriod' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.from' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="employmentFromMonth" name="employmentFromMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="employmentFromMonth"
+                                          (blur)="onMonthYearChange('employmentFromMonth','employmentFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="employmentFromYear" name="employmentFromYear" class="form-control datePickerYear "
+                                          type="text" formControlName="employmentFromYear"
+                                          (blur)="onMonthYearChange('employmentFromMonth','employmentFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.to' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="employmentToMonth" name="employmentToMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="employmentToMonth"
+                                          (blur)="onMonthYearChange('employmentToMonth','employmentToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="employmentToYear" name="employmentToYear" class="form-control datePickerYear "
+                                          type="text" formControlName="employmentToYear"
+                                          (blur)="onMonthYearChange('employmentToMonth','employmentToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.companyName' | translate}}</label>
+                            <input id="companyName" name="companyName" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="companyName">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.companyAddress' | translate}}</label>
+                            <input id="companyAddress" name="companyAddress" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="companyAddress">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.position' | translate}}</label>
+                              <input id="position" name="position" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="position">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.nature' | translate}}</label>
+                              <input id="nature" name="nature" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="nature">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-labe required-star">{{'techtas.formA.employmentPeriod' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.from' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="employmentFromMonth" name="employmentFromMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="employmentFromMonth"
+                                          (blur)="onMonthYearChange('employmentFromMonth','employmentFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="employmentFromYear" name="employmentFromYear" class="form-control datePickerYear "
+                                          type="text" formControlName="employmentFromYear"
+                                          (blur)="onMonthYearChange('employmentFromMonth','employmentFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.to' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="employmentToMonth" name="employmentToMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="employmentToMonth"
+                                          (blur)="onMonthYearChange('employmentToMonth','employmentToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="employmentToYear" name="employmentToYear" class="form-control datePickerYear "
+                                          type="text" formControlName="employmentToYear"
+                                          (blur)="onMonthYearChange('employmentToMonth','employmentToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.companyName' | translate}}</label>
+                            <input id="companyName" name="companyName" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="companyName">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.companyAddress' | translate}}</label>
+                            <input id="companyAddress" name="companyAddress" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="companyAddress">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.position' | translate}}</label>
+                              <input id="position" name="position" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="position">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.nature' | translate}}</label>
+                              <input id="nature" name="nature" class="form-control all-caps"
+                              maxlength="50" type="text" formControlName="nature">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-labe required-star">{{'techtas.formA.employmentPeriod' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.from' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="employmentFromMonth" name="employmentFromMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="employmentFromMonth"
+                                          (blur)="onMonthYearChange('employmentFromMonth','employmentFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="employmentFromYear" name="employmentFromYear" class="form-control datePickerYear "
+                                          type="text" formControlName="employmentFromYear"
+                                          (blur)="onMonthYearChange('employmentFromMonth','employmentFromYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-labe required-star">{{'techtas.formA.to' | translate}}</label>
+                              <div class="flex-container">    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="employmentToMonth" name="employmentToMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="employmentToMonth"
+                                          (blur)="onMonthYearChange('employmentToMonth','employmentToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="employmentToYear" name="employmentToYear" class="form-control datePickerYear "
+                                          type="text" formControlName="employmentToYear"
+                                          (blur)="onMonthYearChange('employmentToMonth','employmentToYear')">
+                                          <option value='' disabled selected>
+                                              {{'techtas.formA.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- End of Part 3 -->
+
+                  <!-- Part 4 - Application for Residence in Hong Kong as Accompanying Dependants -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'techtas.formA.part4Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                      <div class="row">
+                          <div class="col-xs-6 form-group">
+                              <label class="control-label">{{'techtas.formA.noOfDependant' | translate}}</label>
+                              <div class="row">
+                                  <div class="col-xs-4">
+                                      <select id="noOfDependant" name="noOfDependant" class="form-control noOfDependant "
+                                          type="text" formControlName="noOfDependant">
+                                           <option value='' disabled selected> No.</option>
+                                           <option value='00' selected> 0 </option>
+                                           <option value='01' selected> 1 </option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-label">{{'Dependant #1' | translate}}</label>
+                          </div>
+                          <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'techtas.formA.engSurName' | translate}}</label>
+    
+                              <input id="dependantEngSurName" name="dependantEngSurName" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="engSurName"
+                                  (change)="cutValues($event.target.value,'dependantEngSurName')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+    
+                      
+    
+                          <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label">{{'techtas.formA.engGivenName' | translate}}</label>
+    
+                              <input id="dependantEngGivenName" name="dependantEngGivenName" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="engGivenName"
+                                  (change)="cutValues($event.target.value,'dependantEngGivenName')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+    
+                      </div>
+
+                      <div class="row">
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.chiName' | translate}}</label>
+    
+                              <input id="dependantChiName" name="dependantChiName" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="chiName"
+                                  (input)="maskChineseValues($event.target.value, 'dependantChiName')">
+                          </div>
+                          
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.alias' | translate}}</label>
+                              <input id="dependantAlias" name="dependantAlias" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="alias"
+                                  (input)="maskChineseValues($event.target.value, 'alias')">
+                          </div>
+                      </div>
+    
+    
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.sex' | translate}}</label>
+                              <div class="form-group">
+                                    <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                            formControlName="sex">
+                                        {{'techtas.formA.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                            formControlName="sex">
+                                        {{'techtas.formA.female' | translate}}
+                                    </label>
+                                
+                                </div>
+                            </div>
+    
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'techtas.formA.dob' | translate}}</label>
+    
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="dependantDobDay" name="dependantDobDay" class="form-control datePickerDate "
+                                            type="text" formControlName="dependantDobDay">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formA.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="dependantDobMonth" name="dependantDobMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="dependantDobMonth"
+                                            (blur)="onMonthYearChange('dependantDobDay','dependantDobMonth','dependantDodYear')">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formA.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+    
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="dependantDodYear" name="dependantDodYear" class="form-control datePickerYear "
+                                            type="text" formControlName="dependantDodYear"
+                                            (blur)="onMonthYearChange('dependantDobDay','dependantDobMonth','dependantDodYear')">
+                                            <option value='' disabled selected>
+                                                {{'techtas.formA.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            
+                      </div>
+    
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.placeOfBirth' | translate}}</label>
+                              <input id="dependantPlaceOfBirth" name="dependantPlaceOfBirth" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="dependantPlaceOfBirth">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.nationality' | translate}}</label>
+                              <input id="dependantNationality" name="dependantNationality" class="form-control all-caps"
+                                  maxlength="50" type="text" formControlName="dependantNationality">
+                          </div>
+                            
+                            
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.relationship' | translate}}</label>
+    
+                              <input id="dependantRelationship" name="dependantRelationship" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="dependantRelationship"
+                                  (input)="maskChineseValues($event.target.value, 'dependantRelationship')">
+                          </div>
+                      </div>
+
+                      <div class='row'>
+                          <div class="col-md-12 form-group">
+                              <label class="control-label">{{'techtas.formA.maritalStatus' | translate}}</label>
+                              <div class="form-group">
+                                  <div class="row">
+                                    <label class="checkbox-inline"><input id="single" name="dependantMaritalStatus" type="radio" value="single"
+                                            formControlName="dependantMaritalStatus">
+                                        {{'techtas.formA.single' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="married" name="dependantMaritalStatus" type="radio" value="married"
+                                            formControlName="dependantMaritalStatus">
+                                        {{'techtas.formA.married' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="separated" name="dependantMaritalStatus" type="radio" value="separated"
+                                        formControlName="dependantMaritalStatus">
+                                        {{'techtas.formA.separated' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="divorced" name="dependantMaritalStatus" type="radio" value="divorced"
+                                        formControlName="dependantMaritalStatus">
+                                        {{'techtas.formA.divorced' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="widowed" name="dependantMaritalStatus" type="radio" value="widowed"
+                                        formControlName="dependantMaritalStatus">
+                                        {{'techtas.formA.widowed' | translate}}
+                                    </label>
+                                </div>
+                              </div> 
+                          </div>
+
+                      </div>
+
+                      <div class="row">      
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.travelDocType' | translate}}</label>
+                              <select id="dependantTravelDocType" name="dependantTravelDocType" class="form-control dependantTravelDocType" type="text"
+                                            formControlName="dependantTravelDocType">
+                                         <option value='' disabled selected>
+                                          {{'techtas.formA.selectType' | translate}}
+                                      </option>
+                                      <option value='00' selected> {{'Type1'}} </option>
+                                      <option value='01' selected> {{'Type2'}} </option>
+                                      <option value='02' selected> {{'Type3'}} </option>
+                                      
+                              </select>         
+                                  
+                          </div>
+  
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'techtas.formA.travelDocValue' | translate}}</label>
+                              <input id="dependantTravelDocValue" name="dependantTravelDocValue" class="form-control all-caps"
+                                  maxlength="6" type="text" formControlName="dependantTravelDocValue"
+                                  (input)="maskChineseValues($event.target.value, 'dependantTravelDocValue')">
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="form-group col-md-6">
+                              <label class="control-label">{{'techtas.formA.hkIdNo' | translate}}</label>
+                               <div class="row form-group">
+                                <div class="col-xs-8">
+                                    <input id="dependantHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                        [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                        formControlName="hkIdValue1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="dependantHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                            [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                            formControlName="hkIdValue2">
+                                    </div>
+                                </div>
+                               </div>
+                          </div>
+                            
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formA.mainlandIdNo' | translate}}</label>
+                            <input id="dependantMainlandIdNo" name="mainlandIdNo" class="form-control all-caps"
+                            maxlength="50" type="text" formControlName="mainlandIdNo">
+
+                         </div>
+
+                      
+                      </div>
+
+                      <div class="row">      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'techtas.formA.domicileCountry' | translate}}</label>
+                            <input id="dependantDomicileCountry" name="dependantDomicileCountry" class="form-control all-caps"
+                                maxlength="6" type="text" formControlName="dependantDomicileCountry"
+                                (input)="maskChineseValues($event.target.value, 'dependantDomicileCountry')">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-labe required-star">{{'techtas.formA.dependantHasPermanentResidence' | translate}}</label>
+                            <div class="form-group">
+                                <div class="row">
+                                  <label class="checkbox-inline"><input id="yes" name="dependantHasPermanentResidence" type="radio" value="yes"
+                                          formControlName="dependantHasPermanentResidence">
+                                      {{'techtas.formA.yes' | translate}}</label>
+                                  <label class="checkbox-inline"><input id="no" name="dependantHasPermanentResidence" type="radio" value="no"
+                                          formControlName="dependantHasPermanentResidence">
+                                      {{'techtas.formA.no' | translate}}
+                                  </label>
+                              </div>
+                            </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <!-- End of Part 4 -->
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

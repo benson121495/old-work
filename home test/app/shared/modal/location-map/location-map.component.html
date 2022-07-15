@@ -1,0 +1,216 @@
+<div preventParentScroll [preventParentScrollDisabled]="false" class="modal remodal-wrapper remodal-is-opened"
+    [ngStyle]="{'display':'block'}" style="padding-top: 10px;">
+    <div style="text-align:left;" style="background: #fff;" [ngStyle]="{'display':'block'}"
+        class=" remodal remodal-is-initialized remodal-is-opened" tabindex="-1">
+        <div class="scrollpane scrollpaneHeight" style="overflow:auto;">
+            <div class="content" style="width:100%; overflow:hidden; box-sizing:border-box;text-align:left;">
+
+                <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                    <img src="./assets/image/Maps/{{commonService.officeLocation.locationMap}}">
+                </ng-container>
+                <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                    <img src="./assets/image/Maps/{{commonService.officeLocation.chtLocationMap}}">
+                </ng-container>
+                <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                    <img src="./assets/image/Maps/{{commonService.officeLocation.chsLocationMap}}">
+                </ng-container>
+
+                <div>
+
+                    <table class="location-map-info">
+                        <tbody>
+
+                            <tr>
+                                <td colspan="2">
+                                    <b>
+                                        <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                                            {{commonService.officeLocation.engOffName}}
+                                        </ng-container>
+                                        <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                                            {{commonService.officeLocation.chtOffName}}
+                                        </ng-container>
+                                        <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                                            {{commonService.officeLocation.chsOffName}}
+                                        </ng-container>
+                                    </b>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    {{'es.birthsearch.officeinfowindow.addr' | translate}}
+                                </td>
+                                <td>
+                                    <div>
+                                        <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.addr != undefined; else elseEngAddr">
+                                                <span [innerHtml]="commonService.officeLocation.addr"></span>
+                                                <div>{{commonService.officeLocation.addrHint}}</div>
+                                            </ng-container>
+                                            <ng-template #elseEngAddr>
+                                                <span [innerHtml]="commonService.officeLocation.engAddr"></span>
+                                                <div>{{commonService.officeLocation.engAddrHint}}</div>
+                                            </ng-template>
+                                        </ng-container>
+                                        <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                                            {{commonService.officeLocation.chtAddr}}
+                                            <div>{{commonService.officeLocation.chtAddrHint}}</div>
+                                        </ng-container>
+                                        <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                                            {{commonService.officeLocation.chsAddr}}
+                                            <div>{{commonService.officeLocation.chsAddrHint}}</div>
+                                        </ng-container>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{'es.birthsearch.officeinfowindow.tel' | translate}}
+                                </td>
+                                <td>
+                                    {{commonService.officeLocation.telNum}}<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{'es.birthsearch.officeinfowindow.workhour' | translate}}
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <ng-container>
+                                                {{ offHrWdStart1Msg }}
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.offHrWdStart2!=undefined && commonService.officeLocation.offHrWdStart2!=''">
+                                                {{'appointment.initial.and' | translate}} {{ offHrWdStart2Msg }}
+                                            </ng-container>
+                                            {{'office.location.MON-FRI' | translate}}
+
+                                            <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                                                {{ commonService.officeLocation.engOffHrWdNote }}
+                                            </ng-container>
+
+                                            <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                                                {{ commonService.officeLocation.chtOffHrWdNote }}
+                                            </ng-container>
+
+                                            <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                                                {{ commonService.officeLocation.chsOffHrWdNote }}
+                                            </ng-container>
+
+                                        </li>
+                                        <li>
+                                            <ng-container>
+                                                {{ offHrSatStart1Msg }}
+                                            </ng-container>
+
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.offHrSatStart2!=undefined && commonService.officeLocation.offHrSatStart2!=''">
+                                                {{'appointment.initial.and' | translate}} {{ offHrSatStart2Msg }}
+                                            </ng-container>
+
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.engOffHrSatNote != undefined">
+                                                (
+                                                <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                                                    {{ commonService.officeLocation.engOffHrSatNote }}
+                                                </ng-container>
+                                                <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                                                    {{ commonService.officeLocation.chtOffHrSatNote }}
+                                                </ng-container>
+                                                <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                                                    {{ commonService.officeLocation.chsOffHrSatNote }}
+                                                </ng-container>)
+                                            </ng-container>
+
+                                            {{'office.location.saturday' | translate}}
+
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.offHrSatStart1==undefined ">
+                                                {{'appointment.showofficeinfo.saturday.closed' | translate}}
+                                            </ng-container>
+
+                                        </li>
+                                        <li *ngIf="commonService.officeLocation.offHrSunStart1!=undefined">
+                                            {{ offHrSunStart1Msg }}
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.offHrSunStart2!=undefined && commonService.officeLocation.offHrSunStart2!=''">
+                                                {{'appointment.initial.and' | translate}} {{ offHrSunStart2Msg }}
+                                            </ng-container>
+
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.engOffHrSunNote!=undefined">
+                                                (
+                                                <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                                                    {{ commonService.officeLocation.engOffHrSunNote }}
+                                                </ng-container>
+                                                <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                                                    {{ commonService.officeLocation.chtOffHrSunNote }}
+                                                </ng-container>
+                                                <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                                                    {{ commonService.officeLocation.chsOffHrSunNote }}
+                                                </ng-container>)
+                                            </ng-container>
+
+                                            {{'office.location.sunday' | translate}}
+
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.offHrPhStart1 == undefined">
+                                                <div>{{'office.location.public-holiday-closed' | translate}}</div>
+                                            </ng-container>
+                                        </li>
+                                        <li *ngIf="commonService.officeLocation.offHrPhStart1!=undefined">
+                                            <ng-container *ngIf="commonService.officeLocation.offHrPhStart1!=undefined">
+                                                {{ offHrPhStart1Msg }}
+                                            </ng-container>
+
+                                            <ng-container
+                                                *ngIf="commonService.officeLocation.offHrPhStart2!=undefined && commonService.officeLocation.offHrPhStart2!=''">
+                                                {{'appointment.initial.and' | translate}} {{ offHrPhStart2Msg }}
+                                            </ng-container>
+                                            (
+                                            <ng-container *ngIf="this.translateservice.currentLang == 'en-US'">
+                                                {{ commonService.officeLocation.engOffHrPhNote }}
+                                            </ng-container>
+
+                                            <ng-container *ngIf="this.translateservice.currentLang == 'zh-HK'">
+                                                {{ commonService.officeLocation.chtOffHrPhNote }}
+                                            </ng-container>
+
+                                            <ng-container *ngIf="this.translateservice.currentLang == 'zh-CN'">
+                                                {{ commonService.officeLocation.chsOffHrPhNote }}
+                                            </ng-container>)
+
+                                            {{'office.location.public-holiday' | translate}}
+
+                                        </li>
+                                        <div
+                                            *ngIf="commonService.officeLocation.offHrSunStart1 == undefined && commonService.officeLocation.offHrPhStart1 == undefined">
+                                            <ng-container>
+                                                {{'office.location.sunday.public-holiday-closed' | translate}}
+                                            </ng-container>
+                                        </div>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-3 m-5000 d-flex buttons col-md-3"
+                        ng-reflect-klass="col-xs-3 m-5000 d-flex button">
+                        <div>
+                            <button class=" btn btn-brown btn-block" type="button" (click)="onCloseHandled(false)">
+                                {{'birthsearch.form.button.exit' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

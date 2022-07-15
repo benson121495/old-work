@@ -1,0 +1,1659 @@
+<div class="container">
+    <app-topbar [title]="'coe.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'coe.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Personal Particular of Applicant -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.form.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiSurName' | translate}}</label>
+
+                                    <input id="chiSurName" name="chiSurName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chiSurName"
+                                        (input)="maskChineseValues($event.target.value, 'chiSurName')">
+
+                                    <div *ngIf="submitted &&  f.chiSurName.errors" class="errorMsg col-md-12 col-xs-12 "
+                                        style="color:red">
+                                        <div *ngIf="f.chiSurName.errors.isTradChinName">
+                                            <ng-container *ngIf="errorCode">E-2102:</ng-container>
+                                            {{'568-E-2102' | translate}}
+                                            <!-- Please input the Chinese name in Traditional Chinese. -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiGivenName' | translate}}</label>
+                                    <input id="chiGivenName" name="chiGivenName" maxlength="6"
+                                        class="form-control all-caps" type="text" formControlName="chiGivenName"
+                                        (input)="maskChineseValues($event.target.value, 'chiGivenName')">
+
+
+                                    <div *ngIf="submitted &&  f.chiGivenName.errors"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <div *ngIf="f.chiGivenName.errors.isTradChinName">
+                                            <ng-container *ngIf="errorCode">E-2102:</ng-container>
+                                            {{'568-E-2102' | translate}}
+                                            <!-- Please input the Chinese name in Traditional Chinese. -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.engSurName' | translate}}</label>
+
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engSurName"
+                                        (change)="cutValues($event.target.value,'engSurName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+
+                                    <div *ngIf="submitted  && fillForm.hasError('oneNameBlank')"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2154:</ng-container>
+                                        {{'568-E-2154' | translate}}
+                                        <!-- Please input surname in English. -->
+                                    </div>
+
+                                    <div *ngIf="submitted  && fillForm.hasError('engSurNameSC')"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2105:</ng-container>
+                                        {{'568-E-2105' | translate}}
+                                        <!-- Please input surname in English. -->
+                                    </div>
+                                    <div *ngIf="submitted && !fillForm.hasError('oneNameBlank') && f.engSurName.errors">
+                                        <div *ngIf="f.engSurName.errors.required " class="errorMsg col-md-12 col-xs-12 "
+                                            style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2105:</ng-container>
+                                            {{'568-E-2105' | translate}}
+                                            <!-- Please input name in English. -->
+                                        </div>
+
+                                        <div *ngIf="f.engSurName.errors.wrongName" class="errorMsg col-md-12 col-xs-12 "
+                                            style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2103:</ng-container>
+                                            {{'568-E-2103' | translate}}
+                                            <!-- Wrong usage of punctuation marks in surname. -->
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="submitted && ! fillForm.hasError('oneNameBlank') && !f.engSurName.errors && fillForm.hasError('isNameLonger')"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2104:</ng-container>
+                                        {{'568-E-2104' | translate}}
+                                        <!-- Full name cannot exceed 38 characters. -->
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.engGivenName' | translate}}</label>
+
+                                    <input id="engGivenName" name="engGivenName" formControlName="engGivenName"
+                                        maxlength="33" class="form-control all-caps" type="text"
+                                        (change)="cutValues($event.target.value,'engGivenName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+
+                                    <div *ngIf="submitted && f.engGivenName.errors">
+                                        <div *ngIf="f.engGivenName.errors.required"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2105:</ng-container>
+                                            {{'568-E-2105' | translate}}
+                                            <!-- Please input name in English. -->
+                                        </div>
+                                        <div *ngIf="f.engGivenName.errors.wrongName"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2106:</ng-container>
+                                            {{'568-E-2106' | translate}}
+                                            <!-- Wrong usage of punctuation marks in given name. -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'coe.form.alias' | translate}}
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiName' | translate}}</label>
+                                    <input id="chiNameAlias" name="chiNameAlias" class="form-control all-caps"
+                                        maxlength="6" type="text" formControlName="chiNameAlias"
+                                        (input)="maskChineseValues($event.target.value, 'chiNameAlias')">
+                                    <div *ngIf="submitted && f.chiNameAlias.errors">
+
+                                        <div *ngIf="f.chiNameAlias.errors.isTradChinName"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2107:</ng-container>
+                                            {{'568-E-2107' | translate}}
+                                            <!-- Please input the Chinese alias in Traditional Chinese. -->
+                                        </div>
+
+                                    </div>
+
+                                    <div *ngIf="submitted && !f.chiNameAlias.errors && fillForm.hasError('isChineseNameSame')"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2108:</ng-container>
+                                        {{'568-E-2108' | translate}}
+                                        <!-- The Chinese alias should be different from the Chinese name. -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label class="control-label">{{'coe.form.engSurName' | translate}}</label>
+                                    <input id="engSurNameAlias" name="engSurNameAlias" class="form-control all-caps"
+                                        type="text" formControlName="engSurNameAlias" maxlength="38"
+                                        (change)="cutValues($event.target.value,'engSurNameAlias')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    <div *ngIf="submitted ">
+                                        <div *ngIf="f.engSurNameAlias.errors && f.engSurNameAlias.errors.wrongName"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2111:</ng-container>
+                                            {{'568-E-2111' | translate}}
+                                            <!-- Wrong usage of punctuation marks in surname of alias. -->
+                                        </div>
+
+                                        <div *ngIf="!f.engSurNameAlias.errors && fillForm.hasError('isAliasNameLonger')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2109:</ng-container>
+                                            {{'568-E-2109' | translate}}
+                                            <!-- Full alias cannot exceed 38 characters. -->
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">{{'coe.form.engGivenName' | translate}}</label>
+                                        <input id="engGivenNameAlias" name="engGivenNameAlias"
+                                            class="form-control all-caps" type="text"
+                                            formControlName="engGivenNameAlias" maxlength="38"
+                                            (change)="cutValues($event.target.value, 'engGivenNameAlias')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+
+                                        <div *ngIf="submitted && f.engGivenNameAlias.errors && f.engGivenNameAlias.errors.wrongName"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2112:</ng-container>
+                                            {{'568-E-2112' | translate}}
+                                            <!-- Wrong usage of punctuation marks in given names of alias. -->
+                                        </div>
+
+                                        <div *ngIf="submitted && fillForm.hasError('isEnglishGivenNameSame')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2110:</ng-container>
+                                            {{'568-E-2110' | translate}}
+                                            <!-- The English alias should be different from the fill name in English. -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div id="sex" class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'coe.form.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                                formControlName="male">
+                                            {{'coe.form.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                                formControlName="female">
+                                            {{'coe.form.female' | translate}}
+                                        </label>
+                                        <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                            {{'568-E-2113' | translate}}
+                                            <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'coe.form.dob' | translate}}</label>
+
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="submitted">
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="fillForm.hasError('searchSpanRequired')">
+                                            <ng-container *ngIf="errorCode">E-2121:</ng-container>
+                                            <!-- Please fill in the period for the search. -->
+                                            {{'568-E-2121' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && fillForm.hasError('invalidformat')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') && fillForm.hasError('invalidperiodfrom')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && fillForm.hasError('invalidSpan')">
+                                            <ng-container *ngIf="errorCode">E-2123:</ng-container>
+                                            {{'568-E-2123' | translate}}
+                                            <!-- The start date cannot precede the end date. -->
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') && fillForm.hasError('invaliddatediff')">
+                                            <ng-container *ngIf="errorCode">E-2124:</ng-container>
+                                            {{'568-E-2124' | translate}}
+                                            <!-- The period for general search cannot exceed 5 years. -->
+                                        </div>
+
+                                        <div *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                            && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                            && !fillForm.hasError('invaliddatediff') && fillForm.hasError('isDobBtwn')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2125:</ng-container>
+                                            {{'568-E-2125' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                              && !fillForm.hasError('isDobBtwn') && !fillForm.hasError('invaliddatediff') 
+                              && fillForm.hasError('before1873')">
+                                            <ng-container *ngIf="errorCode">E-2126:</ng-container>
+                                            {{'568-E-2126' | translate}}
+                                            <!-- The period for particular search cannot exceed 5 years. -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.nationality' | translate}}</label>
+                                    <input id="nationality" name="nationality" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="nationality">
+
+                                    <div *ngIf="submitted && f.nationality.errors && f.nationality.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+
+                                    <div *ngIf="submitted && f.placeOfBirth.errors && f.placeOfBirth.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label required-star">
+                                        {{'coe.form.travelDocValue' | translate}}</label>
+                                    <input id="travelDocValue" name="travelDocValue" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="travelDocValue"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    <div *ngIf="submitted && f.travelDocValue.errors">
+                                        <div class="errorMsg"  style="color:red" role="alert"
+                                            *ngIf="f.travelDocValue.errors.hasChineseChar">
+                                            <ng-container *ngIf="errorCode">E-2145:</ng-container>
+                                            {{ '568-E-2145' | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.travelDocIssueDate' | translate}}</label>
+
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocDay" name="travelDocDay"
+                                                class="form-control datePickerDate" type="text"
+                                                formControlName="travelDocDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="travelDocMonth" name="travelDocMonth"
+                                                class="form-control datePickerMonth" type="text"
+                                                formControlName="travelDocMonth"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="travelDocYear" name="travelDocYear"
+                                                class="form-control datePickerYear " type="text"
+                                                formControlName="travelDocYear"
+                                                (blur)="onMonthYearChange('travelDocDay','travelDocMonth','travelDocYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="submitted">
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="fillForm.hasError('searchSpanRequired')">
+                                            <ng-container *ngIf="errorCode">E-2121:</ng-container>
+                                            <!-- Please fill in the period for the search. -->
+                                            {{'568-E-2121' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && fillForm.hasError('invalidformat')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') && fillForm.hasError('invalidperiodfrom')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && fillForm.hasError('invalidSpan')">
+                                            <ng-container *ngIf="errorCode">E-2123:</ng-container>
+                                            {{'568-E-2123' | translate}}
+                                            <!-- The start date cannot precede the end date. -->
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') && fillForm.hasError('invaliddatediff')">
+                                            <ng-container *ngIf="errorCode">E-2124:</ng-container>
+                                            {{'568-E-2124' | translate}}
+                                            <!-- The period for general search cannot exceed 5 years. -->
+                                        </div>
+
+                                        <div *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                            && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                            && !fillForm.hasError('invaliddatediff') && fillForm.hasError('isDobBtwn')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2125:</ng-container>
+                                            {{'568-E-2125' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                              && !fillForm.hasError('isDobBtwn') && !fillForm.hasError('invaliddatediff') 
+                              && fillForm.hasError('before1873')">
+                                            <ng-container *ngIf="errorCode">E-2126:</ng-container>
+                                            {{'568-E-2126' | translate}}
+                                            <!-- The period for particular search cannot exceed 5 years. -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.travelDocIssuePlace' | translate}}</label>
+                                    <input id="travelDocIssuePlace" name="travelDocIssuePlace"
+                                        class="form-control all-caps" maxlength="50" type="text"
+                                        formControlName="travelDocIssuePlace">
+
+                                    <div *ngIf="submitted && f.travelDocIssuePlace.errors && f.travelDocIssuePlace.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="isOtherNationality" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.otherNationalityLabel' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="otherNationalityYes"
+                                                name="isOtherNationality" type="radio" value="Yes"
+                                                formControlName="isOtherNationality" (click)="isOtherNationality='Yes'">
+                                            {{'coe.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="otherNationalityNo"
+                                                name="isOtherNationality" type="radio" value="No"
+                                                formControlName="isOtherNationality" (click)="isOtherNationality='No'">
+                                            {{'coe.form.no' | translate}}
+                                        </label>
+                                        <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                            {{'568-E-2113' | translate}}
+                                            <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="isOtherNationality==='Yes'">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'coe.form.otherNationality' | translate}}</label>
+                                        <input id="otherNationality" name="otherNationality"
+                                            class="form-control all-caps" maxlength="50" type="text"
+                                            formControlName="otherNationality">
+
+                                        <div *ngIf="submitted && f.otherNationality.errors && f.otherNationality.errors.tradChinEngCheck"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                            {{'568-E-2120' | translate}}
+                                            <!-- Please input the nationality in English or Traditional Chinese. -->
+                                        </div>
+                                    </div>
+                                    <div id="otherNationalityAcquired" class="col-md-6 form-group">
+                                        <label
+                                            class="control-label required-star">{{'coe.form.otherNationalityAcquireLabal' | translate}}</label>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="checkbox-inline"><input id="otherNationalitySettlement"
+                                                        name="otherNationalityAcquire" value="settlement" type="radio"
+                                                        formControlName="otherNationalityAcquire"
+                                                        (click)="otherNationalityAcquire='settlement'">
+                                                    {{'coe.form.settlement' | translate}}</label>
+                                                <label class="checkbox-inline"><input id="otherNationalityBirth"
+                                                        name="otherNationalityAcquire" value="birth" type="radio"
+                                                        formControlName="otherNationalityAcquire"
+                                                        (click)="otherNationalityAcquire='birth'">
+                                                    {{'coe.form.birth' | translate}}
+                                                </label>
+                                                <label class="checkbox-inline"><input id="otherNationalityDescent"
+                                                        name="otherNationalityAcquire" value="descent" type="radio"
+                                                        formControlName="otherNationalityAcquire"
+                                                        (click)="otherNationalityAcquire='descent'">
+                                                    {{'coe.form.descent' | translate}}</label>
+                                            </div>
+                                            <div class="row">
+                                                <label class="checkbox-inline"><input id="otherNationalityOther"
+                                                        name="otherNationalityAcquire" value="other" type="radio"
+                                                        formControlName="otherNationalityAcquire"
+                                                        (click)="otherNationalityAcquire='other'">
+                                                    {{'coe.form.otherNationalityOther' | translate}}
+                                                </label>
+                                                <input *ngIf="otherNationalityAcquire==='other'" id="nationality"
+                                                    name="nationality" class="form-control all-caps" maxlength="50"
+                                                    type="text" formControlName="nationality">
+                                                <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                                    <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                                    {{'568-E-2113' | translate}}
+                                                    <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div id="renunciateChinese" class="col-md-6 form-group">
+                                        <label
+                                            class="control-label required-star">{{'coe.form.renunciateChinese' | translate}}</label>
+                                        <div class="form-group">
+                                            <label class="checkbox-inline"><input id="renunciateChineseYes"
+                                                    name="renunciateChinese" type="radio" value="Yes"
+                                                    formControlName="renunciateChinese">
+                                                {{'coe.form.yes' | translate}}</label>
+                                            <label class="checkbox-inline"><input id="renunciateChineseNo"
+                                                    name="renunciateChinese" type="radio" value="No"
+                                                    formControlName="renunciateChinese">
+                                                {{'coe.form.no' | translate}}
+                                            </label>
+                                            <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                                <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                                {{'568-E-2113' | translate}}
+                                                <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.placeOfResidence' | translate}}</label>
+                                    <input id="placeOfResidence" name="placeOfResidence" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfResidence">
+
+                                    <div *ngIf="submitted && f.placeOfResidence.errors && f.placeOfResidence.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label">{{'coe.form.statusAtPlaceOfResidence' | translate}}</label>
+                                    <input id="statusAtPlaceOfResidence" name="statusAtPlaceOfResidence"
+                                        class="form-control all-caps" maxlength="50" type="text"
+                                        formControlName="statusAtPlaceOfResidence">
+
+                                    <div *ngIf="submitted && f.statusAtPlaceOfResidence.errors && f.statusAtPlaceOfResidence.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.phoneNo' | translate}}</label>
+                                    <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="phoneNo">
+
+                                    <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="control-label">{{'coe.form.phoneExt' | translate}}</label>
+                                    <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                        type="text" formControlName="phoneExt">
+
+                                    <div *ngIf="submitted && f.phoneExt.errors && f.phoneExt.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.email' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" maxlength="33" type="text"
+                                        formControlName="email">
+
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.address' | translate}}</label>
+                                    <input id="address1" name="address1" class="form-control address" type="text"
+                                        formControlName="address1">
+                                    <input id="address2" name="address2" class="form-control address" type="text"
+                                        formControlName="address2">
+                                    <input id="address3" name="address3" class="form-control address" type="text"
+                                        formControlName="address3">
+                                    <input id="address4" name="address4" class="form-control address" type="text"
+                                        formControlName="address4">
+
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 1 -->
+
+                    <!-- Part 2 - Particulars of Father -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.form.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiSurName' | translate}}</label>
+
+                                    <input id="chiSurName" name="chiSurName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chiSurName">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiGivenName' | translate}}</label>
+                                    <input id="chiGivenName" name="chiGivenName" maxlength="6"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.engSurName' | translate}}</label>
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenName" name="engGivenName" maxlength="33"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="submitted">
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="fillForm.hasError('searchSpanRequired')">
+                                            <ng-container *ngIf="errorCode">E-2121:</ng-container>
+                                            <!-- Please fill in the period for the search. -->
+                                            {{'568-E-2121' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && fillForm.hasError('invalidformat')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') && fillForm.hasError('invalidperiodfrom')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                          && !fillForm.hasError('invalidperiodfrom') && fillForm.hasError('invalidSpan')">
+                                            <ng-container *ngIf="errorCode">E-2123:</ng-container>
+                                            {{'568-E-2123' | translate}}
+                                            <!-- The start date cannot precede the end date. -->
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                          && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') && fillForm.hasError('invaliddatediff')">
+                                            <ng-container *ngIf="errorCode">E-2124:</ng-container>
+                                            {{'568-E-2124' | translate}}
+                                            <!-- The period for general search cannot exceed 5 years. -->
+                                        </div>
+
+                                        <div *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                        && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                        && !fillForm.hasError('invaliddatediff') && fillForm.hasError('isDobBtwn')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2125:</ng-container>
+                                            {{'568-E-2125' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                          && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                          && !fillForm.hasError('isDobBtwn') && !fillForm.hasError('invaliddatediff') 
+                          && fillForm.hasError('before1873')">
+                                            <ng-container *ngIf="errorCode">E-2126:</ng-container>
+                                            {{'568-E-2126' | translate}}
+                                            <!-- The period for particular search cannot exceed 5 years. -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+
+                                    <div *ngIf="submitted && f.placeOfBirth.errors && f.placeOfBirth.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">{{'coe.form.hkidNo' | translate}}</label>
+                                    <div class="col-xs-8">
+                                        <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                            [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                            formControlName="hkIdValue1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                formControlName="hkIdValue2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.parentNationality' | translate}}</label>
+                                    <input id="nationality" name="nationality" class="form-control all-caps"
+                                        maxlength="50" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="fIsOtherNationality" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.parentIsOtherNationality' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="otherNationalityYes"
+                                                name="fIsOtherNationality" type="radio" value="Yes"
+                                                (click)="fIsOtherNationality='Yes'">
+                                            {{'coe.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="otherNationalityNo"
+                                                name="fIsOtherNationality" type="radio" value="No"
+                                                (click)="fIsOtherNationality='No'">
+                                            {{'coe.form.no' | translate}}
+                                        </label>
+                                        <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                            {{'568-E-2113' | translate}}
+                                            <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="fIsOtherNationality==='Yes'">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label
+                                            class="control-label">{{'coe.form.parentOtherNationality' | translate}}</label>
+                                        <input id="otherNationality" name="otherNationality"
+                                            class="form-control all-caps" maxlength="50" type="text"
+                                            formControlName="otherNationality">
+
+                                        <div *ngIf="submitted && f.otherNationality.errors && f.otherNationality.errors.tradChinEngCheck"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                            {{'568-E-2120' | translate}}
+                                            <!-- Please input the nationality in English or Traditional Chinese. -->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'coe.form.dob' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="dobDay">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="dobMonth" name="dobMonth"
+                                                    class="form-control datePickerMonth" type="text"
+                                                    formControlName="dobMonth"
+                                                    (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="dobYear"
+                                                    (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'coe.form.periodOfOrdinaryResidence' | translate}}</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.from' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.to' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+
+                    <!-- Part 3 - Particulars of Mother -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.form.part3Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiSurName' | translate}}</label>
+
+                                    <input id="chiSurName" name="chiSurName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chiSurName">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.chiGivenName' | translate}}</label>
+                                    <input id="chiGivenName" name="chiGivenName" maxlength="6"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.engSurName' | translate}}</label>
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenName" name="engGivenName" maxlength="33"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="submitted">
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="fillForm.hasError('searchSpanRequired')">
+                                            <ng-container *ngIf="errorCode">E-2121:</ng-container>
+                                            <!-- Please fill in the period for the search. -->
+                                            {{'568-E-2121' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && fillForm.hasError('invalidformat')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') && fillForm.hasError('invalidperiodfrom')">
+                                            <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                            {{'568-E-2122' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                                              && !fillForm.hasError('invalidperiodfrom') && fillForm.hasError('invalidSpan')">
+                                            <ng-container *ngIf="errorCode">E-2123:</ng-container>
+                                            {{'568-E-2123' | translate}}
+                                            <!-- The start date cannot precede the end date. -->
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') && fillForm.hasError('invaliddatediff')">
+                                            <ng-container *ngIf="errorCode">E-2124:</ng-container>
+                                            {{'568-E-2124' | translate}}
+                                            <!-- The period for general search cannot exceed 5 years. -->
+                                        </div>
+
+                                        <div *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                                            && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                                            && !fillForm.hasError('invaliddatediff') && fillForm.hasError('isDobBtwn')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2125:</ng-container>
+                                            {{'568-E-2125' | translate}}
+                                        </div>
+
+                                        <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                            *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                                              && !fillForm.hasError('isDobBtwn') && !fillForm.hasError('invaliddatediff') 
+                                              && fillForm.hasError('before1873')">
+                                            <ng-container *ngIf="errorCode">E-2126:</ng-container>
+                                            {{'568-E-2126' | translate}}
+                                            <!-- The period for particular search cannot exceed 5 years. -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.placeOfBirth' | translate}}</label>
+                                    <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                        maxlength="50" type="text" formControlName="placeOfBirth">
+
+                                    <div *ngIf="submitted && f.placeOfBirth.errors && f.placeOfBirth.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">{{'coe.form.hkidNo' | translate}}</label>
+                                    <div class="col-xs-8">
+                                        <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                            [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                            formControlName="hkIdValue1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                formControlName="hkIdValue2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.parentNationality' | translate}}</label>
+                                    <input id="nationality" name="nationality" class="form-control all-caps"
+                                        maxlength="50" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="mIsOtherNationality" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.parentIsOtherNationality' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="otherNationalityYes"
+                                                name="mIsOtherNationality" type="radio" value="Yes"
+                                                (click)="mIsOtherNationality='Yes'">
+                                            {{'coe.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="otherNationalityNo"
+                                                name="mIsOtherNationality" type="radio" value="No"
+                                                (click)="mIsOtherNationality='No'">
+                                            {{'coe.form.no' | translate}}
+                                        </label>
+                                        <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                            {{'568-E-2113' | translate}}
+                                            <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="mIsOtherNationality==='Yes'">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label
+                                            class="control-label">{{'coe.form.parentOtherNationality' | translate}}</label>
+                                        <input id="otherNationality" name="otherNationality"
+                                            class="form-control all-caps" maxlength="50" type="text"
+                                            formControlName="otherNationality">
+
+                                        <div *ngIf="submitted && f.otherNationality.errors && f.otherNationality.errors.tradChinEngCheck"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                            {{'568-E-2120' | translate}}
+                                            <!-- Please input the nationality in English or Traditional Chinese. -->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'coe.form.dob' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="dobDay">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="dobMonth" name="dobMonth"
+                                                    class="form-control datePickerMonth" type="text"
+                                                    formControlName="dobMonth"
+                                                    (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="dobYear"
+                                                    (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label">{{'coe.form.periodOfOrdinaryResidence' | translate}}</label>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.from' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.to' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'coe.form.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of part 3 -->
+
+                    <!-- Part 4 - Marriage Details of Parents -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.form.part4Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div id="marriageRegistered" class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'coe.form.marriageRegistered' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="marriageRegisteredYes"
+                                                name="marriageRegistered" type="radio" value="Yes"
+                                                (click)="marriageRegistered='Yes'">
+                                            {{'coe.form.yes' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="marriageRegisteredNo"
+                                                name="marriageRegistered" type="radio" value="No"
+                                                (click)="marriageRegistered='No'">
+                                            {{'coe.form.no' | translate}}
+                                        </label>
+                                        <div *ngIf="submitted && fillForm.hasError('sexCheck')"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2113:</ng-container>
+                                            {{'568-E-2113' | translate}}
+                                            <!-- Please select sex. For unknown sex, please select 'Both'. -->
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="marriageRegistered==='Yes'">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'coe.form.dateOfMarriage' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="dobDay">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="dobMonth" name="dobMonth"
+                                                    class="form-control datePickerMonth" type="text"
+                                                    formControlName="dobMonth"
+                                                    (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="dobYear"
+                                                    (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'coe.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="submitted">
+
+                                            <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                                *ngIf="fillForm.hasError('searchSpanRequired')">
+                                                <ng-container *ngIf="errorCode">E-2121:</ng-container>
+                                                <!-- Please fill in the period for the search. -->
+                                                {{'568-E-2121' | translate}}
+                                            </div>
+
+                                            <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                                *ngIf="!fillForm.hasError('searchSpanRequired') && fillForm.hasError('invalidformat')">
+                                                <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                                {{'568-E-2122' | translate}}
+                                            </div>
+
+                                            <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                                *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') && fillForm.hasError('invalidperiodfrom')">
+                                                <ng-container *ngIf="errorCode">E-2122:</ng-container>
+                                                {{'568-E-2122' | translate}}
+                                            </div>
+
+                                            <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                                *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && fillForm.hasError('invalidSpan')">
+                                                <ng-container *ngIf="errorCode">E-2123:</ng-container>
+                                                {{'568-E-2123' | translate}}
+                                                <!-- The start date cannot precede the end date. -->
+                                            </div>
+
+                                            <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                                *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') && fillForm.hasError('invaliddatediff')">
+                                                <ng-container *ngIf="errorCode">E-2124:</ng-container>
+                                                {{'568-E-2124' | translate}}
+                                                <!-- The period for general search cannot exceed 5 years. -->
+                                            </div>
+
+                                            <div *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                            && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                            && !fillForm.hasError('invaliddatediff') && fillForm.hasError('isDobBtwn')"
+                                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                                <ng-container *ngIf="errorCode">E-2125:</ng-container>
+                                                {{'568-E-2125' | translate}}
+                                            </div>
+
+                                            <div class="errorMsg  col-md-12 col-xs-12 "  style="color:red" role="alert"
+                                                *ngIf="!fillForm.hasError('searchSpanRequired') && !fillForm.hasError('invalidformat') 
+                              && !fillForm.hasError('invalidperiodfrom') && !fillForm.hasError('invalidSpan') 
+                              && !fillForm.hasError('isDobBtwn') && !fillForm.hasError('invaliddatediff') 
+                              && fillForm.hasError('before1873')">
+                                                <ng-container *ngIf="errorCode">E-2126:</ng-container>
+                                                {{'568-E-2126' | translate}}
+                                                <!-- The period for particular search cannot exceed 5 years. -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'coe.form.placeOfMarriage' | translate}}</label>
+                                        <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                            maxlength="50" type="text" formControlName="placeOfBirth">
+
+                                        <div *ngIf="submitted && f.placeOfBirth.errors && f.placeOfBirth.errors.tradChinEngCheck"
+                                            class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                            <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                            {{'568-E-2120' | translate}}
+                                            <!-- Please input the nationality in English or Traditional Chinese. -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </div>
+                    <!-- End of part 4 -->
+
+                    <!-- Part 5 - Particulars of Hong Kong Referee -->
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.form.part5Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.name' | translate}}</label>
+
+                                    <input id="refereeName" name="refereeName" maxlength="6"
+                                        class="form-control all-caps" type="text">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">{{'coe.form.hkidNo' | translate}}</label>
+                                    <div class="col-xs-8">
+                                        <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                            [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                            formControlName="hkIdValue1">
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                                [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                                formControlName="hkIdValue2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.phoneNo' | translate}}</label>
+                                    <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                        type="text" formControlName="phoneNo">
+
+                                    <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="control-label">{{'coe.form.phoneExt' | translate}}</label>
+                                    <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                        type="text" formControlName="phoneExt">
+
+                                    <div *ngIf="submitted && f.phoneExt.errors && f.phoneExt.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.email' | translate}}</label>
+                                    <input id="email" name="email" class="form-control" maxlength="33" type="text"
+                                        formControlName="email">
+
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'coe.form.address' | translate}}</label>
+                                    <input id="address1" name="address1" class="form-control address" type="text"
+                                        formControlName="address1">
+                                    <input id="address2" name="address2" class="form-control address" type="text"
+                                        formControlName="address2">
+                                    <input id="address3" name="address3" class="form-control address" type="text"
+                                        formControlName="address3">
+                                    <input id="address4" name="address4" class="form-control address" type="text"
+                                        formControlName="address4">
+
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End of part 5 -->
+
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                                type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                                {{ 'COMMON.RESET' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,489 @@
+<div class="container">
+  <app-topbar [title]="'visa.formB.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'visa.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Particulars of employing company in Hong Kong-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'visa.formB.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                              <label> {{'visa.formB.appType' | translate}}</label>
+                          </div>
+  
+                          <div class="col-md-12 form-group">
+                            <select id="appType" name="appType" class="form-control appType" type="text"
+                                formControlName="appType">
+                                <option value='' disabled selected>
+                                    {{'visa.formB.selectType' | translate}}
+                                </option>
+                                <option value='00' selected> {{'visa.formB.company' | translate}} </option>
+                                <option value='01' selected> {{'visa.formB.indiv' | translate}} </option>
+                                
+                            </select>
+                          </div>                          
+  
+                        </div>    
+                        
+                        <div class="row">
+                          <div class="col-md-12 form-group">
+                              <label class="control-label">{{'visa.formB.part1aTitle' | translate}}</label>
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.appCompanyName' | translate}}</label>
+    
+                              <input id="appCompanyName" name="appCompanyName" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="appCompanyName">
+                          </div>
+                          
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.regNo' | translate}}</label>
+    
+                              <input id="regNo" name="regNo" class="form-control all-caps"
+                                  type="text" formControlName="regNo">
+                          </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.phoneNo' | translate}}</label>
+                            <input id="appCompanyPhoneNo" name="appCompanyPhoneNo" class="form-control all-caps" maxlength="8"
+                                type="text" formControlName="appCompanyPhoneNo">
+
+                            <div *ngIf="submitted && f.appCompanyPhoneNo.errors && f.appCompanyPhoneNo.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="control-label">{{'visa.formB.phoneExt' | translate}}</label>
+                            <input id="appCompanyPhoneExt" name="appCompanyPhoneExt" class="form-control all-caps" maxlength="4"
+                                type="text" formControlName="appCompanyPhoneExt">
+
+                            <div *ngIf="submitted && f.appCompanyPhoneExt.errors && f.appCompanyPhoneExt.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.faxNo' | translate}}</label>
+    
+                              <input id="appCompanyFaxNo" name="appCompanyFaxNo" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="appCompanyFaxNo">
+                          </div>
+                      </div>
+
+                      <div class="row">                        
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.contactPerson' | translate}}</label>
+    
+                              <input id="contactPerson" name="contactPerson" class="form-control all-caps"
+                                  type="text" formControlName="contactPerson">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.post' | translate}}</label>
+
+                            <input id="post" name="post" class="form-control all-caps"
+                                type="text" formControlName="post">
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.email' | translate}}</label>
+    
+                              <input id="appCompanyEmail" name="appCompanyEmail" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="appCompanyEmail">
+                          </div>
+                          
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.website' | translate}}</label>
+    
+                              <input id="appCompanyWebsite" name="appCompanyWebsite" class="form-control all-caps"
+                                  type="text" formControlName="appCompanyWebsite">
+                          </div>
+                      </div>
+
+                      
+      
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">{{'visa.formB.appCompanyAddress' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.roomValue' | translate}}</label>
+                            <input id="appCompanyRoomValue" name="appCompanyRoomValue" class="form-control appCompanyRoomValue" type="text"
+                              formControlName="appCompanyRoomValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.floorValue' | translate}}</label>
+                            <input id="appCompanyFloorValue" name="appCompanyFloorValue" class="form-control appCompanyFloorValue" type="text"
+                                formControlName="appCompanyFloorValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.blockValue' | translate}}</label>
+                            <input id="appCompanyBlockValue" name="appCompanyBlockValue" class="form-control appCompanyBlockValue" type="text"
+                                formControlName="appCompanyBlockValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.buildingValue' | translate}}</label>
+                            <input id="appCompanyBuildingValue" name="appCompanyBuildingValue" class="form-control appCompanyBuildingValue" type="text"
+                                formControlName="appCompanyBuildingValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.estateValue' | translate}}</label>
+                            <input id="appCompanyEstateValue" name="appCompanyEstateValue" class="form-control appCompanyEstateValue" type="text"
+                                formControlName="appCompanyEstateValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.streetValue' | translate}}</label>
+                            <input id="appCompanyStreetValue" name="appCompanyStreetValue" class="form-control appCompanyStreetValue" type="text"
+                                formControlName="appCompanyStreetValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.district' | translate}}</label>
+                            <select id="appCompanyDistrict" name="appCompanyDistrict" class="form-control appCompanyDistrict" type="text"
+                                formControlName="appCompanyDistrict">
+                                <option value='' disabled selected>
+                                    {{'Please Select' | translate}}
+                                </option>
+                                <option value='00' selected> district1 </option>
+                                <option value='01' selected> district2 </option>
+                                        
+                            </select>
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                          <label class="control-label">{{'visa.formB.part1bTitle' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.chiName' | translate}}</label>
+  
+                            <input id="appIndivChiName" name="appIndivChiName" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="appIndivChiName"
+                                (input)="maskChineseValues($event.target.value, 'appIndivChiName')">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          <label class="control-label">{{'visa.formB.hkIdNo' | translate}}</label>
+                           <div class="row form-group">
+                            <div class="col-xs-8">
+                                <input id="appIndivHkIdValue1" class="form-control all-caps" type="text" maxlength="8"
+                                    [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                    formControlName="appIndivHkIdValue1">
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="hkbracket">
+                                    <input id="appIndivHkIdValue2" class="form-control all-caps" type="text" maxlength="1"
+                                        [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                        formControlName="appIndivHkIdValue2">
+                                </div>
+                            </div>
+                           </div>
+                        </div>
+                      </div>
+  
+                      <div class="row">
+  
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label">{{'visa.formB.engSurName' | translate}}</label>
+  
+                            <input id="appIndiveEngSurName" name="appIndiveEngSurName" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="appIndiveEngSurName"
+                                (change)="cutValues($event.target.value,'appIndiveEngSurName')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>
+  
+                    
+  
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label">{{'visa.formB.engGivenName' | translate}}</label>
+  
+                            <input id="appIndivEngGivenName" name="appIndivEngGivenName" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="appIndivEngGivenName"
+                                (change)="cutValues($event.target.value,'appIndivEngGivenName')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>
+  
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label class="control-label">{{'visa.formB.dob' | translate}}</label>
+
+                          <div class="flex-container">
+                              <div class="col-md-3" style="padding-left: 0px;">
+                                  <select id="appIndivDobDay" name="appIndivDobDay" class="form-control datePickerDate "
+                                      type="text" formControlName="appIndivDobDay">
+                                      <option value='' disabled selected>
+                                          {{'visa.formB.day' | translate}}
+                                      </option>
+                                      <option value='00' selected> 00 </option>
+                                      <option *ngFor="let day of fromDayList" value="{{day}}">
+                                          {{day}}</option>
+                                  </select>
+                              </div>
+
+                              <div class="col-md-3" style="padding-left: 0px;">
+                                  <select id="appIndivDobMonth" name="appIndivDobMonth" class="form-control datePickerMonth"
+                                      type="text" formControlName="appIndivDobMonth"
+                                      (blur)="onMonthYearChange('appIndivDobDay','appIndivDobMonth','appIndivDobYear')">
+                                      <option value='' disabled selected>
+                                          {{'visa.formB.month' | translate}}
+                                      </option>
+                                      <option value='00' selected> 00 </option>
+                                      <option *ngFor="let month of monthList" value="{{month}}">
+                                          {{month}}</option>
+                                  </select>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 0px;">
+                                  <select id="appIndivDobYear" name="appIndivDobYear" class="form-control datePickerYear "
+                                      type="text" formControlName="appIndivDobYear"
+                                      (blur)="onMonthYearChange('appIndivDobDay','appIndivDobMonth','appIndivDobYear')">
+                                      <option value='' disabled selected>
+                                          {{'visa.formB.year' | translate}}
+                                      </option>
+                                      <option value='0000' selected> 0000 </option>
+                                      <option *ngFor="let year of yearsList" value="{{year}}">
+                                          {{year}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                        </div>
+
+                        <div id="appIndivSex" class="col-md-6 form-group">
+                          <label class="control-label">{{'visa.formB.sex' | translate}}</label>
+                          <div class="form-group">
+                                <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                        formControlName="appIndivSex">
+                                    {{'visa.formB.male' | translate}}</label>
+                                <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                        formControlName="appIndivSex">
+                                    {{'visa.formB.female' | translate}}
+                                </label>
+                            
+                            </div>
+                          </div>
+                        </div>
+  
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.nationality' | translate}}</label>
+                                <input id="appIndivNationality" name="appIndivNationality" class="form-control all-caps"
+                                type="text" formControlName="appIndivNationality">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.occupation' | translate}}</label>
+                              <input id="appIndivOccupation" name="appIndivOccupation" class="form-control all-caps"
+                              type="text" formControlName="appIndivOccupation">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'visa.formB.income' | translate}}</label>
+                            <div class="row form-group">
+                                <div class="col-xs-2">
+                                    <label class="control-label">{{'visa.formB.hkd' | translate}}</label>
+                                </div>
+  
+                                <div class="col-md-8">
+                                    <input id="appIndivIncome" name="appIndivIncome" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="appIndivIncome"
+                                        (change)="cutValues($event.target.value,'appIndivIncome')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+                            </div>
+                          </div>                 
+                        
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'visa.formB.phoneNo' | translate}}</label>
+                              <input id="appIndivPhoneNo" name="appIndivPhoneNo" class="form-control all-caps"
+                               type="text" formControlName="appIndivPhoneNo">
+                          </div>
+
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.appIndivFaxNo' | translate}}</label>
+                                <input id="appIndivFaxNo" name="appIndivFaxNo" class="form-control all-caps"
+                                type="text" formControlName="appIndivFaxNo">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.email' | translate}}</label>
+                                <input id="appIndivEmail" name="appIndivEmail" class="form-control all-caps"
+                                 type="text" formControlName="appIndivEmail">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label">{{'visa.formB.correspondenceAddress' | translate}}</label>
+                            </div>
+    
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.roomValue' | translate}}</label>
+                                <input id="appIndivAddressRoomValue" name="appIndivAddressRoomValue" class="form-control appIndivAddressRoomValue" type="text"
+                                  formControlName="appIndivAddressRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.floorValue' | translate}}</label>
+                                <input id="appIndivAddressFloorValue" name="appIndivAddressFloorValue" class="form-control appIndivAddressFloorValue" type="text"
+                                    formControlName="appIndivAddressFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.blockValue' | translate}}</label>
+                                <input id="appIndivAddressBlockValue" name="appIndivAddressBlockValue" class="form-control appIndivAddressBlockValue" type="text"
+                                    formControlName="appIndivAddressBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.buildingValue' | translate}}</label>
+                                <input id="appIndivAddressBuildingValue" name="appIndivAddressBuildingValue" class="form-control appIndivAddressBuildingValue" type="text"
+                                    formControlName="appIndivAddressBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.estateValue' | translate}}</label>
+                                <input id="appIndivAddressEstateValue" name="appIndivAddressEstateValue" class="form-control appIndivAddressEstateValue" type="text"
+                                    formControlName="appIndivAddressEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.streetValue' | translate}}</label>
+                                <input id="appIndivAddressStreetValue" name="appIndivAddressStreetValue" class="form-control appIndivAddressStreetValue" type="text"
+                                    formControlName="appIndivAddressStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.district' | translate}}</label>
+                                <select id="appIndivAddressDistrict" name="appIndivAddressDistrict" class="form-control appIndivAddressDistrict" type="text"
+                                    formControlName="appIndivAddressDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>
+    
+                          </div>
+
+                          <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.applicantRelationship' | translate}}</label>
+                                <input id="applicantRelationship" name="applicantRelationship" class="form-control all-caps"
+                                 type="text" formControlName="applicantRelationship">
+                            </div>
+                          </div>
+
+                    </div>
+                  </div>
+
+                  <!-- End of Part 1 -->
+
+                  <!-- Part 2 - "Visitor/ Visitor in Transit (applicant)-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'visa.formB.part2Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.visitorChiName' | translate}}</label>
+                                <input id="visitorChiName" name="visitorChiName" class="form-control all-caps"
+                                type="text" formControlName="visitorChiName">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'visa.formB.engName' | translate}}</label>
+                                <input id="visitorEngName" name="visitorEngName" class="form-control all-caps"
+                                type="text" formControlName="visitorEngName">
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+
+                <!-- End of Part 2 -->
+   
+
+                
+
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

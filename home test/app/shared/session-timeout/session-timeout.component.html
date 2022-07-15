@@ -1,0 +1,28 @@
+<div class="container">
+    <app-topbar [title]="title"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem"></app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <div class="container np">
+            <!-- ----------------------------------------- content ---------------------------------------- -->
+            <div class="panel panel-default border-radius-4">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <h1>{{'ERROR-APP.SESSION-TIMEOUT' | translate}}</h1>
+                            <p>{{'ERROR-APP.SESSION-TIMEOUT-DIS' | translate}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6  col-xs-12 m-5000">
+                    <button type="button" class="btn btn-brown btn-block" (click)="openModal()">
+            {{'COMMON.EXIT' | translate}}
+          </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<app-modal [ngClass]="commonService.showModal?'show':'hide'"></app-modal>

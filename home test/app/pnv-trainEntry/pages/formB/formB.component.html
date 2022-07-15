@@ -1,0 +1,889 @@
+<div class="container">
+  <app-topbar [title]="'trainEntry.formB.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'trainEntry.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Application for employment as Professionals in Hong Kong-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'trainEntry.formB.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.sponsorCompanyName' | translate}}</label>
+      
+                                <input id="sponsorCompanyName" name="sponsorCompanyName" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="sponsorCompanyName">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.contactPerson' | translate}}</label>
+      
+                                <input id="contactPerson" name="contactPerson" class="form-control all-caps"
+                                    type="text" formControlName="contactPerson">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.sponsorCompanyEmail' | translate}}</label>
+      
+                                <input id="sponsorCompanyEmail" name="sponsorCompanyEmail" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="sponsorCompanyEmail">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.website' | translate}}</label>
+      
+                                <input id="website" name="website" class="form-control all-caps"
+                                    type="text" formControlName="website">
+                            </div>
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'trainEntry.formB.sponsorCompanyAddress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.roomValue' | translate}}</label>
+                                <input id="sponsorCompanyRoomValue" name="sponsorCompanyRoomValue" class="form-control sponsorCompanyRoomValue" type="text"
+                                  formControlName="sponsorCompanyRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.floorValue' | translate}}</label>
+                                <input id="sponsorCompanyFloorValue" name="sponsorCompanyFloorValue" class="form-control sponsorCompanyFloorValue" type="text"
+                                    formControlName="sponsorCompanyFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.blockValue' | translate}}</label>
+                                <input id="sponsorCompanyBlockValue" name="sponsorCompanyBlockValue" class="form-control sponsorCompanyBlockValue" type="text"
+                                    formControlName="sponsorCompanyBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.buildingValue' | translate}}</label>
+                                <input id="sponsorCompanyBuildingValue" name="sponsorCompanyBuildingValue" class="form-control sponsorCompanyBuildingValue" type="text"
+                                    formControlName="sponsorCompanyBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.estateValue' | translate}}</label>
+                                <input id="sponsorCompanyEstateValue" name="sponsorCompanyEstateValue" class="form-control sponsorCompanyEstateValue" type="text"
+                                    formControlName="sponsorCompanyEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.streetValue' | translate}}</label>
+                                <input id="sponsorCompanyStreetValue" name="sponsorCompanyStreetValue" class="form-control sponsorCompanyStreetValue" type="text"
+                                    formControlName="sponsorCompanyStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.district' | translate}}</label>
+                                <select id="sponsorCompanyDistrict" name="sponsorCompanyDistrict" class="form-control sponsorCompanyDistrict" type="text"
+                                    formControlName="sponsorCompanyDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>
+                            
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'trainEntry.formB.correspondenceAddress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.roomValue' | translate}}</label>
+                                <input id="correspondenceAddressRoomValue" name="correspondenceAddressRoomValue" class="form-control correspondenceAddressRoomValue" type="text"
+                                  formControlName="correspondenceAddressRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.floorValue' | translate}}</label>
+                                <input id="correspondenceAddressFloorValue" name="correspondenceAddressFloorValue" class="form-control correspondenceAddressFloorValue" type="text"
+                                    formControlName="correspondenceAddressFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.blockValue' | translate}}</label>
+                                <input id="correspondenceAddressBlockValue" name="correspondenceAddressBlockValue" class="form-control correspondenceAddressBlockValue" type="text"
+                                    formControlName="correspondenceAddressBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.buildingValue' | translate}}</label>
+                                <input id="correspondenceAddressBuildingValue" name="correspondenceAddressBuildingValue" class="form-control correspondenceAddressBuildingValue" type="text"
+                                    formControlName="correspondenceAddressBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.estateValue' | translate}}</label>
+                                <input id="correspondenceAddressEstateValue" name="correspondenceAddressEstateValue" class="form-control correspondenceAddressEstateValue" type="text"
+                                    formControlName="correspondenceAddressEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.streetValue' | translate}}</label>
+                                <input id="correspondenceAddressStreetValue" name="correspondenceAddressStreetValue" class="form-control correspondenceAddressStreetValue" type="text"
+                                    formControlName="correspondenceAddressStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.district' | translate}}</label>
+                                <select id="correspondenceAddressDistrict" name="correspondenceAddressDistrict" class="form-control correspondenceAddressDistrict" type="text"
+                                    formControlName="correspondenceAddressDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>                            
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.sponsorCompanyPhoneNo' | translate}}</label>
+                                <input id="sponsorCompanyPhoneNo" name="sponsorCompanyPhoneNo" class="form-control all-caps" maxlength="8"
+                                    type="text" formControlName="sponsorCompanyPhoneNo">
+
+                                <div *ngIf="submitted && f.sponsorCompanyPhoneNo.errors && f.sponsorCompanyPhoneNo.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="control-label">{{'trainEntry.formB.sponsorCompanyPhoneExt' | translate}}</label>
+                                <input id="sponsorCompanyPhoneExtoneExt" name="sponsorCompanyPhoneExt" class="form-control all-caps" maxlength="4"
+                                    type="text" formControlName="sponsorCompanyPhoneExt">
+
+                                <div *ngIf="submitted && f.sponsorCompanyPhoneExt.errors && f.sponsorCompanyPhoneExt.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'trainEntry.formB.sponsorCompanyFaxNo' | translate}}</label>
+      
+                                <input id="sponsorCompanyFaxNo" name="sponsorCompanyFaxNo" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="sponsorCompanyFaxNo">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.regNo' | translate}}</label>
+      
+                                <input id="regNo" name="regNo" class="form-control all-caps"
+                                    type="text" formControlName="regNo">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.commencementDate' | translate}}</label>
+
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="commencementDay" name="commencementDay" class="form-control datePickerDate "
+                                            type="text" formControlName="commencementDay">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="commencementMonth" name="commencementMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="commencementMonth"
+                                            (blur)="onMonthYearChange('commencementDay','commencementMonth','commencementYear')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="commencementYear" name="commencementYear" class="form-control datePickerYear "
+                                            type="text" formControlName="commencementYear"
+                                            (blur)="onMonthYearChange('commencementDay','commencementMonth','commencementYear')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.nature' | translate}}</label>
+      
+                                <input id="nature" name="nature" class="form-control all-caps"
+                                    type="text" formControlName="nature">
+                            </div>
+                        </div>
+
+                        <div class="row">      
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.ifSubsidiary' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="ifSubsidiary" type="radio" value="yes"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='Yes'">
+                                        {{'trainEntry.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="ifSubsidiary" type="radio" value="no"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='No'">
+                                        {{'trainEntry.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="ifSubsidiary==='Yes'">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'trainEntry.formB.parentCompanyName' | translate}}</label>
+              
+                                      <input id="parentCompanyName" name="parentCompanyName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="parentCompanyName">
+                                </div>
+                                    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'trainEntry.formB.parentCompanyAddress' | translate}}</label>
+                                    <input id="parentCompanyAddress1" name="parentCompanyAddress1" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress">
+                                    <input id="parentCompanyAddress2" name="parentCompanyAddress2" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress2">
+                                    <input id="parentCompanyAddress3" name="parentCompanyAddress3" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress3">
+    
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                                                    
+                            </ng-container>
+                        </div>
+                        
+                      </div>
+                  </div>
+                   <!-- End of Part 1 -->
+
+                  <!-- Part 2 - Proposed Stay in Hong Kong for Employment -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'trainEntry.formB.part2Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="ui-input-text control-label">
+                                        {{'trainEntry.formB.traineeName' | translate}}
+                                    </label>
+                                </div>
+                                
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'trainEntry.formB.traineeSurName' | translate}}</label>
+          
+                                    <input id="traineeSurName" name="traineeSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="traineeSurName"
+                                        (change)="cutValues($event.target.value,'traineeSurName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+          
+                            
+          
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'trainEntry.formB.traineeGivenName' | translate}}</label>
+          
+                                    <input id="traineeGivenName" name="etraineeGivenName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="traineeGivenName"
+                                        (change)="cutValues($event.target.value,'traineeGivenName')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+          
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'trainEntry.formB.postTitle' | translate}}</label>
+              
+                                      <input id="postTitle" name="postTitle" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="postTitle">
+                                </div>
+
+                               
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'trainEntry.formB.salary' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label class="control-label">{{'trainEntry.formB.hkd' | translate}}</label>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <input id="salary" name="salary" maxlength="33"
+                                                class="form-control all-caps" type="text" formControlName="salary"
+                                                (change)="cutValues($event.target.value,'salary')"
+                                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="row"> 
+                                <div class="col-md-12 form-group">
+                                    <label
+                                        class="control-label">{{'trainEntry.formB.fringeBenefit' | translate}}</label>
+          
+                                    <input id="fringeBenefit" name="fringeBenefit" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="fringeBenefit"
+                                        (change)="cutValues($event.target.value,'fringeBenefit')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+          
+                            </div>
+
+                            <div class="row"> 
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'trainEntry.formB.fringeBenefitValue' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label class="control-label">{{'trainEntry.formB.hkd' | translate}}</label>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <input id="fringeBenefitValue" name="fringeBenefitValue" maxlength="33"
+                                                class="form-control all-caps" type="text" formControlName="fringeBenefitValue"
+                                                (change)="cutValues($event.target.value,'fringeBenefitValue')"
+                                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'trainEntry.formB.packageValue' | translate}}</label>
+                                    <div class="row form-group">
+                                        <div class="col-xs-2">
+                                            <label class="control-label">{{'trainEntry.formB.hkd' | translate}}</label>
+                                        </div>
+
+                                        <div class="col-md-8">
+                                            <input id="packageValue" name="packageValue" maxlength="33"
+                                                class="form-control all-caps" type="text" formControlName="packageValue"
+                                                (change)="cutValues($event.target.value,'packageValue')"
+                                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                        </div>
+                                    </div>
+                                </div>
+          
+                            </div>
+
+                            <div class="row">                                
+                                <div class="col-md-12 form-group">
+                                    <label
+                                        class="control-label required-star">{{'trainEntry.formB.trainingDetail' | translate}}</label>
+          
+                                    <input id="trainingDetail" name="trainingDetail" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="trainingDetail"
+                                        (change)="cutValues($event.target.value,'trainingDetail')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+
+                                
+                    
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label
+                                        class="control-label required-star">{{'trainEntry.formB.trainingAddress' | translate}}</label>
+                                </div>
+                                
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="checkbox-inline"><input id="sameAddress" name="trainingAddress" type="radio" value="sameAddress"
+                                                formControlName="trainingAddress" (click)="trainingAddress='sameAddress'">
+                                            {{'trainEntry.formB.sameAddress' | translate}}</label>
+                                      
+                                             <label class="checkbox-inline"><input id="others" name="trainingAddress" type="radio" value="others"
+                                                formControlName="trainingAddress" (click)="trainingAddress='others'">
+                                            {{'trainEntry.formB.others' | translate}}</label> 
+                                        </div>
+                                                                
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <ng-container *ngIf="trainingAddress==='others'">
+                                    <div class="col-xs-12">
+                                        <label class="control-label">{{'trainEntry.formB.specify' | translate}}</label>
+                                    </div>
+    
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.roomValue' | translate}}</label>
+                                        <input id="newAddressRoomValue" name="newAddressRoomValue" class="form-control newAddressRoomValue" type="text"
+                                          formControlName="newAddressRoomValue">
+                                    </div>
+                  
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.floorValue' | translate}}</label>
+                                        <input id="newAddressFloorValue" name="newAddressFloorValue" class="form-control newAddressFloorValue" type="text"
+                                            formControlName="newAddressFloorValue">
+                                    </div>
+                  
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.blockValue' | translate}}</label>
+                                        <input id="newAddressBlockValue" name="newAddressBlockValue" class="form-control newAddressBlockValue" type="text"
+                                            formControlName="newAddressBlockValue">
+                                    </div>
+                  
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.buildingValue' | translate}}</label>
+                                        <input id="newAddressBuildingValue" name="newAddressBuildingValue" class="form-control newAddressBuildingValue" type="text"
+                                            formControlName="newAddressBuildingValue">
+                                    </div>
+                  
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.estateValue' | translate}}</label>
+                                        <input id="newAddressEstateValue" name="newAddressEstateValue" class="form-control newAddressEstateValue" type="text"
+                                            formControlName="newAddressEstateValue">
+                                    </div>
+                  
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.streetValue' | translate}}</label>
+                                        <input id="newAddressStreetValue" name="newAddressStreetValue" class="form-control newAddressStreetValue" type="text"
+                                            formControlName="newAddressStreetValue">
+                                    </div>
+                  
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'trainEntry.formB.district' | translate}}</label>
+                                        <select id="newAddressDistrict" name="newAddressDistrict" class="form-control newAddressDistrict" type="text"
+                                            formControlName="newAddressDistrict">
+                                            <option value='' disabled selected>
+                                                {{'Please Select' | translate}}
+                                            </option>
+                                            <option value='00' selected> district1 </option>
+                                            <option value='01' selected> district2 </option>
+                                                    
+                                        </select>
+                                    </div> 
+                                                                        
+                                </ng-container>
+                            </div>
+              
+                            <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class="control-label required-star">{{'trainEntry.formB.justification' | translate}}</label>
+                  
+                                          <input id="justification" name="justification" maxlength="6" class="form-control all-caps"
+                                            type="text" formControlName="justification">
+                                    </div>
+                                        
+                            </div>
+
+                      </div>
+                  </div>
+                  <!-- End of Part 2 -->
+
+                  <!-- Part 3 - Accompanying Dependant(Spouse and unmarried dependent children under the age of 18) (if applicable) -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'trainEntry.formB.part3Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">
+                                    {{'trainEntry.formB.turnover' | translate}}
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="ui-input-text control-label required-star">{{'trainEntry.formB.turnoverYear' | translate}}
+                                </label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="turnoverFromYear1" name="turnoverFromYear1" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverFromYear1"
+                                            (blur)="onMonthYearChange('turnoverFromYear1','turnoverToYear1')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-xs-1">
+                                        <label class="ui-input-text control-label">{{'trainEntry.formB.slash' | translate}}
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="turnoverToYear1" name="turnoverToYear1" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverToYear1"
+                                            (blur)="onMonthYearChange('turnoverFromYear1','turnoverToYear1')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="ui-input-text control-label required-star">{{'trainEntry.formB.valueOfTurnover' | translate}}
+                                </label>
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'trainEntry.formB.hkd' | translate}}</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <input id="turnover1" name="turnover1" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="turnover1"
+                                            (change)="cutValues($event.target.value,'turnover1')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="ui-input-text control-label required-star">{{'trainEntry.formB.turnoverYear' | translate}}
+                                </label>
+                                <div class="flex-container">
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="turnoverFromYear2" name="turnoverFromYear2" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverFromYear2"
+                                            (blur)="onMonthYearChange('turnoverFromYear2','turnoverToYear2')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-xs-1">
+                                        <label class="ui-input-text control-label ">{{'trainEntry.formB.slash' | translate}}
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="turnoverToYear2" name="turnoverToYear2" class="form-control datePickerYear "
+                                            type="text" formControlName="turnoverToYear2"
+                                            (blur)="onMonthYearChange('turnoverFromYear2','turnoverToYear2')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="ui-input-text control-label required-star">{{'trainEntry.formB.valueOfTurnover' | translate}}
+                                </label>
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'trainEntry.formB.hkd' | translate}}</label>
+                                    </div>
+
+                                    <div class="col-md-8">
+                                        <input id="turnover2" name="turnover2" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="turnover2"
+                                            (change)="cutValues($event.target.value,'turnover2')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'trainEntry.formB.paidUp' | translate}}</label>
+      
+                                <div class="row form-group">
+                                    <div class="col-xs-2">
+                                        <label class="control-label">{{'trainEntry.formB.hkd' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input id="paidUp" name="paidUp" maxlength="33"
+                                            class="form-control all-caps" type="text" formControlName="paidUp"
+                                            (change)="cutValues($event.target.value,'paidUp')"
+                                            (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                      </div>
+                  </div>
+                  <!-- End of Part 3 -->
+
+                  <!-- Part 4 - Higher Education Qualifications Obtained in Hong Kong (if applicable) -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'trainEntry.formB.part4Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">{{'trainEntry.formB.staffingPosition' | translate}}</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="staffingPositionAtDay" name="staffingPositionAtDay" class="form-control datePickerDate "
+                                            type="text" formControlName="staffingPositionAtDay">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="staffingPositionAtMonth" name="staffingPositionAtMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="staffingPositionAtMonth"
+                                            (blur)="onMonthYearChange('staffingPositionAtDay','staffingPositionAtMonth','staffingPositionAtYear')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="staffingPositionAtYear" name="staffingPositionAtYear" class="form-control datePickerYear "
+                                            type="text" formControlName="staffingPositionAtYear"
+                                            (blur)="onMonthYearChange('staffingPositionAtDay','staffingPositionAtMonth','staffingPositionAtYear')">
+                                            <option value='' disabled selected>
+                                                {{'trainEntry.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">{{'trainEntry.formB.noOfProf' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'trainEntry.formB.local' | translate}}</label>
+      
+                                <input id="localProf" name="localProf" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="localProf"
+                                    (change)="cutValues($event.target.value,'localProf')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'trainEntry.formB.nonLocal' | translate}}</label>
+      
+                                <input id="nonLocalProf" name="nonLocalProf" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="nonLocalProf"
+                                    (change)="cutValues($event.target.value,'nonLocalProf')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">{{'trainEntry.formB.noOfStaff' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'trainEntry.formB.local' | translate}}</label>
+      
+                                <input id="localStaff" name="localStaff" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="localStaff"
+                                    (change)="cutValues($event.target.value,'localStaff')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label">{{'trainEntry.formB.nonLocal' | translate}}</label>
+      
+                                <input id="nonLocalStaff" name="nonLocalStaff" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="nonLocalStaff"
+                                    (change)="cutValues($event.target.value,'nonLocalStaff')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+                        </div>
+
+                      </div>
+                  </div>
+                  <!-- End of Part 4 -->
+
+                  <!-- Part 5 - Academic/Professional Qualifications -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'trainEntry.formB.part5Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">      
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'trainEntry.formB.ifSuccessfulObtain' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="ifSuccessfulObtain" type="radio" value="yes"
+                                            formControlName="ifSuccessfulObtain" (click)="ifSuccessfulObtain='Yes'">
+                                        {{'trainEntry.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="ifSuccessfulObtain" type="radio" value="no"
+                                            formControlName="ifSuccessfulObtain" (click)="ifSuccessfulObtain='No'">
+                                        {{'trainEntry.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="ifSuccessfulObtain==='Yes'">
+                                <div class="col-xs-12">
+                                    <label class="control-label">{{'trainEntry.formB.employRef' | translate}}</label>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'trainEntry.formB.employRefNo' | translate}}</label>
+              
+                                      <input id="employRefNo" name="employRefNo" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="employRefNo">
+                                </div>
+                                                                    
+                            </ng-container>
+                        </div>
+
+                        
+                
+                      </div>
+                  </div>
+                  <!-- End of Part 5 -->
+
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

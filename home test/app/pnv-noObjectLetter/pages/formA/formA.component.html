@@ -1,0 +1,392 @@
+<div class="container">
+    <app-topbar [title]="'pnvNoObjectLetter.formA.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'pnvNoObjectLetter.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Personal Particulars -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvNoObjectLetter.formA.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6 form-group" style="margin-bottom: 0px">
+                                    <label class="control-label">{{'pnvNoObjectLetter.formA.name' | translate}}</label>
+                                </div>
+                            </div>    
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvNoObjectLetter.formA.chinName' | translate}}</label>
+                                    <input id="chinName" name="chinName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="chinName"
+                                        (input)="maskChineseValues($event.target.value, 'chinName')">
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label
+                                        class="control-label required-star">{{'pnvNoObjectLetter.formA.engName' | translate}}</label>
+                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                        class="form-control all-caps" type="text" formControlName="engName">                 
+                                </div>
+                            </div>
+
+            
+                            <div class="row">
+                                <div id="sex" class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvNoObjectLetter.formA.sex' | translate}}</label>
+                                    <div class="form-group">
+                                        <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                                formControlName="male">
+                                            {{'pnvNoObjectLetter.formA.male' | translate}}</label>
+                                        <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                                formControlName="female">
+                                            {{'pnvNoObjectLetter.formA.female' | translate}}
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvNoObjectLetter.formA.dob' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                                type="text" formControlName="dobDay">
+                                                <option value='' disabled selected>
+                                                    {{'pnvNoObjectLetter.formA.day' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                    {{day}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3" style="padding-left: 0px;">
+                                            <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                                type="text" formControlName="dobMonth"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvNoObjectLetter.formA.month' | translate}}
+                                                </option>
+                                                <option value='00' selected> 00 </option>
+                                                <option *ngFor="let month of monthList" value="{{month}}">
+                                                    {{month}}</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4" style="padding-left: 0px;">
+                                            <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                                type="text" formControlName="dobYear"
+                                                (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                                <option value='' disabled selected>
+                                                    {{'pnvNoObjectLetter.formA.year' | translate}}
+                                                </option>
+                                                <option value='0000' selected> 0000 </option>
+                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                    {{year}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">                       
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label  required-star">{{'pnvNoObjectLetter.formA.hkidNo' | translate}}</label>
+                                
+                                    <div class="col-md-8"  align:left>
+                                    <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                        formControlName="hkIdValue1">
+                                    </div>
+                                
+                                    <div class="col-md-4">
+                                        <div class="hkbracket">
+                                            <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                            formControlName="hkIdValue2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label required-star">{{'pnvNoObjectLetter.formA.institution' | translate}}</label>
+                                    <div class="flex-container">
+                                        <div class="col-md-6" style="padding-left: 0px;">
+                                            <select id="district" name="district" class="form-control"
+                                                type="text">
+                                                <option value='pleaseSelect' selected> Please Select </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                     
+                                <div class="col-md-6 form-group">
+                                    <label class="ui-input-text control-label required-star">{{'pnvNoObjectLetter.formA.programme' | translate}}</label>
+                                    <input id="travelDocNo" name="travelDocNo" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="programme">                          
+                                </div>          
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 1 -->
+
+                    <!-- Start of Part 2-->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'pnvNoObjectLetter.formA.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-12 form-group" style="margin-bottom: 0px">
+                                        <label class="control-label">{{'pnvNoObjectLetter.formA.internship' | translate}}(1)</label>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class="control-label">{{'pnvNoObjectLetter.formA.company' | translate}}</label>
+                                        <input id="company1" name="company1" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="company">   
+                                    </div>
+
+                                </div>       
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'pnvTravelPassFreq.form.from' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="fromDay" name="fromDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="fromDay">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="fromMonth" name="fromMonth" class="form-control datePickerMonth"
+                                                    type="text" formControlName="fromMonth"
+                                                    (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="fromYear" name="fromYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="fromYear"
+                                                    (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'pnvTravelPassFreq.form.to' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="toDay" name="toDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="toDay">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="toMonth" name="toMonth" class="form-control datePickerMonth"
+                                                    type="text" formControlName="toMonth"
+                                                    (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="toYear" name="toYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="toYear"
+                                                    (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-12 form-group" style="margin-bottom: 0px">
+                                        <label class="control-label">{{'pnvNoObjectLetter.formA.internship' | translate}}(2)</label>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-md-12 form-group">
+                                        <label class="control-label">{{'pnvNoObjectLetter.formA.company' | translate}}</label>
+                                        <input id="company2" name="company2" maxlength="15"
+                                        class="form-control all-caps" type="text" formControlName="company">        
+                                    </div>
+
+                                </div>       
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'pnvTravelPassFreq.form.from' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="fromDay" name="fromDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="fromDay">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="fromMonth" name="fromMonth" class="form-control datePickerMonth"
+                                                    type="text" formControlName="fromMonth"
+                                                    (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="fromYear" name="fromYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="fromYear"
+                                                    (blur)="onMonthYearChange('fromDay','fromMonth','fromYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label class="control-label">{{'pnvTravelPassFreq.form.to' | translate}}</label>
+                                        <div class="flex-container">
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="toDay" name="toDay" class="form-control datePickerDate "
+                                                    type="text" formControlName="toDay">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.day' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                        {{day}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3" style="padding-left: 0px;">
+                                                <select id="toMonth" name="toMonth" class="form-control datePickerMonth"
+                                                    type="text" formControlName="toMonth"
+                                                    (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.month' | translate}}
+                                                    </option>
+                                                    <option value='00' selected> 00 </option>
+                                                    <option *ngFor="let month of monthList" value="{{month}}">
+                                                        {{month}}</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-4" style="padding-left: 0px;">
+                                                <select id="toYear" name="toYear" class="form-control datePickerYear "
+                                                    type="text" formControlName="toYear"
+                                                    (blur)="onMonthYearChange('toDay','toMonth','toYear')">
+                                                    <option value='' disabled selected>
+                                                        {{'pnvTravelPassFreq.form.year' | translate}}
+                                                    </option>
+                                                    <option value='0000' selected> 0000 </option>
+                                                    <option *ngFor="let year of yearsList" value="{{year}}">
+                                                        {{year}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 form-group">
+                                    <label class="control-label">{{'pnvNoObjectLetter.formA.weeksOfWork' | translate}}</label>
+                                    <select id="weeksOfWork" name="weeksOfWork" class="form-control" type="text"
+                                      formControlName="weeksOfWork">
+                                        <option value='' disabled selected>
+                                                {{'Please Select' | translate}}
+                                            </option>
+                                            <option value='00' selected> 1 </option>
+                                            <option value='01' selected> 2 </option>
+                                            
+                                        </select>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                                type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                                {{ 'COMMON.RESET' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                </div>    
+            </div>
+            
+            
+        </form>
+    </div>
+</div>

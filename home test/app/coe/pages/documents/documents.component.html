@@ -1,0 +1,66 @@
+<div class="container">
+    <app-topbar [title]="'coe.form.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'coe.sideStepMenu' | translate" [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form (ngSubmit)="next()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.documents.furnished' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <doc-input name="recentPhoto" [isConfirm]="isConfirm"
+                                [label]="'coe.documents.recentPhoto' | translate" (selectFile)="onFileSelected($event)">
+                            </doc-input>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'coe.documents.supportDoc' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <doc-input [isConfirm]="isConfirm" [label]="'coe.documents.birthCert' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                            <doc-input [isConfirm]="isConfirm" [label]="'coe.documents.residenceProof' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                            <doc-input [isConfirm]="isConfirm" [label]="'coe.documents.travelDoc' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                            <doc-input [isConfirm]="isConfirm" [label]="'coe.documents.fatherIdCard' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                            <doc-input [isConfirm]="isConfirm" [label]="'coe.documents.motherIdCard' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                            <doc-input [isConfirm]="isConfirm" [label]="'coe.documents.parentRelationship' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                            <doc-input [multiple]="true" [isConfirm]="isConfirm" [label]="'coe.documents.otherDoc' | translate"
+                                (selectFile)="onFileSelected($event)"></doc-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button id="submitBtn" value="" name="submitBtn" type="button"
+                                class="btn btn-brown btn-block"
+                                (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                                class="btn btn-brown btn-block">
+                                {{ 'COMMON.SAVE' | translate }}
+                            </button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button *ngIf="!isConfirm" type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                            <button *ngIf="isConfirm" type="submit"
+                                class="btn btn-brown btn-block">{{ 'COMMON.SUBMIT' | translate}}</button>
+                        </div>
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

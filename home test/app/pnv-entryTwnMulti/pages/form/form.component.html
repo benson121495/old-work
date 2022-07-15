@@ -1,0 +1,953 @@
+
+<div class="container">
+  <app-topbar [title]="'entryTwnMulti.form.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'entryTwnMulti.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 0 - Airline info-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'entryTwnMulti.form.part0Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                      <div class='row'>
+                          <div class="col-md-6 form-group">
+                              <div class="form-group">
+                                <label class="control-label">{{'entryTwnMulti.form.airlineRefNo' | translate}}</label>
+
+                                <input id="airlineRefNo" name="airlineRefNo" class="form-control all-caps"
+                                    type="text" formControlName="airlineRefNo">
+                              </div> 
+                          </div>
+                          
+                        </div>
+
+                        
+                    </div>
+     
+                  </div>
+                  <!-- End of Part 0 -->
+
+                  <!-- Part 1 - Type of Entry Permit-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'entryTwnMulti.form.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class='row'>
+                          <div class="col-md-12 form-group">
+                              <label class="control-label required-star">{{'entryTwnMulti.form.permitType' | translate}}</label>
+                              <div class='row'>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="oneYr" name="permitType" type="radio" value='oneYr'
+                                            formControlName="permitType">
+                                        {{'entryTwnMulti.form.oneYr' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="threeYrs" name="permitType" type="radio" value='threeYrs'
+                                            formControlName="permitType">
+                                        {{'entryTwnMulti.form.threeYrs' | translate}}
+                                    </label>
+                                </div> 
+                              </div>
+                           </div>
+                        </div>
+
+                        <div class='row'>
+                          <div class="col-md-12 form-group">
+                              <label class="control-label required-star">{{'entryTwnMulti.form.appType' | translate}}</label>
+                              <div class='row'>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="firstApp" name="appType" type="radio" value="firstApp"
+                                            formControlName="appType">
+                                        {{'entryTwnMulti.form.firstApp' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="renewal" name="appType" type="radio" value="renewal"
+                                            formControlName="appType">
+                                        {{'entryTwnMulti.form.renewal' | translate}}
+                                    </label>
+                                    <label class="checkbox-inline"><input id="reIssue" name="appType" type="radio" value="reIssue"
+                                            formControlName="appType">
+                                        {{'entryTwnMulti.form.reIssue' | translate}}
+                                    </label>
+                                </div> 
+                              </div>
+                          </div>
+                        </div>
+
+                      </div>
+       
+                  </div>
+                   <!-- End of Part 1 -->
+
+
+                  <!-- Part 2 - Return of the cancelled MultipleEntry Permit-->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'entryTwnMulti.form.part2Title' | translate}}
+                    </div>
+                        
+                    <div class="panel-body">
+                      <div class='row'>
+                          <div class="col-md-12 form-group">
+                              <div class="form-group">
+                                  <label class="checkbox-inline"><input id="requestReturn" name="requestReturn" type="checkbox"
+                                          formControlName="requestReturn">
+                                      {{'entryTwnMulti.form.requestReturn' | translate}}</label>
+                              </div> 
+                          </div>
+                          
+                        </div>
+
+                        
+                    </div>
+     
+                </div>
+                 <!-- End of Part 2 -->
+
+                 <!-- Part 3 - Particulars of Referee-->
+                <div class="panel panel-default">
+                  <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                      <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'entryTwnMulti.form.part3Title' | translate}}
+                  </div>
+                      
+                  <div class="panel-body">
+                    <div class="row">
+
+                      <div class="col-md-6 form-group">
+                          <label class="control-label">{{'entryTwnMulti.form.chiName' | translate}}</label>
+
+                          <input id="chiName" name="chiName" maxlength="6" class="form-control all-caps"
+                              type="text" formControlName="chiName"
+                              (input)="maskChineseValues($event.target.value, 'chiName')">
+                      </div>
+                      
+                      <div class="col-md-6 form-group">
+                          <label class="control-label">{{'entryTwnMulti.form.maidenSurName' | translate}}</label>
+
+                          <input id="maidenSurName" name="maidenSurName" class="form-control all-caps"
+                              type="text" formControlName="maidenSurName">
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-md-6 form-group">
+                          <label
+                              class="control-label required-star">{{'entryTwnMulti.form.engSurName' | translate}}</label>
+
+                          <input id="engSurName" name="engSurName" maxlength="33"
+                              class="form-control all-caps" type="text" formControlName="engSurName"
+                              (change)="cutValues($event.target.value,'engSurName')"
+                              (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                      </div>
+
+                  
+
+                      <div class="col-md-6 form-group">
+                          <label
+                              class="control-label required-star">{{'entryTwnMulti.form.engGivenName' | translate}}</label>
+
+                          <input id="engGivenName" name="engGivenName" maxlength="33"
+                              class="form-control all-caps" type="text" formControlName="engGivenName"
+                              (change)="cutValues($event.target.value,'engGivenName')"
+                              (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                      </div>
+
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-12">
+                          <label class="ui-input-text control-label">
+                              {{'entryTwnMulti.form.alias' | translate}}
+                          </label>
+                      </div>
+
+                      <div class="col-md-6 form-group">
+                          <label class="control-label">{{'entryTwnMulti.form.chiNameAlias' | translate}}</label>
+                          <input id="chiNameAlias" name="chiNameAlias" class="form-control all-caps"
+                              maxlength="6" type="text" formControlName="chiNameAlias"
+                              (input)="maskChineseValues($event.target.value, 'chiNameAlias')">
+                          <div *ngIf="submitted && f.chiNameAlias.errors">
+
+                              <div *ngIf="f.chiNameAlias.errors.isTradChinName"
+                                  class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                  <ng-container *ngIf="errorCode">E-2107:</ng-container>
+                                  {{'568-E-2107' | translate}}
+                                  <!-- Please input the Chinese alias in Traditional Chinese. -->
+                              </div>
+
+                          </div>
+
+                          <div *ngIf="submitted && !f.chiNameAlias.errors && fillForm.hasError('isChineseNameSame')"
+                              class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                              <ng-container *ngIf="errorCode">E-2108:</ng-container>
+                              {{'568-E-2108' | translate}}
+                              <!-- The Chinese alias should be different from the Chinese name. -->
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-md-6">
+                          <label class="control-label">{{'entryTwnMulti.form.engSurName' | translate}}</label>
+                          <input id="engSurNameAlias" name="engSurNameAlias" class="form-control all-caps"
+                              type="text" formControlName="engSurNameAlias" maxlength="38"
+                              (change)="cutValues($event.target.value,'engSurNameAlias')"
+                              (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          <div *ngIf="submitted ">
+                              <div *ngIf="f.engSurNameAlias.errors && f.engSurNameAlias.errors.wrongName"
+                                  class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                  <ng-container *ngIf="errorCode">E-2111:</ng-container>
+                                  {{'568-E-2111' | translate}}
+                                  <!-- Wrong usage of punctuation marks in surname of alias. -->
+                              </div>
+
+                              <div *ngIf="!f.engSurNameAlias.errors && fillForm.hasError('isAliasNameLonger')"
+                                  class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                  <ng-container *ngIf="errorCode">E-2109:</ng-container>
+                                  {{'568-E-2109' | translate}}
+                                  <!-- Full alias cannot exceed 38 characters. -->
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="control-label">{{'entryTwnMulti.form.engGivenName' | translate}}</label>
+                              <input id="engGivenNameAlias" name="engGivenNameAlias"
+                                  class="form-control all-caps" type="text"
+                                  formControlName="engGivenNameAlias" maxlength="38"
+                                  (change)="cutValues($event.target.value, 'engGivenNameAlias')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+
+                              <div *ngIf="submitted && f.engGivenNameAlias.errors && f.engGivenNameAlias.errors.wrongName"
+                                  class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                  <ng-container *ngIf="errorCode">E-2112:</ng-container>
+                                  {{'568-E-2112' | translate}}
+                                  <!-- Wrong usage of punctuation marks in given names of alias. -->
+                              </div>
+
+                              <div *ngIf="submitted && fillForm.hasError('isEnglishGivenNameSame')"
+                                  class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                  <ng-container *ngIf="errorCode">E-2110:</ng-container>
+                                  {{'568-E-2110' | translate}}
+                                  <!-- The English alias should be different from the fill name in English. -->
+                              </div>
+                          </div>
+                     </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div id="sex" class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.sex' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                        formControlName="male">
+                                    {{'entryTwnMulti.form.male' | translate}}</label>
+                                <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                        formControlName="female">
+                                    {{'entryTwnMulti.form.female' | translate}}
+                                </label>
+                            
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.dob' | translate}}</label>
+
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                        type="text" formControlName="dobDay">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="dobMonth"
+                                        (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                        type="text" formControlName="dobYear"
+                                        (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.placeOfBirth' | translate}}</label>
+                            <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                maxlength="50" type="text" formControlName="placeOfBirth">
+                        </div>
+                    
+                        
+                        
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label">{{'entryTwnMulti.form.taiwanIdValue' | translate}}</label>
+
+                            <input id="taiwanIdValue" name="taiwanIdValue" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="taiwanIdValue"
+                                (change)="cutValues($event.target.value,'taiwanIdValue')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="control-label">{{'entryTwnMulti.form.residenceDuration' | translate}}</label>
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <input id="residenceDuration" name="residenceDuration" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="residenceDuration"
+                                    (change)="cutValues($event.target.value,'residenceDuration')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <label class="control-label">{{'Years' | translate}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="ui-input-text control-label">
+                                {{'entryTwnMulti.form.travelDocHeld' | translate}}
+                            </label>
+                        </div>
+  
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.travelDocType' | translate}}</label>
+                            <select id="travelDocType" name="travelDocType" class="form-control travelDocType" type="text"
+                                          formControlName="travelDocType">
+                                       <option value='' disabled selected>
+                                        {{'entryTwnMulti.form.selectType' | translate}}
+                                    </option>
+                                    <option value='00' selected> {{'Type1'}} </option>
+                                    <option value='01' selected> {{'Type2'}} </option>
+                                    <option value='02' selected> {{'Type3'}} </option>
+                                    
+                            </select>         
+                                
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.travelDocValue' | translate}}</label>
+                            <input id="travelDocValue" name="travelDocValue" class="form-control all-caps"
+                                maxlength="6" type="text" formControlName="travelDocValue"
+                                (input)="maskChineseValues($event.target.value, 'travelDocValue')">
+                        </div>
+                    </div>
+                  
+                    <div class="row">  
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.travelDocIssuePlace' | translate}}</label>
+                            <input id="travelDocIssuePlace" name="travelDocIssuePlace" class="form-control all-caps"
+                                maxlength="6" type="text" formControlName="travelDocIssuePlace"
+                                (input)="maskChineseValues($event.target.value, 'travelDocIssuePlace')">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.travelDocIssueDate' | translate}}</label>
+
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="travelDocIssueDay" name="travelDocIssueDay" class="form-control datePickerDate "
+                                        type="text" formControlName="travelDocIssueDay">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="travelDocIssueMonth" name="travelDocIssueMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="travelDocIssueMonth"
+                                        (blur)="onMonthYearChange('travelDocIssueDay','travelDocIssueMonth','travelDocIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="travelDocIssueYear" name="travelDocIssueYear" class="form-control datePickerYear "
+                                        type="text" formControlName="travelDocIssueYear"
+                                        (blur)="onMonthYearChange('travelDocIssueDay','travelDocIssueMonth','travelDocIssueYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.travelDocExpDate' | translate}}</label>
+
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="travelDocExpDay" name="travelDocExpDay" class="form-control datePickerDate "
+                                        type="text" formControlName="travelDocExpDay">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="travelDocExpMonth" name="travelDocExpMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="travelDocExpMonth"
+                                        (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="travelDocExpYear" name="travelDocExpYear" class="form-control datePickerYear "
+                                        type="text" formControlName="travelDocExpYear"
+                                        (blur)="onMonthYearChange('travelDocExpDay','travelDocExpMonth','travelDocExpYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.permitExpDate' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="permitExpDay" name="permitExpDay" class="form-control datePickerDate "
+                                        type="text" formControlName="permitExpDay">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="permitExpMonth" name="permitExpMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="permitExpMonth"
+                                        (blur)="onMonthYearChange('permitExpDay','permitExpMonth','permitExpYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="permitExpYear" name="permitExpYear" class="form-control datePickerYear "
+                                        type="text" formControlName="permitExpYear"
+                                        (blur)="onMonthYearChange('permitExpDay','permitExpMonth','permitExpYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.presentAddress' | translate}}</label>
+                            <input id="presentAddress1" name="presentAddress1" class="form-control address" type="text"
+                                formControlName="presentAddress1">
+                            <input id="presentAddress2" name="presentAddress2" class="form-control address" type="text"
+                                formControlName="presentAddress2">
+                            <input id="presentAddress3" name="presentAddress3" class="form-control address" type="text"
+                                formControlName="presentAddress3">
+
+                            <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.domicleAddress' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <input id="domicleAddress1" name="domicleAddress1" class="form-control address" type="text"
+                                formControlName="domicleAddress1">
+                            <input id="domicleAddress2" name="domicleAddress2" class="form-control address" type="text"
+                                formControlName="domicleAddress2">
+                            <input id="domicleAddress3" name="domicleAddress3" class="form-control address" type="text"
+                                formControlName="domicleAddress3">
+
+                            <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.occupation' | translate}}</label>
+                            <div class="row">
+                                <div class="col-md-6 form-group">                    
+                                    <input id="occupation" name="occupation" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="occupation">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.employerName' | translate}}</label>
+                            <input id="employerName" name="employerName" class="form-control employerName" type="text"
+                                formControlName="employerName">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.employerAddress' | translate}}</label>
+                            <input id="employerAddress1" name="employerAddress1" class="form-control employerAddress" type="text"
+                                formControlName="employerAddress">
+                            <input id="employerAddress2" name="employerAddress1" class="form-control employerAddress" type="text"
+                                formControlName="employerAddress">
+                            <input id="employerAddress3" name="employerAddress1" class="form-control employerAddress" type="text"
+                                formControlName="employerAddress">
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <div class="col-md-12 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.maritalStatus' | translate}}</label>
+                            <div class="form-group">
+                                <div class="row">
+                                  <label class="checkbox-inline"><input id="single" name="maritalStatus" type="radio" value="single"
+                                          formControlName="maritalStatus">
+                                      {{'entryTwnMulti.form.single' | translate}}</label>
+                                  <label class="checkbox-inline"><input id="married" name="maritalStatus" type="radio" value="married"
+                                          formControlName="maritalStatus">
+                                      {{'entryTwnMulti.form.married' | translate}}
+                                  </label>
+                                  <label class="checkbox-inline"><input id="separated" name="maritalStatus" type="radio" value="separated"
+                                      formControlName="maritalStatus">
+                                  {{'entryTwnMulti.form.separated' | translate}}
+                                  </label>
+                                  <label class="checkbox-inline"><input id="divorced" name="maritalStatus" type="radio" value="divorced"
+                                      formControlName="maritalStatus">
+                                      {{'entryTwnMulti.form.divorced' | translate}}
+                                  </label>
+                                  <label class="checkbox-inline"><input id="widowed" name="maritalStatus" type="radio" value="widowed"
+                                      formControlName="maritalStatus">
+                                      {{'entryTwnMulti.form.widowed' | translate}}
+                                  </label>
+                              </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="ui-input-text control-label">
+                                {{'entryTwnMulti.form.spouseName' | translate}}
+                            </label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.spouseChiName' | translate}}</label>
+                            <input id="spouseChiName" name="spouseChiName" class="form-control spouseChiName" type="text"
+                                formControlName="spouseChiName">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.spouseEngName' | translate}}</label>
+                            <input id="spouseEngName" name="spouseEngName" class="form-control spouseEngName" type="text"
+                                formControlName="spouseEngName">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.spouseOccupation' | translate}}</label>
+                            <input id="spouseOccupation" name="spouseOccupation" class="form-control spouseOccupation" type="text"
+                                formControlName="spouseOccupation">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.reasonForVisit' | translate}}</label>
+                            <input id="reasonForVisit" name="reasonForVisit" class="form-control reasonForVisit" type="text"
+                                formControlName="reasonForVisit">
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label required-star">{{'entryTwnMulti.form.proposedDuration' | translate}}</label>
+                            <input id="proposedDuration" name="proposedDuration" class="form-control proposedDuration" type="text"
+                                formControlName="proposedDuration">
+                        </div>
+
+                    </div>
+
+                    
+
+
+
+                  </div>
+
+                    
+                    
+                </div>
+   
+               <!-- End of Part 3 -->
+
+               <!-- Part 4 - Personal Particular-->
+               <div class="panel panel-default">
+                <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                    <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'entryTwnMulti.form.part4Title' | translate}}
+                </div>
+                    
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.refereeChiName' | translate}}</label>
+  
+                            <input id="refereeChiName" name="refereeChiName" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="chiName"
+                                (input)="maskChineseValues($event.target.value, 'refereeChiName')">
+                        </div>
+                    </div>
+  
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label">{{'entryTwnMulti.form.engSurName' | translate}}</label>
+                            <input id="refereeEngSurName" name="refereeEngSurName" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="engSurName"
+                                (change)="cutValues($event.target.value,'refereeEngSurName')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>
+  
+                        <div class="col-md-6 form-group">
+                            <label
+                                class="control-label required-star">{{'entryTwnMulti.form.engGivenName' | translate}}</label>
+  
+                            <input id="refereeEngGivenName" name="refereeEngGivenName" maxlength="33"
+                                class="form-control all-caps" type="text" formControlName="engGivenName"
+                                (change)="cutValues($event.target.value,'refereeEngGivenName')"
+                                (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                        </div>
+  
+                    </div>
+                
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.sex' | translate}}</label>
+                            <div class="form-group">
+                                <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                    formControlName="male">
+                                    {{'entryTwnMulti.form.male' | translate}}</label>
+                                <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                    formControlName="female">
+                                    {{'entryTwnMulti.form.female' | translate}}
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.dob' | translate}}</label>
+                            <div class="flex-container">
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                        type="text" formControlName="dobDay">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.day' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let day of fromDayList" value="{{day}}">
+                                            {{day}}</option>
+                                    </select>
+                                </div>
+    
+                                <div class="col-md-3" style="padding-left: 0px;">
+                                    <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                        type="text" formControlName="dobMonth"
+                                        (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.month' | translate}}
+                                        </option>
+                                        <option value='00' selected> 00 </option>
+                                        <option *ngFor="let month of monthList" value="{{month}}">
+                                            {{month}}</option>
+                                    </select>
+                                </div>
+    
+                                <div class="col-md-4" style="padding-left: 0px;">
+                                    <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                        type="text" formControlName="dobYear"
+                                        (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                        <option value='' disabled selected>
+                                            {{'entryTwnMulti.form.year' | translate}}
+                                        </option>
+                                        <option value='0000' selected> 0000 </option>
+                                        <option *ngFor="let year of yearsList" value="{{year}}">
+                                            {{year}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class='row'>
+                        <div class="form-group col-md-6">
+                            <label class="control-label">{{'entryTwnMulti.form.hkIdNo' | translate}}</label>
+                            <div class="row form-group">
+                                <div class="col-xs-8">
+                                    <input id="hkId1" class="form-control all-caps" type="text" maxlength="8"
+                                        [textMask]=" { mask: validationUtils.hkIDMask1, guide: false}"
+                                        formControlName="hkIdValue1">
+                                </div>
+                                <div class="col-xs-4">
+                                    <div class="hkbracket">
+                                        <input id="hkId2" class="form-control all-caps" type="text" maxlength="1"
+                                            [textMask]=" { mask: validationUtils.hkIDMask2, guide: false}"
+                                            formControlName="hkIdValue2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.phoneNo' | translate}}</label>
+                            <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                type="text" formControlName="phoneNo">
+
+                            <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.email' | translate}}</label>
+                            <input id="email" name="email" class="form-control all-caps" maxlength="8"
+                                type="text" formControlName="email">
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.refereeAddress' | translate}}</label>
+                            <input id="refereeAddress1" name="refereeAddress1" class="form-control refereeAddress" type="text"
+                                formControlName="refereeAddress">
+                            <input id="refereeAddress2" name="refereeAddress2" class="form-control refereeAddress" type="text"
+                                formControlName="refereeAddress">
+                            <input id="refereeAddress3" name="refereeAddress3" class="form-control refereeAddress" type="text"
+                                formControlName="refereeAddress">
+
+                            <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.refereeBusinessAddress' | translate}}</label>
+                            <input id="refereeBusinessAddress1" name="refereeBusinessAddress" class="form-control refereeBusinessAddress" type="text"
+                                formControlName="refereeBusinessAddress">
+                            <input id="refereeBusinessAddress2" name="refereeBusinessAddress" class="form-control refereeBusinessAddress" type="text"
+                                formControlName="refereeBusinessAddress">
+                            <input id="refereeBusinessAddress3" name="refereeBusinessAddress" class="form-control refereeBusinessAddress" type="text"
+                                formControlName="refereeBusinessAddress">
+
+                            <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.refereeOccupation' | translate}}</label>
+                            <div class="row">
+                                <div class="col-md-6 form-group">                    
+                                    <input id="occupation" name="occupation" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="occupation">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.officePhoneNo' | translate}}</label>
+                            <input id="officePhoneNo" name="officePhoneNo" class="form-control all-caps" maxlength="8"
+                                type="text" formControlName="officePhoneNo">
+
+                            <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="control-label">{{'entryTwnMulti.form.phoneExt' | translate}}</label>
+                            <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                type="text" formControlName="phoneExt">
+
+                            <div *ngIf="submitted && f.phoneExt.errors && f.phoneExt.errors.tradChinEngCheck"
+                                class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                {{'568-E-2120' | translate}}
+                                <!-- Please input the nationality in English or Traditional Chinese. -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                
+               
+ 
+              </div>
+              <!-- End of Part 4 -->
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+

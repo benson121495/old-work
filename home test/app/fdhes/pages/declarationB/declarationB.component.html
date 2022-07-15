@@ -1,0 +1,157 @@
+<div class="container">
+    <app-topbar [title]="'fdhes.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'fdhes.sideStepMenu' | translate"
+        [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                  <div class="panel panel-default">
+                      <div class="panel-body" style="background:#DDE4F6;">
+						<div class="row">
+							<label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label class="control-label">Employer Submission for:</label>
+							<label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</label>
+							<label class="control-label">{{ emailVal }}</label>
+							<label class="control-label">]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							<label class="control-label">Verfication Code: {{ verificationCode }}</label>
+						</div>
+					  </div>
+					</div>
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <!-- Part 1 - Declaration of Employer -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdhes.declarationB.part1Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">                                   
+                                    {{'fdhes.declarationB.00' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.0' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.1' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.2' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.3' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.4' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdhes.declarationB.5a' | translate}}
+                                    <input class="box all-caps" id="poo" type="text">
+                                    {{'fdhes.declarationB.poo' | translate}}
+                                    {{'fdhes.declarationB.5b' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.6' | translate}}                                   
+                                </div>
+                            </div>
+                        </div>
+		    </div>
+                    <!-- End of Part 1 -->
+
+
+                    <!-- Part 2 - Undertaking -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdhes.declarationB.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group"><input id="undertakingB" name="undertakingB" type="checkbox"
+                                    formControlName="undertakingB">                                    
+                                    {{'fdhes.declarationB.7' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdhes.declarationB.7a' | translate}}
+                                    <input class="box all-caps" id="contractNo" type="text">
+                                    {{'fdhes.declarationB.7b' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.8' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.9' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.10' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.11' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.12' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.13' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.14' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.15' | translate}}                                   
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    {{'fdhes.declarationB.16' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+
+
+                    <!-- Part 2 - Agreement -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdhes.declarationB.part3Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group"><input id="agreementB" name="agreementB" type="checkbox"
+                                    formControlName="agreementB">                                     
+                                    <b>{{'fdhes.declarationB.17' | translate}}</b>
+                                </div>
+                                <div class="col-md-12 form-group">                                    
+                                    <b>{{'fdhes.declarationB.18' | translate}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+                    
+                    <app-signature-pad [ngClass]="signPadService.showSignPad?'show':'hide'" (signed)="onSubmit($event)">
+                    </app-signature-pad>
+
+                    <!-- ----------------------------------------- content end ---------------------------------------- -->
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button" class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block">{{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="button" class="btn btn-brown btn-block"
+                                (click)="signForm()">{{ 'coe.declaration.sign' | translate }}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- end button ---------------------------------------- -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

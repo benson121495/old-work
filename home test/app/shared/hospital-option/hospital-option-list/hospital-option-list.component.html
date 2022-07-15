@@ -1,0 +1,22 @@
+<div [formGroup]="formGroupname">
+  <select name="placeOfBirth" class="form-control" formControlName="placeOfBirth" (change)="hospChange()">
+    <option value='' selected disabled>
+      {{'ADDRESS_LOOKUP.DEFAULT_SELECT' | translate}}</option>
+    <ng-container *ngFor="let hospital of hospitalList">
+
+      <ng-container *ngIf="browserLang === 'en-US' || browserLang === 'zh-HK'; else Simplified">
+        <option *ngIf="hospital"
+          value="{{hospital.hospitalCode == 'HNIL'? hospital.hospitalCode: hospital.hospitalName}}">
+          <b>{{hospital.hospitalName}}</b>
+        </option>
+      </ng-container>
+
+      <ng-template #Simplified>
+        <option *ngIf="hospital" value="{{hospital.hospitalCode}}">
+          <b>{{hospital.hospitalName}}</b>
+        </option>
+      </ng-template>
+
+    </ng-container>
+  </select>
+</div>

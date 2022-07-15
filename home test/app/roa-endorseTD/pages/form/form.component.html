@@ -1,0 +1,404 @@
+<div class="container">
+  <app-topbar [title]="'endorseTD.form.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'endorseTD.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Personal Particular-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'endorseTD.form.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'endorseTD.form.chiName' | translate}}</label>
+
+                                <input id="chiName" name="chiName" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="chiName"
+                                    (input)="maskChineseValues($event.target.value, 'chiName')">
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'endorseTD.form.engSurName' | translate}}</label>
+
+                                <input id="engSurName" name="engSurName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="engSurName"
+                                    (change)="cutValues($event.target.value,'engSurName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                        
+
+                            <div class="col-md-6 form-group">
+                                <label
+                                    class="control-label required-star">{{'endorseTD.form.engGivenName' | translate}}</label>
+
+                                <input id="engGivenName" name="engGivenName" maxlength="33"
+                                    class="form-control all-caps" type="text" formControlName="engGivenName"
+                                    (change)="cutValues($event.target.value,'engGivenName')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="ui-input-text control-label">
+                                    {{'endorseTD.form.alias' | translate}}
+                                </label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'endorseTD.form.chiNameAlias' | translate}}</label>
+                                <input id="chiNameAlias" name="chiNameAlias" class="form-control all-caps"
+                                    maxlength="6" type="text" formControlName="chiNameAlias"
+                                    (input)="maskChineseValues($event.target.value, 'chiNameAlias')">
+                                <div *ngIf="submitted && f.chiNameAlias.errors">
+
+                                    <div *ngIf="f.chiNameAlias.errors.isTradChinName"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2107:</ng-container>
+                                        {{'568-E-2107' | translate}}
+                                        <!-- Please input the Chinese alias in Traditional Chinese. -->
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="submitted && !f.chiNameAlias.errors && fillForm.hasError('isChineseNameSame')"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2108:</ng-container>
+                                    {{'568-E-2108' | translate}}
+                                    <!-- The Chinese alias should be different from the Chinese name. -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="control-label">{{'endorseTD.form.engSurName' | translate}}</label>
+                                <input id="engSurNameAlias" name="engSurNameAlias" class="form-control all-caps"
+                                    type="text" formControlName="engSurNameAlias" maxlength="38"
+                                    (change)="cutValues($event.target.value,'engSurNameAlias')"
+                                    (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                <div *ngIf="submitted ">
+                                    <div *ngIf="f.engSurNameAlias.errors && f.engSurNameAlias.errors.wrongName"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2111:</ng-container>
+                                        {{'568-E-2111' | translate}}
+                                        <!-- Wrong usage of punctuation marks in surname of alias. -->
+                                    </div>
+
+                                    <div *ngIf="!f.engSurNameAlias.errors && fillForm.hasError('isAliasNameLonger')"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2109:</ng-container>
+                                        {{'568-E-2109' | translate}}
+                                        <!-- Full alias cannot exceed 38 characters. -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">{{'endorseTD.form.engGivenName' | translate}}</label>
+                                    <input id="engGivenNameAlias" name="engGivenNameAlias"
+                                        class="form-control all-caps" type="text"
+                                        formControlName="engGivenNameAlias" maxlength="38"
+                                        (change)="cutValues($event.target.value, 'engGivenNameAlias')"
+                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+
+                                    <div *ngIf="submitted && f.engGivenNameAlias.errors && f.engGivenNameAlias.errors.wrongName"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2112:</ng-container>
+                                        {{'568-E-2112' | translate}}
+                                        <!-- Wrong usage of punctuation marks in given names of alias. -->
+                                    </div>
+
+                                    <div *ngIf="submitted && fillForm.hasError('isEnglishGivenNameSame')"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2110:</ng-container>
+                                        {{'568-E-2110' | translate}}
+                                        <!-- The English alias should be different from the fill name in English. -->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div id="sex" class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.sex' | translate}}</label>
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="male" name="male" type="checkbox"
+                                            formControlName="male">
+                                        {{'endorseTD.form.male' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="female" name="female" type="checkbox"
+                                            formControlName="female">
+                                        {{'endorseTD.form.female' | translate}}
+                                    </label>
+                                
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.dob' | translate}}</label>
+
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="dobDay" name="dobDay" class="form-control datePickerDate "
+                                            type="text" formControlName="dobDay">
+                                            <option value='' disabled selected>
+                                                {{'endorseTD.form.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="dobMonth" name="dobMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="dobMonth"
+                                            (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                            <option value='' disabled selected>
+                                                {{'endorseTD.form.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="dobYear" name="dobYear" class="form-control datePickerYear "
+                                            type="text" formControlName="dobYear"
+                                            (blur)="onMonthYearChange('dobDay','dobMonth','dobYear')">
+                                            <option value='' disabled selected>
+                                                {{'endorseTD.form.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.placeOfBirth' | translate}}</label>
+                                <input id="placeOfBirth" name="placeOfBirth" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="placeOfBirth">
+                            </div>
+                             
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.nationality' | translate}}</label>
+                                <input id="nationality" name="nationality" class="form-control all-caps"
+                                maxlength="50" type="text" formControlName="nationality">
+                            </div>
+                            
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.travelDocValue' | translate}}</label>
+                                <input id="travelDocValue" name="travelDocValue" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="travelDocValue">
+                            </div>
+                        </div>
+                          
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.dateOfIssue' | translate}}</label>
+                                <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="issueDay" name="issueDay" class="form-control datePickerDate "
+                                          type="text" formControlName="issueDay">
+                                          <option value='' disabled selected>
+                                              {{'endorseTD.form.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+    
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="issueMonth" name="issueMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="issueMonth"
+                                          (blur)="onMonthYearChange('issueDay','issueMonth','issueYear')">
+                                          <option value='' disabled selected>
+                                              {{'endorseTD.form.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+    
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="issueYear" name="issueYear" class="form-control datePickerYear "
+                                          type="text" formControlName="issueYear"
+                                          (blur)="onMonthYearChange('issueDay','issueMonth','issueYear')">
+                                          <option value='' disabled selected>
+                                              {{'endorseTD.form.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.placeOfIssue' | translate}}</label>
+                                <input id="placeOfIssue" name="placeOfIssue" class="form-control all-caps"
+                                    maxlength="50" type="text" formControlName="placeOfIssue">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.phoneNo' | translate}}</label>
+                                <input id="phoneNo" name="phoneNo" class="form-control all-caps" maxlength="8"
+                                    type="text" formControlName="phoneNo">
+    
+                                <div *ngIf="submitted && f.phoneNo.errors && f.phoneNo.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="control-label">{{'endorseTD.form.phoneExt' | translate}}</label>
+                                <input id="phoneExt" name="phoneExt" class="form-control all-caps" maxlength="4"
+                                    type="text" formControlName="phoneExt">
+    
+                                <div *ngIf="submitted && f.phoneExt.errors && f.phoneExt.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'endorseTD.form.address' | translate}}</label>
+                                <input id="address1" name="address1" class="form-control address1" type="text"
+                                    formControlName="address1">
+                                <input id="address2" name="address2" class="form-control address2" type="text"
+                                    formControlName="address2">
+                                <input id="address3" name="address3" class="form-control address3" type="text"
+                                    formControlName="address3">
+                                <input id="address4" name="address4" class="form-control address4" type="text"
+                                    formControlName="address4">
+
+                                <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                        
+                      </div>
+
+                        
+
+                      
+
+
+                        
+                      
+                  </div>
+                   <!-- End of Part 1 -->
+
+                  <!-- Part 2 - Please Complete This Part for Statistical Purpose -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'endorseTD.form.part2Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class='row'>
+                            <div class="col-md-12 form-group">
+                                <div class="form-group">
+                                    <label class="checkbox-inline"><input id="eligibility" name="eligibility" type="checkbox"
+                                            formControlName="eligibility">
+                                        {{'endorseTD.form.eligibility' | translate}}</label>
+                                    <label class="checkbox-inline"><input id="rightToLand" name="rightToLand" type="checkbox"
+                                            formControlName="rightToLand">
+                                        {{'endorseTD.form.rightToLand' | translate}}
+                                    </label>
+                                
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+
+                      
+                  </div>
+                  <!-- End of Part 2 -->
+
+
+                  <!-- End of Part 3 -->
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+
+

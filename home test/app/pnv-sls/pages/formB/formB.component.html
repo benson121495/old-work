@@ -1,0 +1,661 @@
+<div class="container">
+  <app-topbar [title]="'sls.formB.title' | translate"></app-topbar>
+  <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'sls.sideStepMenu' | translate" [stepNumber]="stepNumber">
+  </app-sidenav>
+  
+  <div class="col-sm-9 right-panel np-right">
+      <form [formGroup]="fillForm" (ngSubmit)="doSubmit()" (keydown.enter)="$event.preventDefault()">
+          <div class="container np">
+              <div class="content" role="main" id="content">
+                  <!-- ----------------------------------------- content ---------------------------------------- -->
+                  <!-- Part 1 - Particulars of Employer-->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'sls.formB.part1Title' | translate}}
+                      </div>
+                          
+                      <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'sls.formB.appCompanyName' | translate}}</label>
+      
+                                <input id="appCompanyName" name="appCompanyName" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyName">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'sls.formB.contactPerson' | translate}}</label>
+      
+                                <input id="contactPerson" name="contactPerson" class="form-control all-caps"
+                                    type="text" formControlName="contactPerson">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.appCompanyEmail' | translate}}</label>
+      
+                                <input id="appCompanyEmail" name="appCompanyEmail" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyEmail">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.website' | translate}}</label>
+      
+                                <input id="website" name="website" class="form-control all-caps"
+                                    type="text" formControlName="website">
+                            </div>
+                        </div>
+      
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="control-label required-star">{{'sls.formB.appCompanyAddress' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.roomValue' | translate}}</label>
+                                <input id="appCompanyRoomValue" name="appCompanyRoomValue" class="form-control appCompanyRoomValue" type="text"
+                                  formControlName="appCompanyRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.floorValue' | translate}}</label>
+                                <input id="appCompanyFloorValue" name="appCompanyFloorValue" class="form-control appCompanyFloorValue" type="text"
+                                    formControlName="appCompanyFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.blockValue' | translate}}</label>
+                                <input id="appCompanyBlockValue" name="appCompanyBlockValue" class="form-control appCompanyBlockValue" type="text"
+                                    formControlName="appCompanyBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.buildingValue' | translate}}</label>
+                                <input id="appCompanyBuildingValue" name="appCompanyBuildingValue" class="form-control appCompanyBuildingValue" type="text"
+                                    formControlName="appCompanyBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.estateValue' | translate}}</label>
+                                <input id="appCompanyEstateValue" name="appCompanyEstateValue" class="form-control appCompanyEstateValue" type="text"
+                                    formControlName="appCompanyEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.streetValue' | translate}}</label>
+                                <input id="appCompanyStreetValue" name="appCompanyStreetValue" class="form-control appCompanyStreetValue" type="text"
+                                    formControlName="appCompanyStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.district' | translate}}</label>
+                                <select id="appCompanyDistrict" name="appCompanyDistrict" class="form-control appCompanyDistrict" type="text"
+                                    formControlName="appCompanyDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label class="control-label">{{'sls.formB.correspondenceAddress' | translate}}</label>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.roomValue' | translate}}</label>
+                            <input id="correspondenceAddressRoomValue" name="correspondenceAddressRoomValue" class="form-control correspondenceAddressRoomValue" type="text"
+                              formControlName="correspondenceAddressRoomValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.floorValue' | translate}}</label>
+                            <input id="correspondenceAddressFloorValue" name="correspondenceAddressFloorValue" class="form-control correspondenceAddressFloorValue" type="text"
+                                formControlName="correspondenceAddressFloorValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.blockValue' | translate}}</label>
+                            <input id="correspondenceAddressBlockValue" name="correspondenceAddressBlockValue" class="form-control correspondenceAddressBlockValue" type="text"
+                                formControlName="correspondenceAddressBlockValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.buildingValue' | translate}}</label>
+                            <input id="correspondenceAddressBuildingValue" name="correspondenceAddressBuildingValue" class="form-control correspondenceAddressBuildingValue" type="text"
+                                formControlName="correspondenceAddressBuildingValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.estateValue' | translate}}</label>
+                            <input id="correspondenceAddressEstateValue" name="correspondenceAddressEstateValue" class="form-control correspondenceAddressEstateValue" type="text"
+                                formControlName="correspondenceAddressEstateValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.streetValue' | translate}}</label>
+                            <input id="correspondenceAddressStreetValue" name="correspondenceAddressStreetValue" class="form-control correspondenceAddressStreetValue" type="text"
+                                formControlName="correspondenceAddressStreetValue">
+                        </div>
+      
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.district' | translate}}</label>
+                            <select id="correspondenceAddressDistrict" name="correspondenceAddressDistrict" class="form-control correspondenceAddressDistrict" type="text"
+                                formControlName="correspondenceAddressDistrict">
+                                <option value='' disabled selected>
+                                    {{'Please Select' | translate}}
+                                </option>
+                                <option value='00' selected> district1 </option>
+                                <option value='01' selected> district2 </option>
+                                        
+                            </select>
+                        </div>                            
+
+                    </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'sls.formB.appCompanyPhoneNo' | translate}}</label>
+                                <input id="appCompanyPhoneNo" name="appCompanyPhoneNo" class="form-control all-caps" maxlength="8"
+                                    type="text" formControlName="appCompanyPhoneNo">
+
+                                <div *ngIf="submitted && f.appCompanyPhoneNo.errors && f.appCompanyPhoneNo.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="control-label">{{'sls.formB.appCompanyPhoneExt' | translate}}</label>
+                                <input id="appCompanyPhoneExt" name="appCompanyPhoneExt" class="form-control all-caps" maxlength="4"
+                                    type="text" formControlName="appCompanyPhoneExt">
+
+                                <div *ngIf="submitted && f.appCompanyPhoneExt.errors && f.appCompanyPhoneExt.errors.tradChinEngCheck"
+                                    class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                    {{'568-E-2120' | translate}}
+                                    <!-- Please input the nationality in English or Traditional Chinese. -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.appCompanyFaxNo' | translate}}</label>
+      
+                                <input id="appCompanyFaxNo" name="appCompanyFaxNo" maxlength="6" class="form-control all-caps"
+                                    type="text" formControlName="appCompanyFaxNo">
+                            </div>
+                            
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'sls.formB.regNo' | translate}}</label>
+      
+                                <input id="regNo" name="regNo" class="form-control all-caps"
+                                    type="text" formControlName="regNo">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'sls.formB.commencementDate' | translate}}</label>
+
+                                <div class="flex-container">
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="commencementDay" name="commencementDay" class="form-control datePickerDate "
+                                            type="text" formControlName="commencementDay">
+                                            <option value='' disabled selected>
+                                                {{'sls.formB.day' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let day of fromDayList" value="{{day}}">
+                                                {{day}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3" style="padding-left: 0px;">
+                                        <select id="commencementMonth" name="commencementMonth" class="form-control datePickerMonth"
+                                            type="text" formControlName="commencementMonth"
+                                            (blur)="onMonthYearChange('commencementDay','commencementMonth','commencementYear')">
+                                            <option value='' disabled selected>
+                                                {{'sls.formB.month' | translate}}
+                                            </option>
+                                            <option value='00' selected> 00 </option>
+                                            <option *ngFor="let month of monthList" value="{{month}}">
+                                                {{month}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4" style="padding-left: 0px;">
+                                        <select id="commencementYear" name="commencementYear" class="form-control datePickerYear "
+                                            type="text" formControlName="commencementYear"
+                                            (blur)="onMonthYearChange('commencementDay','commencementMonth','commencementYear')">
+                                            <option value='' disabled selected>
+                                                {{'sls.formB.year' | translate}}
+                                            </option>
+                                            <option value='0000' selected> 0000 </option>
+                                            <option *ngFor="let year of yearsList" value="{{year}}">
+                                                {{year}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label required-star">{{'sls.formB.nature' | translate}}</label>
+      
+                                <input id="nature" name="nature" class="form-control all-caps"
+                                    type="text" formControlName="nature">
+                            </div>
+                        </div>
+
+                        <div class="row">      
+                            <div class="col-md-12 form-group">
+                                <label class="control-label required-star">{{'sls.formB.ifSubsidiary' | translate}}</label>
+                            </div>
+
+                            
+                            <div class="col-md-6 form-group">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="checkbox-inline"><input id="yes" name="ifSubsidiary" type="radio" value="yes"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='Yes'">
+                                        {{'sls.formB.yes' | translate}}</label>
+                                  
+                                         <label class="checkbox-inline"><input id="no" name="ifSubsidiary" type="radio" value="no"
+                                            formControlName="ifSubsidiary" (click)="ifSubsidiary='No'">
+                                        {{'sls.formB.no' | translate}}</label> 
+                                    </div>
+                                                            
+                                </div>
+                            </div>
+                            
+
+                        </div>
+
+                        <div class="row">
+                            <ng-container *ngIf="ifSubsidiary==='Yes'">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'sls.formB.parentCompanyName' | translate}}</label>
+              
+                                      <input id="parentCompanyName" name="parentCompanyName" maxlength="6" class="form-control all-caps"
+                                        type="text" formControlName="parentCompanyName">
+                                </div>
+                                    
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">{{'sls.formB.parentCompanyAddress' | translate}}</label>
+                                    <input id="parentCompanyAddress1" name="parentCompanyAddress1" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress1">
+                                    <input id="parentCompanyAddress2" name="parentCompanyAddress2" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress2">
+                                    <input id="parentCompanyAddress3" name="parentCompanyAddress3" class="form-control address" type="text"
+                                        formControlName="parentCompanyAddress3">
+    
+                                    <div *ngIf="submitted && f.email.errors && f.email.errors.tradChinEngCheck"
+                                        class="errorMsg col-md-12 col-xs-12 " style="color:red">
+                                        <ng-container *ngIf="errorCode">E-2120:</ng-container>
+                                        {{'568-E-2120' | translate}}
+                                        <!-- Please input the nationality in English or Traditional Chinese. -->
+                                    </div>
+                                </div>
+                                                                    
+                            </ng-container>
+                        </div>
+                        
+                      </div>
+                  </div>
+                   <!-- End of Part 1 -->
+
+                  <!-- Part 2 - Number of staff currently employed by the employer in Hong Kong -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                        <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'sls.formB.part2Title' | translate}}
+                    </div>
+                    <div class="panel-body">
+                      <div class="row">
+                          <div class="col-md-12">
+                              <label class="control-label required-star">{{'sls.formB.staffingPosition' | translate}}</label>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="flex-container">
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="staffingPositionAtDay" name="staffingPositionAtDay" class="form-control datePickerDate "
+                                          type="text" formControlName="staffingPositionAtDay">
+                                          <option value='' disabled selected>
+                                              {{'sls.formB.day' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let day of fromDayList" value="{{day}}">
+                                              {{day}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-3" style="padding-left: 0px;">
+                                      <select id="staffingPositionAtMonth" name="staffingPositionAtMonth" class="form-control datePickerMonth"
+                                          type="text" formControlName="staffingPositionAtMonth"
+                                          (blur)="onMonthYearChange('staffingPositionAtDay','staffingPositionAtMonth','staffingPositionAtYear')">
+                                          <option value='' disabled selected>
+                                              {{'sls.formB.month' | translate}}
+                                          </option>
+                                          <option value='00' selected> 00 </option>
+                                          <option *ngFor="let month of monthList" value="{{month}}">
+                                              {{month}}</option>
+                                      </select>
+                                  </div>
+
+                                  <div class="col-md-4" style="padding-left: 0px;">
+                                      <select id="staffingPositionAtYear" name="staffingPositionAtYear" class="form-control datePickerYear "
+                                          type="text" formControlName="staffingPositionAtYear"
+                                          (blur)="onMonthYearChange('staffingPositionAtDay','staffingPositionAtMonth','staffingPositionAtYear')">
+                                          <option value='' disabled selected>
+                                              {{'sls.formB.year' | translate}}
+                                          </option>
+                                          <option value='0000' selected> 0000 </option>
+                                          <option *ngFor="let year of yearsList" value="{{year}}">
+                                              {{year}}</option>
+                                      </select>
+                                  </div>
+                              </div>
+                          </div>  
+                      </div>
+
+                      
+                      <div class="row">
+                          <div class="col-md-6">
+                              <label class="control-label required-star">{{'sls.formB.noOfStaff' | translate}}</label>                    
+                              <input id="noOfStaff" name="noOfStaff" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="noOfStaff"
+                                  (change)="cutValues($event.target.value,'noOfStaff')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+
+                      </div>
+
+                    </div>
+                </div>
+                <!-- End of Part 2 -->
+
+                <!-- Part 3  - Details of position offered to the employee (applicant) in Hong Kong -->
+                <div class="panel panel-default">
+                  <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                      <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'sls.formB.part3Title' | translate}}
+                  </div>
+                  <div class="panel-body">                            
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                            <label
+                            class="control-label required-star">{{'sls.formB.employeeChiName' | translate}}</label>
+
+                            <input id="employeeChiName" name="employeeChiName" maxlength="33"
+                              class="form-control all-caps" type="text" formControlName="employeeChiName"
+                              (change)="cutValues($event.target.value,'employeeChiName')"
+                              (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+                
+                          <div class="col-md-6 form-group">
+                              <label
+                                  class="control-label required-star">{{'sls.formB.employeeEngName' | translate}}</label>
+
+                              <input id="employeeEngName" name="employeeEngName" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="employeeEngName"
+                                  (change)="cutValues($event.target.value,'employeeEngName')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-6 form-group">
+                              <label class="control-label required-star">{{'sls.formB.postTitle' | translate}}</label>
+        
+                                <input id="postTitle" name="postTitle" maxlength="6" class="form-control all-caps"
+                                  type="text" formControlName="postTitle">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                              <label class="control-label">{{'sls.formB.salary' | translate}}</label>
+                              <div class="row form-group">
+                                  <div class="col-xs-2">
+                                      <label class="control-label">{{'sls.formB.hkd' | translate}}</label>
+                                  </div>
+
+                                  <div class="col-md-8">
+                                      <input id="salary" name="salary" maxlength="33"
+                                          class="form-control all-caps" type="text" formControlName="salary"
+                                          (change)="cutValues($event.target.value,'salary')"
+                                          (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                  </div>
+                              </div>
+                          </div>
+                          
+                      </div>
+                      
+                      <div class="row"> 
+                          <div class="col-md-12 form-group">
+                              <label
+                                  class="control-label">{{'sls.formB.fringeBenefit' | translate}}</label>
+
+                              <input id="fringeBenefit" name="fringeBenefit" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="fringeBenefit"
+                                  (change)="cutValues($event.target.value,'fringeBenefit')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+
+                      </div>
+
+                      
+                      <div class="row">                                
+                          <div class="col-md-12 form-group">
+                              <label
+                                  class="control-label required-star">{{'sls.formB.jobDuty' | translate}}</label>
+
+                              <input id="jobDuty" name="jobDuty" maxlength="33"
+                                  class="form-control all-caps" type="text" formControlName="jobDuty"
+                                  (change)="cutValues($event.target.value,'jobDuty')"
+                                  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                          </div>
+                          
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-12">
+                            <label
+                                class="control-label required-star">{{'sls.formB.workingAddress' | translate}}</label>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="checkbox-inline"><input id="sameAddress" name="workingAddress" type="radio" value="sameAddress"
+                                        formControlName="workingAddress" (click)="workingAddress='sameAddress'">
+                                    {{'sls.formB.sameAddress' | translate}}</label>
+                              
+                                     <label class="checkbox-inline"><input id="others" name="workingAddress" type="radio" value="others"
+                                        formControlName="workingAddress" (click)="workingAddress='others'">
+                                    {{'sls.formB.others' | translate}}</label> 
+                                </div>
+                                                        
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <ng-container *ngIf="workingAddress==='others'">
+                            <div class="col-xs-12">
+                                <label class="control-label">{{'sls.formB.specify' | translate}}</label>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.roomValue' | translate}}</label>
+                                <input id="newAddressRoomValue" name="newAddressRoomValue" class="form-control newAddressRoomValue" type="text"
+                                  formControlName="newAddressRoomValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.floorValue' | translate}}</label>
+                                <input id="newAddressFloorValue" name="newAddressFloorValue" class="form-control newAddressFloorValue" type="text"
+                                    formControlName="newAddressFloorValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.blockValue' | translate}}</label>
+                                <input id="newAddressBlockValue" name="newAddressBlockValue" class="form-control newAddressBlockValue" type="text"
+                                    formControlName="newAddressBlockValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.buildingValue' | translate}}</label>
+                                <input id="newAddressBuildingValue" name="newAddressBuildingValue" class="form-control newAddressBuildingValue" type="text"
+                                    formControlName="newAddressBuildingValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.estateValue' | translate}}</label>
+                                <input id="newAddressEstateValue" name="newAddressEstateValue" class="form-control newAddressEstateValue" type="text"
+                                    formControlName="newAddressEstateValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.streetValue' | translate}}</label>
+                                <input id="newAddressStreetValue" name="newAddressStreetValue" class="form-control newAddressStreetValue" type="text"
+                                    formControlName="newAddressStreetValue">
+                            </div>
+          
+                            <div class="col-md-6 form-group">
+                                <label class="control-label">{{'sls.formB.district' | translate}}</label>
+                                <select id="newAddressDistrict" name="newAddressDistrict" class="form-control newAddressDistrict" type="text"
+                                    formControlName="newAddressDistrict">
+                                    <option value='' disabled selected>
+                                        {{'Please Select' | translate}}
+                                    </option>
+                                    <option value='00' selected> district1 </option>
+                                    <option value='01' selected> district2 </option>
+                                            
+                                </select>
+                            </div> 
+                                                                
+                        </ng-container>
+                    </div>
+      
+                        
+
+                    </div>
+                  </div>
+                  <!-- End of Part 3 -->
+
+                  
+                  
+
+                  <!-- Part 4 - Academic/Professional Qualifications -->
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                          <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'sls.formB.part4Title' | translate}}
+                      </div>
+                      <div class="panel-body">
+                        <div class="row">      
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.refNo' | translate}}</label>
+      
+                              <input id="refNo" name="refNo" maxlength="6" class="form-control all-caps"
+                                type="text" formControlName="refNo">
+                          </div>
+
+                          <div class="col-md-6 form-group">
+                            <label class="control-label">{{'sls.formB.approvalDate' | translate}}</label>
+      
+                            <div class="flex-container">
+                              <div class="col-md-3" style="padding-left: 0px;">
+                                  <select id="approvalDay" name="approvalDay" class="form-control datePickerDate "
+                                      type="text" formControlName="approvalDay">
+                                      <option value='' disabled selected>
+                                          {{'sls.formB.day' | translate}}
+                                      </option>
+                                      <option value='00' selected> 00 </option>
+                                      <option *ngFor="let day of fromDayList" value="{{day}}">
+                                          {{day}}</option>
+                                  </select>
+                              </div>
+
+                              <div class="col-md-3" style="padding-left: 0px;">
+                                  <select id="approvalMonth" name="approvalMonth" class="form-control datePickerMonth"
+                                      type="text" formControlName="approvalMonth"
+                                      (blur)="onMonthYearChange('approvalDay','approvalMonth','approvalYear')">
+                                      <option value='' disabled selected>
+                                          {{'sls.formB.month' | translate}}
+                                      </option>
+                                      <option value='00' selected> 00 </option>
+                                      <option *ngFor="let month of monthList" value="{{month}}">
+                                          {{month}}</option>
+                                  </select>
+                              </div>
+
+                              <div class="col-md-4" style="padding-left: 0px;">
+                                  <select id="approvalYear" name="approvalYear" class="form-control datePickerYear "
+                                      type="text" formControlName="approvalYear"
+                                      (blur)="onMonthYearChange('approvalDay','approvalMonth','approvalYear')">
+                                      <option value='' disabled selected>
+                                          {{'sls.formB.year' | translate}}
+                                      </option>
+                                      <option value='0000' selected> 0000 </option>
+                                      <option *ngFor="let year of yearsList" value="{{year}}">
+                                          {{year}}</option>
+                                  </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        
+                
+                      </div>
+                  </div>
+                  <!-- End of Part 4 -->
+
+
+                 
+
+                  <!-- ----------------------------------------- button ---------------------------------------- -->
+                  <div class="row">
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button id="submitBtn" value="" name="submitBtn" type="button"
+                              class="btn btn-brown btn-block"
+                              (click)="backClicked()">{{ 'COMMON.CANCEL' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn"
+                              type="reset" class="btn btn-brown btn-block" (click)="toReset()">
+                              {{ 'COMMON.RESET' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                              class="btn btn-brown btn-block">
+                              {{ 'COMMON.SAVE' | translate }}
+                          </button>
+                      </div>
+                      <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                          <button type="submit"
+                              class="btn btn-brown btn-block">{{ 'COMMON.CONTINUE' | translate}}</button>
+                      </div>
+                  </div>
+                  <!-- ----------------------------------------- endP button ---------------------------------------- -->
+                  
+              </div>
+          </div>
+      </form>
+  </div>
+  
+  
+</div>
+
+
+
+
