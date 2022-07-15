@@ -1,0 +1,396 @@
+<div class="container">
+    <app-topbar [title]="'assg.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'assg.sideStepMenu' | translate"
+        [stepNumber]="stepNumber">
+    </app-sidenav>
+
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <ng-container *ngIf="!amend">
+                    <div class="panel panel-default reporting-imigration">
+                        <div class="panel-heading">
+
+                            <h3 class="panel-title">
+                                {{'assg.form1017B.noOfDependantTitle' | translate}}
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="paymentPanel" class="paymentPanel"><input id="paymentType" name="paymentType" value="0"
+                                    type="hidden">
+                                <div class="tab-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row margB">
+                                                <label for="inputPassword" class="col-sm-4 col-form-label">
+                                                    <span style="color:red">*</span>
+                                                    {{'assg.form1017B.noOfDependants' | translate}}
+                                                </label>
+                                                <div class="col-sm-3">
+                                                    <select id="inputState" formControlName="applicationCount"
+                                                        (change)="addApplicant($event)" class="form-control"
+                                                        style="height: fit-content;">
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="gndTab" class="tab-pane fade " role="tabpanel"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            {{ 'assg.form1017B.appInfo_title' | translate }}
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container">
+                            <div *ngFor="let other of fillForm.get('applicantList').controls; let i = index"
+                                class="form-group" formArrayName="applicantList">
+                                <div [formGroupName]="i">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panel-title text-left "
+                                            style="text-align:left;width:100%">
+                                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'assg.form1017B.dependant' | translate}}
+                                            {{amend ? amendSn+1 : i+1}}
+                                        </div>
+                                        <div class="panel-body">
+
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.engSurName' | translate}}</label>
+                                                    <input id="engSurName" name="engSurName" maxlength="33"
+                                                        class="form-control all-caps" type="text"
+                                                        formControlName="engSurName"  (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)"
+                                                        (change)="cutValues($event.target.value,'engSurName')"/>
+                                                        <div *ngIf="submitted && getFormControls(i).engSurName.errors " class="invalid-feedback">
+                                                            aaaaa
+                                                            <div class="errorMsg text-danger" role="alert" *ngIf="fillform.controls.applicantList.controls[i].controls.engSurName.errors.required">
+                                                                bbbbb
+                                                                <ng-container *ngIf="errorCode">E-1217:</ng-container>
+                                                                {{'E-1217'  | translate}}
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.engGivenName' | translate}}</label>
+
+                                                    <input id="engGivenName" name="engGivenName" maxlength="33"
+                                                        class="form-control all-caps" type="text"
+                                                        formControlName="engGivenName"
+                                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                                        <div *ngIf="submitted && formControls.engGivenName.errors " class="invalid-feedback">
+                                                            aaaaa
+                                                            <div class="errorMsg text-danger" role="alert" *ngIf="formControls.engGivenName.errors.required">
+                                                                bbbbb
+                                                                <ng-container *ngIf="errorCode">E-1218:</ng-container>
+                                                                {{'E-1218'  | translate}}
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <!-- Chinese Name & alies -->
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.chiName' | translate}}</label>
+                                                    <input id="chiName" name="chiName" maxlength="33"
+                                                        class="form-control all-caps" type="text"
+                                                        formControlName="chiName"
+                                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                                        <div *ngIf="submitted && formControls.chiName.errors " class="invalid-feedback">
+                                                            <div class="errorMsg text-danger" role="alert" *ngIf="formControls.chiName.errors.required">
+                                                                <ng-container *ngIf="errorCode">E-1244:</ng-container>
+                                                                {{'E-1244'  | translate}}
+                                                            </div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.alias' | translate}}</label>
+
+                                                    <input id="alias" name="alias" maxlength="33"
+                                                        class="form-control all-caps" type="text"
+                                                        formControlName="alias"
+                                                        (input)="$event.target.value = validationUtils.startWithSpaceMask($event.target.value)">
+                                                        <div *ngIf="submitted && formControls.alias.errors " class="invalid-feedback">
+                                                            <div class="errorMsg text-danger" role="alert" *ngIf="formControls.alias.errors.required">
+                                                                <ng-container *ngIf="errorCode">E-1250:</ng-container>
+                                                                {{'E-1250'  | translate}}
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <!-- Sex -->
+                                            <div class="row">
+
+                                                <div  class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.sex' | translate}}</label>
+                                                        <div class="form-group">
+                                                            <label class="checkbox-inline"><input id="male" name="male" type="checkbox"  formControlName="male">
+                                                                {{'assg.form.male' | translate}}</label>
+                                                            <label class="checkbox-inline"><input id="female" name="female" type="checkbox"  formControlName="female">
+                                                                {{'assg.form.female' | translate}}</label>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <!-- Date Of Birth-->
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.dob' | translate}}</label>
+                                                    <div class="flex-container">
+                                                        <div class="col-md-3" style="padding-left: 0px;">
+                                                            <select id="dobDay" name="dobDays"
+                                                                class="form-control datePickerDate " type="text"
+                                                                formControlName="dobDay">
+                                                                <option value='' disabled selected>
+                                                                    {{'assg.form.day' | translate}}
+                                                                </option>
+                                                                <option value='00'> 00 </option>
+                                                                <option *ngFor="let day of dobDayList" value="{{day}}">
+                                                                    {{day}}</option>
+                                                            </select>
+                                                            <div *ngIf="submitted && formControls.dobDay.errors " class="invalid-feedback">
+                                                                <div class="errorMsg text-danger" role="alert" *ngIf="formControls.dobDay.errors.required">
+                                                                    <ng-container *ngIf="errorCode">E-1214:</ng-container>
+                                                                    {{'E-1214'  | translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3" style="padding-left: 0px;">
+                                                            <select id="dobMonth" name="dobMonths"
+                                                                class="form-control datePickerMonth" type="text"
+                                                                formControlName="dobMonth">
+                                                                <option value='' disabled selected>
+                                                                    {{'assg.form.month' | translate}}
+                                                                </option>
+                                                                <option value='00'> 00 </option>
+                                                                <option *ngFor="let month of monthList"
+                                                                    value="{{month}}">
+                                                                    {{month}}</option>
+                                                            </select>
+                                                            <div *ngIf="submitted && formControls.dobMonth.errors " class="invalid-feedback">
+                                                                <div class="errorMsg text-danger" role="alert" *ngIf="formControls.dobMonth.errors.required">
+                                                                    <ng-container *ngIf="errorCode">E-1214:</ng-container>
+                                                                    {{'E-1214'  | translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4" style="padding-left: 0px;">
+                                                            <select id="dobYear" name="dobYears"
+                                                                class="form-control datePickerYear " type="text"
+                                                                formControlName="dobYear">
+                                                                <option value='' disabled selected>
+                                                                    {{'assg.form.year' | translate}}
+                                                                </option>
+                                                                <option value='0000'> 0000 </option>
+                                                                <option *ngFor="let year of yearsList" value="{{year}}">
+                                                                    {{year}}</option>
+                                                            </select>
+                                                            <div *ngIf="submitted && formControls.dobYear.errors " class="invalid-feedback">
+                                                                <div class="errorMsg text-danger" role="alert" *ngIf="formControls.dobYear.errors.required">
+                                                                    <ng-container *ngIf="errorCode">E-1214:</ng-container>
+                                                                    {{'E-1214'  | translate}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.placeOfBirth' | translate}}</label>
+                                                    <input id="placeOfBirth" name="placeOfBirth"
+                                                        class="form-control all-caps" maxlength="50" type="text"
+                                                        formControlName="placeOfBirth">
+                                                        <div *ngIf="submitted && formControls.placeOfBirth.errors " class="invalid-feedback">
+                                                            <div class="errorMsg text-danger" role="alert" *ngIf="formControls.placeOfBirth.errors.required">
+                                                                <ng-container *ngIf="errorCode">E-1043:</ng-container>
+                                                                {{'E-1043'  | translate}}
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Nationality -->
+                                            <!-- RelationShip -->
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label class="control-label">{{'assg.form.nationality' | translate}}</label>
+                                                        <select id="nationality" name="nationality" class="form-control"
+                                                            type="text" formControlName="nationality">
+                                                            <option value='' disabled selected>
+                                                                {{'assg.form1017.selectType' | translate}}
+                                                            </option>
+                                                            <option value='USA' selected> United States of America </option>
+                                                            <option value='TH' selected> Thailand </option>
+                                                            <option value='RU' selected> Russia </option>
+                                                            <option value='CN' selected> China </option>
+                                                        </select>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label">{{'assg.form.relationShip' | translate}}</label>
+                                                    <input id="relationShip" name="relationShip"
+                                                        class="form-control all-caps" maxlength="50" type="text"
+                                                        formControlName="relationShip">
+                                                </div>
+                                            </div>
+
+                                            <!-- Marital status -->
+                                            <div class='row'>
+                                                <div class="col-md-12 form-group" style=" margin-bottom: 0px; ">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.maritalStatus' | translate}}</label>
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <label class="checkbox-inline"><input id="single" name="maritalStatus"
+                                                                    type="radio" value="B" formControlName="maritalStatus">
+                                                                {{'assg.form1017.single' | translate}}</label>
+                                                            <label class="checkbox-inline"><input id="married" name="maritalStatus"
+                                                                    type="radio" value="M" formControlName="maritalStatus">
+                                                                {{'assg.form1017.married' | translate}}
+                                                            </label>
+                                                            <label class="checkbox-inline"><input id="separated" name="maritalStatus"
+                                                                    type="radio" value="S" formControlName="maritalStatus">
+                                                                {{'assg.form1017.separated' | translate}}
+                                                            </label>
+                                                            <label class="checkbox-inline"><input id="divorced" name="maritalStatus"
+                                                                    type="radio" value="D" formControlName="maritalStatus">
+                                                                {{'assg.form1017.divorced' | translate}}
+                                                            </label>
+                                                            <label class="checkbox-inline"><input id="widowed" name="maritalStatus"
+                                                                    type="radio" value="W" formControlName="maritalStatus">
+                                                                {{'assg.form1017.widowed' | translate}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Travel document type & no -->
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.travelDocType' | translate}}</label>
+                                                    <select id="travelDocType" name="travelDocType" class="form-control travelDocType"
+                                                        type="text" formControlName="travelDocType">
+                                                        <option value='' disabled selected>
+                                                            {{'assg.form.selectType' | translate}}
+                                                        </option>
+                                                        <option value='P' selected> Passport </option>
+                                                        <!-- <option value='2' selected> {{'Type2'}} </option>
+                                                        <option value='3' selected> {{'Type3'}} </option> -->
+                                                    </select>
+                
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label
+                                                        class="control-label required-star">{{'assg.form.travelDocValue' | translate}}</label>
+                                                    <input id="travelDocValue" name="travelDocValue"
+                                                        class="form-control all-caps" maxlength="15" type="text"
+                                                        formControlName="travelDocValue"
+                                                        (input)="maskChineseValues($event.target.value, 'travelDocValue')">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Part 1 -->
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Captcha Validation -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'COMMON.VALIDATION' | translate}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12 form-group">
+                                <strong>{{'COMMON.VALIDATION' | translate}}</strong><br />
+                                <p>{{'COMMON.VALIDATION-DETAILS-SUBMIT' | translate}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <!-- Captcha bypass or not -->
+                                <ng-container *ngIf="!captchaBypass">
+                                    <botdetect-captcha styleName="{{captchStyle}}"></botdetect-captcha>
+                                </ng-container>
+                                <!-- Captcha bypass end -->
+                            </div>
+                            <div class="col-sm-6 ">
+                                <span class="col-sm-1 required-star" style="color:red">*</span>
+                                <input (focus)="captchaFocus()" type="text" style="width:90%"
+                                    class="col-sm-5 form-control all-caps" id="captchaCode" name="captchaCode"
+                                    maxlength="4" formControlName="captchaCode">
+                                <div *ngIf="submitted && f.captchaCode.errors && !f.captchaCode.errors.required && !f.captchaCode.errors.captchaError"
+                                    class="errorMsg col-md-12 col-xs-12 cap-err" style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2007:</ng-container>
+                                    {{'ERROR-APP.CAPTCHA-ERR1' | translate}}
+                                </div>
+                                <div *ngIf="submitted && f.captchaCode.errors && f.captchaCode.errors.required "
+                                    class="errorMsg col-md-12 col-xs-12 cap-err" style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2007:</ng-container>
+                                    {{'ERROR-APP.CAPTCHA-ERR1' | translate}}
+                                </div>
+                                <div *ngIf="submitted && f.captchaCode.errors && f.captchaCode.errors.captchaError "
+                                    class="errorMsg col-md-12 col-xs-12 cap-err" style="color:red">
+                                    <ng-container *ngIf="errorCode">E-2008:</ng-container>
+                                    {{'ERROR-APP.CAPTCHA-ERR2' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ----------------------------------------- button ---------------------------------------- -->
+                <div class="row">
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button" class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn" type="reset"
+                            class="btn btn-brown btn-block" (click)="doReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="saveBtn" name="saveBtn" type="reset"
+                            class="btn btn-brown btn-block" (click)="doSave()">
+                            {{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button type="submit" class="btn btn-brown btn-block"
+                            (click)="doSubmit()">{{ 'COMMON.CONTINUE' | translate}}</button>
+                    </div>
+                </div>
+                <!-- ----------------------------------------- endP button ---------------------------------------- -->
+            </div>
+
+        </form>
+    </div>
+</div>

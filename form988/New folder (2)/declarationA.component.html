@@ -1,0 +1,207 @@
+<div class="container">
+    <app-topbar [title]="'fdh.title' | translate"></app-topbar>
+    <app-sidenav [sideNavItem]="commonService.sideNavItem" [menuList]="'fdh.sideStepMenu' | translate"
+        [stepNumber]="stepNumber">
+    </app-sidenav>
+    <div class="col-sm-9 right-panel np-right">
+        <form [formGroup]="fillForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+            <div class="container np">
+                <div class="content" role="main" id="content">
+                    <!-- <div class="panel panel-default">
+                        <div class="panel-body" style="background:#DDE4F6;">
+                            <div class="row">
+                                <label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <label class="control-label">Applicant Submission for:</label>
+                                <label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</label>
+                                <label class="control-label">{{ emailVal }}</label>
+                                <label
+                                    class="control-label">]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                <label class="control-label">Verfication Code: {{ verificationCode }}</label>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!-- ----------------------------------------- content ---------------------------------------- -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdh.declarationA.title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-12 form-group">
+                                        {{'fdh.declarationA.paragraph1' | translate}}
+                                    </div>
+                                    <ol type="i">
+                                        <li>
+                                            <div>
+                                                <label class="checkbox-inline">
+                                                    <input id="aTrue" name="nameChanged" type="radio"
+                                                        (change)="nameChanged=true">
+                                                    {{'fdh.declarationA.1.a' | translate}}</label>
+                                            </div>
+                                            <div>
+                                                <label class="checkbox-inline">
+                                                    <input id="aFalse"  name="nameChanged" type="radio"
+                                                        (change)="nameChanged=false">
+                                                    {{'fdh.declarationA.1.b' | translate}}</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input *ngIf="!nameChanged" id="otherNames" name="nameChangedDtl" class="form-control"
+                                                    type="text">
+                                            </div>
+                                            <div>
+                                                <label class="control-label">&nbsp;</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <label class="checkbox-inline">
+                                                    <input id="bTrue" value="true" name="b" type="radio"
+                                                        (change)="b=true">
+                                                    {{'fdh.declarationA.2.a' | translate}}</label>
+                                            </div>
+                                            <div>
+                                                <label class="checkbox-inline">
+                                                    <input id="bFalse" value="false" name="b" type="radio"
+                                                        (change)="b=false">
+                                                    {{'fdh.declarationA.2.b' | translate}}</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input *ngIf="!b" id="entryRefusedCases" name="aName"
+                                                    class="form-control" type="text">
+                                            </div>
+                                            <div>
+                                                <label class="control-label">&nbsp;</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <label class="checkbox-inline">
+                                                    <input id="cTrue" value="true" name="c" type="radio"
+                                                        (change)="c=true">
+                                                    {{'fdh.declarationA.3.a' | translate}}</label>
+                                            </div>
+                                            <div>
+                                                <label class="checkbox-inline">
+                                                    <input id="cFalse" value="false" name="c" type="radio"
+                                                        (change)="c=false">
+                                                    {{'fdh.declarationA.3.b' | translate}}</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <input *ngIf="!c" id="visaRefusedCases" name="aName"
+                                                    class="form-control" type="text">
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 1 -->
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i
+                                class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdh.declarationB.part2Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.7' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.7a' | translate}}
+                                    <input class="box all-caps" id="contractNo" type="text">
+                                    {{'fdh.declarationA.7b' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.8' | translate}}
+                                    <label class="checkbox-inline">
+                                        <input id="stayHomeTrue" value="true" name="stayHome" type="radio"
+                                            (change)="stayHome=true">
+                                        {{'fdh.declarationA.8a' | translate}}</label>
+                                    <label class="checkbox-inline">
+                                        <input id="stayHomeFalse" value="false" name="stayHome" type="radio"
+                                            (change)="stayHome=false">
+                                        {{'fdh.declarationA.8b' | translate}}</label>
+                                    <label class="control-label">&nbsp;&nbsp;</label>
+                                    {{'fdh.declarationA.8c' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.9' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.10' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.11' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.12' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.13' | translate}}
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    {{'fdh.declarationA.14' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+
+
+                    <!-- Part 2 - Signature -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading panel-title text-left " style="text-align:left;width:100%">
+                            <i
+                                class="glyphicon glyphicon-list-alt"></i>&nbsp;{{'fdh.declarationB.part3Title' | translate}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <b>{{'fdh.declarationA.16' | translate}}</b>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <b>{{'fdh.declarationA.17' | translate}}</b>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <b>{{'fdh.declarationA.18' | translate}}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Part 2 -->
+
+                    <!-- <app-signature-pad [ngClass]="signPadService.showSignPad?'show':'hide'" (signed)="onSubmit($event)">
+                    </app-signature-pad> -->
+
+                    <!-- ----------------------------------------- content end ---------------------------------------- -->
+                    <!-- ----------------------------------------- button ---------------------------------------- -->
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button" class="btn btn-brown btn-block"
+                            (click)="backClicked()">{{ 'COMMON.BACK' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-12 m-5000"><button id="cancelBtn" name="cancelBtn" type="reset"
+                            class="btn btn-brown btn-block" (click)="toReset()">
+                            {{ 'COMMON.RESET' | translate }}
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                        <button id="submitBtn" value="" name="submitBtn" type="button"
+                            class="btn btn-brown btn-block">{{ 'COMMON.SAVE' | translate }}
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3  col-xs-12 m-5000">
+                            <button type="submit" class="btn btn-brown btn-block"
+                                (click)="doSubmit()">{{ 'COMMON.CONTINUE' | translate }}</button>
+                        </div>
+                    </div>
+                    <!-- ----------------------------------------- end button ---------------------------------------- -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
